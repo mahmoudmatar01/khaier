@@ -1,4 +1,4 @@
-package com.example.khaier.model;
+package com.example.khaier.models;
 
 public record ApiCustomResponse<T> (String message,
                                     T data,

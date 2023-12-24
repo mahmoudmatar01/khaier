@@ -1,4 +1,4 @@
-package com.example.khaier.dto.requestDto;
+package com.example.khaier.dto.request;
 
 import lombok.Builder;
 

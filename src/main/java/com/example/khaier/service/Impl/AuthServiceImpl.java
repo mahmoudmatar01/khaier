@@ -1,7 +1,7 @@
 package com.example.khaier.service.Impl;
 
-import com.example.khaier.dto.requestDto.UserLoginDto;
-import com.example.khaier.dto.requestDto.UserRegistrationDto;
+import com.example.khaier.dto.request.UserLoginDto;
+import com.example.khaier.dto.request.UserRegistrationDto;
 import com.example.khaier.entity.User;
 import com.example.khaier.enums.Gender;
 import com.example.khaier.enums.Role;
