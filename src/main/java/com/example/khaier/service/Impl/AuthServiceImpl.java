@@ -29,14 +29,18 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("Email address already in use.");
         }
 
+        if(!registerRequest.password().equals(registerRequest.confirmPassword())){
+            throw new RuntimeException("passwords isn't match");
+        }
+
         // Create a new user
         User user = User.builder()
                 .username(registerRequest.username())
                 .email(registerRequest.email())
                 .password(passwordEncoder.encode(registerRequest.password()))
                 .userRole(Role.ROLE_USER)
-                .userGender(Gender.Male)
-                .phone("01128673348")
+                .userGender(registerRequest.userGender())
+                .phone(registerRequest.userPhone())
                 .build();
 
         return userRepository.save(user);

@@ -1,8 +1,7 @@
 package com.example.khaier.models;
 
-public record ApiCustomResponse<T> (String message,
-                                    T data,
-                                    boolean isSuccessful){
+import lombok.Builder;
 
-}
+@Builder
+public record ApiCustomResponse<T>(String message, T data) {}
 

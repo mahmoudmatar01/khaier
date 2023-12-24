@@ -3,9 +3,7 @@ package com.example.khaier.entity;
 import com.example.khaier.enums.Gender;
 import com.example.khaier.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +26,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     private String username;
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email address")
     private String email;
     @NotNull
     @Size(min = 7, message = "Password must be at least 7 characters long")
