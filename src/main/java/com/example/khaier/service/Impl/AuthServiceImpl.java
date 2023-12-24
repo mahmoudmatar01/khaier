@@ -1,12 +1,13 @@
-package com.example.khaier.service;
+package com.example.khaier.service.Impl;
 
-import com.example.khaier.dto.UserLoginDto;
-import com.example.khaier.dto.UserRegistrationDto;
+import com.example.khaier.dto.requestDto.UserLoginDto;
+import com.example.khaier.dto.requestDto.UserRegistrationDto;
 import com.example.khaier.entity.User;
 import com.example.khaier.enums.Gender;
 import com.example.khaier.enums.Role;
 import com.example.khaier.repository.UserRepository;
 import com.example.khaier.security.JwtTokenUtils;
+import com.example.khaier.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImpl {
+public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

@@ -1,9 +1,9 @@
 package com.example.khaier.controller;
 
-import com.example.khaier.dto.UserLoginDto;
-import com.example.khaier.dto.UserRegistrationDto;
+import com.example.khaier.dto.requestDto.UserLoginDto;
+import com.example.khaier.dto.requestDto.UserRegistrationDto;
 import com.example.khaier.entity.User;
-import com.example.khaier.service.AuthServiceImpl;
+import com.example.khaier.service.Impl.AuthServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
