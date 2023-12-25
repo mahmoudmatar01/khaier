@@ -2,18 +2,15 @@ package com.example.khaier.controller;
 
 import com.example.khaier.dto.request.UserLoginDto;
 import com.example.khaier.dto.request.UserRegistrationDto;
-import com.example.khaier.entity.User;
-import com.example.khaier.factory.ResponseFactory;
-import com.example.khaier.models.ApiCustomResponse;
+import com.example.khaier.entity.user.User;
+import com.example.khaier.factory.impl.SuccessResponseFactory200;
 import com.example.khaier.service.Impl.AuthServiceImpl;
+import com.example.khaier.service.Impl.UserImageServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -21,18 +18,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthServiceImpl authService;
-    private final ResponseFactory responseFactory;
+    private final SuccessResponseFactory200 responseFactory;
+    private final UserImageServiceImpl userImageService;
 
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationDto registerRequest) {
+    @PostMapping(value= "/register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> registerUser(@ModelAttribute UserRegistrationDto registerRequest) {
         User registeredUser = authService.registerUser(registerRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseFactory.createResponse(registeredUser,"User registered successfully "));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(responseFactory.createResponse(registeredUser,"User registered successfully "));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody UserLoginDto loginRequest) {
+    public ResponseEntity<?> loginUser(@ModelAttribute UserLoginDto loginRequest) {
         String authToken = authService.loginUser(loginRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(responseFactory.createResponse(authToken,"Login successful"));
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(responseFactory.createResponse(authToken, "Login successful"));
     }
+    @GetMapping(value = "/image/{title}", produces = MediaType.ALL_VALUE, consumes = MediaType.ALL_VALUE)
+    public ResponseEntity<?> getImage(@PathVariable String title){
+        byte[] imageData = userImageService.downloadImage(title);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf("image/png"))
+                .body(imageData);
+    }
+
 }
 

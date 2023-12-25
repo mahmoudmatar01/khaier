@@ -1,5 +1,6 @@
 package com.example.khaier.security;
 
+import com.example.khaier.exceptions.DelegatedAuthenticationException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,7 +26,7 @@ public class DelegatedAuthenticationEntryPoint implements AuthenticationEntryPoi
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,
                          AuthenticationException authException)
-            throws IOException {
+            throws DelegatedAuthenticationException {
         LOGGER.warn("Enter the `Commence` method");
         LOGGER.error(authException.getMessage());
         resolver.resolveException(request, response, null, authException);

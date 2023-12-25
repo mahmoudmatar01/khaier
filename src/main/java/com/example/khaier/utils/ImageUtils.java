@@ -11,13 +11,7 @@ import java.util.zip.Inflater;
 @Component
 public class ImageUtils {
 
-    @Value("${images.host}")
-    private String host;
-
-    @Value("${api.version}")
-    private String apiVersion;
-
-    public byte[] compressImage(byte[] data) {
+    public static byte[] compressImage(byte[] data) {
         Deflater deflater = new Deflater();
         deflater.setLevel(Deflater.BEST_COMPRESSION);
         deflater.setInput(data);
@@ -37,7 +31,7 @@ public class ImageUtils {
     }
 
 
-    public byte[] decompressImage(byte[] data) {
+    public static byte[] decompressImage(byte[] data) {
         Inflater inflater = new Inflater();
         inflater.setInput(data);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
@@ -51,18 +45,6 @@ public class ImageUtils {
         } catch (Exception ignored) {
         }
         return outputStream.toByteArray();
-    }
-
-    public String generateImagePath(String imageTitle) {
-        return host + "/api/v1/storage/" + imageTitle;
-    }
-
-    public String generateImagePath(String path, String imageTitle) {
-        return host + apiVersion + "/" + path + "/" + imageTitle;
-    }
-
-    public static String generateUniqueImageTitle(String name) {
-        return name + "-" + UUID.randomUUID();
     }
 
 }

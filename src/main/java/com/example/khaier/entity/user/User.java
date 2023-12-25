@@ -1,5 +1,8 @@
-package com.example.khaier.entity;
+package com.example.khaier.entity.user;
 
+import com.example.khaier.entity.Comment;
+import com.example.khaier.entity.Post;
+import com.example.khaier.entity.Reply;
 import com.example.khaier.enums.Gender;
 import com.example.khaier.enums.Role;
 import jakarta.persistence.*;
@@ -26,6 +29,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     private String username;
+    @OneToOne
+    @JoinColumn(name = "user-image-id")
+    private UserImage userImage;
+    private String userImageUrl;
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email address")
     private String email;

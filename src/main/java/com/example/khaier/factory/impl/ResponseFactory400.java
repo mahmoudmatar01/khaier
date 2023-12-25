@@ -7,15 +7,15 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SuccessResponseFactory200 implements ResponseFactory {
+public class ResponseFactory400 implements ResponseFactory {
     @Override
     public ApiCustomResponse<?> createResponse(Object data, String message) {
         return ApiCustomResponse
                 .builder()
                 .message(message)
-                .data(data)
-                .isSuccessful(true)
-                .statusCode(HttpStatus.OK.value())
+                .data(null)
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .isSuccessful(false)
                 .build();
     }
 }

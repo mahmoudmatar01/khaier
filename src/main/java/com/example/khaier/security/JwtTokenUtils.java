@@ -1,21 +1,16 @@
 package com.example.khaier.security;
 
-import com.example.khaier.entity.User;
+import com.example.khaier.entity.user.User;
 import com.example.khaier.enums.Gender;
 import com.example.khaier.enums.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -37,6 +32,7 @@ public class JwtTokenUtils {
                 .claim("userGender", ((User) userDetails).getUserGender().toString())
                 .claim("userEmail", ((User) userDetails).getEmail())
                 .claim("userPhone", ((User) userDetails).getPhone())
+                .claim("userImageUrl", ((User) userDetails).getUserImageUrl())
                 .signWith(SECRET_KEY)
                 .compact();
     }
