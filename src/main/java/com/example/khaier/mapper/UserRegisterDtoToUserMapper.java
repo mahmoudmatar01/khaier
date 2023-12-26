@@ -1,6 +1,6 @@
 package com.example.khaier.mapper;
 
-import com.example.khaier.dto.request.UserRegistrationDto;
+import com.example.khaier.dto.request.UserRegistrationRequestDto;
 import com.example.khaier.entity.user.User;
 import com.example.khaier.entity.user.UserImage;
 import com.example.khaier.enums.Role;
@@ -14,11 +14,11 @@ import java.util.function.Function;
 
 @RequiredArgsConstructor
 @Component
-public class UserRegisterDtoToUserMapper implements Function<UserRegistrationDto, User> {
+public class UserRegisterDtoToUserMapper implements Function<UserRegistrationRequestDto, User> {
     private final PasswordEncoder passwordEncoder;
     private final UserImageServiceImpl userImageService;
     @Override
-    public User apply(UserRegistrationDto userRegistrationDto) {
+    public User apply(UserRegistrationRequestDto userRegistrationDto) {
         try{
             UserImage userImage = userImageService.uploadImage(userRegistrationDto.imageUrl());
             return User.builder()

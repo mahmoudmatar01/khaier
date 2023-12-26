@@ -1,7 +1,7 @@
 package com.example.khaier.service.Impl;
 
-import com.example.khaier.dto.request.UserLoginDto;
-import com.example.khaier.dto.request.UserRegistrationDto;
+import com.example.khaier.dto.request.UserLoginRequestDto;
+import com.example.khaier.dto.request.UserRegistrationRequestDto;
 import com.example.khaier.dto.response.UserRegisterResponseDto;
 import com.example.khaier.entity.user.User;
 import com.example.khaier.exceptions.PasswordMismatchException;
@@ -28,7 +28,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRegisterDtoToUserMapper userRegisterDtoToUserMapper;
     private final UserToUserResponseDtoMapper userResponseDtoMapper;
 
-    public UserRegisterResponseDto registerUser(UserRegistrationDto registerRequest) {
+    public UserRegisterResponseDto registerUser(UserRegistrationRequestDto registerRequest) {
         if (userRepository.existsByEmail(registerRequest.email())) {
             throw new EmailAlreadyExistException("Email address already exists.");
         }
@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
         return userResponseDtoMapper.apply(user);
     }
 
-    public String loginUser(UserLoginDto loginRequest) {
+    public String loginUser(UserLoginRequestDto loginRequest) {
         User user = userRepository.findByEmail(loginRequest.email())
                 .orElseThrow(() -> new NotFoundException("User not found with email: " + loginRequest.email()));
 

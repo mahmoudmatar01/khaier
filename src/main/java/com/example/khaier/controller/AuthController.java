@@ -1,7 +1,7 @@
 package com.example.khaier.controller;
 
-import com.example.khaier.dto.request.UserLoginDto;
-import com.example.khaier.dto.request.UserRegistrationDto;
+import com.example.khaier.dto.request.UserLoginRequestDto;
+import com.example.khaier.dto.request.UserRegistrationRequestDto;
 import com.example.khaier.factory.impl.SuccessResponseFactory200;
 import com.example.khaier.service.Impl.AuthServiceImpl;
 import com.example.khaier.service.Impl.UserImageServiceImpl;
@@ -21,7 +21,7 @@ public class AuthController {
     private final UserImageServiceImpl userImageService;
 
     @PostMapping(value= "/register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> registerUser(@ModelAttribute UserRegistrationDto registerRequest) {
+    public ResponseEntity<?> registerUser(@ModelAttribute UserRegistrationRequestDto registerRequest) {
 
         var registeredUser = authService.registerUser(registerRequest);
         return ResponseEntity.status(HttpStatus.OK)
@@ -29,7 +29,7 @@ public class AuthController {
     }
 
     @PostMapping(value = "/login", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> loginUser( @ModelAttribute UserLoginDto loginRequest) {
+    public ResponseEntity<?> loginUser( @ModelAttribute UserLoginRequestDto loginRequest) {
 
         String authToken = authService.loginUser(loginRequest);
         return ResponseEntity.status(HttpStatus.OK)
