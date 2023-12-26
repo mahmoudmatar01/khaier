@@ -1,7 +1,7 @@
 package com.example.khaier.service;
 
-import com.example.khaier.entity.user.User;
+import com.example.khaier.dto.response.UserInfoResponseDto;
 
 public interface UserService {
-    User extractUserFromToken(String token);
+    UserInfoResponseDto extractUserFromToken(String token);
 }

@@ -2,17 +2,13 @@ package com.example.khaier.controller;
 
 import com.example.khaier.dto.request.UserLoginDto;
 import com.example.khaier.dto.request.UserRegistrationDto;
-import com.example.khaier.dto.response.UserResponseDto;
-import com.example.khaier.entity.user.User;
 import com.example.khaier.factory.impl.SuccessResponseFactory200;
 import com.example.khaier.service.Impl.AuthServiceImpl;
 import com.example.khaier.service.Impl.UserImageServiceImpl;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

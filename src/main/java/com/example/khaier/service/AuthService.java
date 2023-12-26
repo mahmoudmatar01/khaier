@@ -2,10 +2,9 @@ package com.example.khaier.service;
 
 import com.example.khaier.dto.request.UserLoginDto;
 import com.example.khaier.dto.request.UserRegistrationDto;
-import com.example.khaier.dto.response.UserResponseDto;
-import com.example.khaier.entity.user.User;
+import com.example.khaier.dto.response.UserRegisterResponseDto;
 
 public interface AuthService {
-    UserResponseDto registerUser(UserRegistrationDto registerRequest);
+    UserRegisterResponseDto registerUser(UserRegistrationDto registerRequest);
     String loginUser(UserLoginDto loginRequest);
 }

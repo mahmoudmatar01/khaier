@@ -9,10 +9,12 @@ import com.example.khaier.factory.impl.ResponseFactory401;
 import com.example.khaier.factory.impl.ResponseFactory404;
 import com.example.khaier.factory.impl.SuccessResponseFactory200;
 import com.example.khaier.models.ApiCustomResponse;
+import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.webjars.NotFoundException;
@@ -30,6 +32,14 @@ class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(badRequestResponse
                         .createResponse(null,exception.getMessage()));
+    }
+
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    public ResponseEntity<ApiCustomResponse<?>> handleValidationExceptions(ConstraintViolationException exception) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(badRequestResponse
+                        .createResponse(null,"Invalid field format"));
     }
 
 

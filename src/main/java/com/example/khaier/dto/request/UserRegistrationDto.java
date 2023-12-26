@@ -8,12 +8,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Builder
 public record UserRegistrationDto(
-         String username,
-         MultipartFile imageUrl,
-         String email,
-         String password,
-         String confirmPassword,
-         Gender userGender,
-         String userPhone
+         @NotBlank String username,
+         @NotBlank MultipartFile imageUrl,
+         @NotBlank String email,
+         @NotBlank String password,
+         @NotBlank String confirmPassword,
+         @NotBlank Gender userGender,
+         @NotBlank String userPhone
+
 ) {
 }

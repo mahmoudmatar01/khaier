@@ -6,6 +6,7 @@ import com.example.khaier.entity.Reply;
 import com.example.khaier.enums.Gender;
 import com.example.khaier.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.ReportAsSingleViolation;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,20 +35,24 @@ public class User implements UserDetails {
     private UserImage userImage;
     private String userImageUrl;
     @NotBlank(message = "Email is required")
-    @Email(message = "Invalid email address")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Invalid email format")
     private String email;
-    @NotNull
-    @Size(min = 7, message = "Password must be at least 7 characters long")
-    @Pattern.List({
-            @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()-+=]).{8,}$", message = "Password must meet the criteria.")
-    })
+
+    @NotBlank(message = "Password is required")
+    @NotBlank(message = "Password is required")
+    @Pattern(
+            regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&]).{8,}$",
+            message = "Password must meet the criteria."
+    )
     private String password;
     @Enumerated(value = EnumType.STRING)
     private Role userRole;
     @Enumerated(value = EnumType.STRING)
     private Gender userGender;
     private String location;
+    @Pattern(regexp = "^[0-9+-]*$", message = "Invalid phone number format")
     private String phone;
+    @Column(length = 500)
     private String accessToken;
 
     // user relationships with other entities

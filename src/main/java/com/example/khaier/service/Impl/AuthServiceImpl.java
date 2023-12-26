@@ -2,7 +2,7 @@ package com.example.khaier.service.Impl;
 
 import com.example.khaier.dto.request.UserLoginDto;
 import com.example.khaier.dto.request.UserRegistrationDto;
-import com.example.khaier.dto.response.UserResponseDto;
+import com.example.khaier.dto.response.UserRegisterResponseDto;
 import com.example.khaier.entity.user.User;
 import com.example.khaier.exceptions.PasswordMismatchException;
 import com.example.khaier.exceptions.EmailAlreadyExistException;
@@ -13,7 +13,6 @@ import com.example.khaier.security.JwtTokenUtils;
 import com.example.khaier.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
@@ -29,7 +28,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRegisterDtoToUserMapper userRegisterDtoToUserMapper;
     private final UserToUserResponseDtoMapper userResponseDtoMapper;
 
-    public UserResponseDto registerUser(UserRegistrationDto registerRequest) {
+    public UserRegisterResponseDto registerUser(UserRegistrationDto registerRequest) {
         if (userRepository.existsByEmail(registerRequest.email())) {
             throw new EmailAlreadyExistException("Email address already exists.");
         }
@@ -48,6 +47,10 @@ public class AuthServiceImpl implements AuthService {
         if (!passwordEncoder.matches(loginRequest.password(), user.getPassword())) {
             throw new BadCredentialsException("Invalid password");
         }
-        return jwtTokenUtils.generateToken(user, "loginToken");
+        String jwtToken = jwtTokenUtils.generateToken(user, "loginToken");
+        user.setAccessToken(jwtToken);
+        userRepository.save(user);
+
+        return user.getAccessToken();
     }
 }

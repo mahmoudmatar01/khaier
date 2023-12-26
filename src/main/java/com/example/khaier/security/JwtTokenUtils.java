@@ -1,5 +1,6 @@
 package com.example.khaier.security;
 
+import com.example.khaier.dto.response.UserInfoResponseDto;
 import com.example.khaier.entity.user.User;
 import com.example.khaier.enums.Gender;
 import com.example.khaier.enums.Role;
@@ -78,7 +79,7 @@ public class JwtTokenUtils {
     }
 
 
-    public User extractUserFromToken(String token) {
+    public UserInfoResponseDto extractUserFromToken(String token) {
         Claims claims = getClaims(token);
         Long userId = claims.get("userId", Long.class);
         String username = claims.getSubject();
@@ -86,13 +87,15 @@ public class JwtTokenUtils {
         Role userRole = Role.valueOf(claims.get("userRole", String.class));
         Gender userGender = Gender.valueOf(claims.get("userGender", String.class));
         String phone = claims.get("userPhone", String.class);
+        String imageUrl = claims.get("userImageUrl", String.class);
 
-        return User.builder()
+        return UserInfoResponseDto.builder()
                 .userId(userId)
-                .username(username)
+                .name(username)
                 .email(userEmail)
-                .userRole(userRole)
-                .userGender(userGender)
+                .imageUrl(imageUrl)
+                .role(userRole)
+                .gender(userGender)
                 .phone(phone)
                 .build();
     }

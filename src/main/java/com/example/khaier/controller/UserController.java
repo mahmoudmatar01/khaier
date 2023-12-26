@@ -1,5 +1,6 @@
 package com.example.khaier.controller;
 
+import com.example.khaier.dto.response.UserInfoResponseDto;
 import com.example.khaier.entity.user.User;
 import com.example.khaier.factory.impl.SuccessResponseFactory200;
 import com.example.khaier.service.Impl.AuthServiceImpl;
@@ -21,7 +22,7 @@ public class UserController {
     @GetMapping("/info")
     public ResponseEntity<?> getUserFromToken(@RequestHeader("Authorization") String token){
         String jwtToken = token.substring(7);
-        User user = userService.extractUserFromToken(jwtToken);
+        UserInfoResponseDto user = userService.extractUserFromToken(jwtToken);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(user,"User returned successfully "));
     }
