@@ -11,19 +11,19 @@ import org.webjars.NotFoundException;
 
 import java.io.IOException;
 
-import static com.example.khaier.utils.ImageUtils.compressImage;
-import static com.example.khaier.utils.ImageUtils.decompressImage;
+import static com.example.khaier.utils.ImageUtils.*;
 
 @Service
 @RequiredArgsConstructor
 public class UserImageServiceImpl {
     private final UserImageRepository userImageRepository;
     public UserImage uploadImage(MultipartFile file) throws IOException {
+        String uniqueImageTitle=generateUniqueImageTitle(file.getOriginalFilename());
         UserImage userImage =UserImage.builder()
-                .title(file.getOriginalFilename())
+                .title(uniqueImageTitle)
                 .type(file.getContentType())
                 .data(compressImage(file.getBytes()))
-                .url(generateUrl(file.getOriginalFilename()))
+                .url(generateUrl(uniqueImageTitle))
                 .build();
         return userImageRepository.save(userImage);
     }
@@ -35,4 +35,5 @@ public class UserImageServiceImpl {
     public String generateUrl(String title){
         return "localhost:5920/api/v1/auth/image/"+ title ;
     }
+
 }

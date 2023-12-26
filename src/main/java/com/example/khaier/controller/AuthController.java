@@ -2,14 +2,17 @@ package com.example.khaier.controller;
 
 import com.example.khaier.dto.request.UserLoginDto;
 import com.example.khaier.dto.request.UserRegistrationDto;
+import com.example.khaier.dto.response.UserResponseDto;
 import com.example.khaier.entity.user.User;
 import com.example.khaier.factory.impl.SuccessResponseFactory200;
 import com.example.khaier.service.Impl.AuthServiceImpl;
 import com.example.khaier.service.Impl.UserImageServiceImpl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,13 +26,15 @@ public class AuthController {
 
     @PostMapping(value= "/register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> registerUser(@ModelAttribute UserRegistrationDto registerRequest) {
-        User registeredUser = authService.registerUser(registerRequest);
-        return ResponseEntity.status(HttpStatus.CREATED)
+
+        var registeredUser = authService.registerUser(registerRequest);
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(registeredUser,"User registered successfully "));
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@ModelAttribute UserLoginDto loginRequest) {
+    @PostMapping(value = "/login", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> loginUser( @ModelAttribute UserLoginDto loginRequest) {
+
         String authToken = authService.loginUser(loginRequest);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(authToken, "Login successful"));

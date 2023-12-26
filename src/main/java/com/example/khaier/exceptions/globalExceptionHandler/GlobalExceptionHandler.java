@@ -2,24 +2,20 @@ package com.example.khaier.exceptions.globalExceptionHandler;
 
 import com.example.khaier.exceptions.BadRequestException;
 import com.example.khaier.exceptions.DelegatedAuthenticationException;
-import com.example.khaier.exceptions.MisMatchException;
-import com.example.khaier.factory.ResponseFactory;
+import com.example.khaier.exceptions.EmailAlreadyExistException;
+import com.example.khaier.exceptions.PasswordMismatchException;
 import com.example.khaier.factory.impl.ResponseFactory400;
 import com.example.khaier.factory.impl.ResponseFactory401;
 import com.example.khaier.factory.impl.ResponseFactory404;
 import com.example.khaier.factory.impl.SuccessResponseFactory200;
 import com.example.khaier.models.ApiCustomResponse;
-import com.example.khaier.security.DelegatedAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.context.request.WebRequest;
+import org.webjars.NotFoundException;
 
 @ControllerAdvice
 @RequiredArgsConstructor
@@ -28,41 +24,59 @@ class GlobalExceptionHandler {
     final ResponseFactory401 unauthorizedResponse;
     final ResponseFactory404 notFoundResponse;
     final ResponseFactory400 badRequestResponse;
-    @ExceptionHandler(value = UsernameNotFoundException.class)
-    public ResponseEntity<ApiCustomResponse<?>> notFoundException(UsernameNotFoundException exception) {
+    @ExceptionHandler(value = EmailAlreadyExistException.class)
+    public ResponseEntity<ApiCustomResponse<?>> emailAlreadyExistException(EmailAlreadyExistException exception) {
         return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(notFoundResponse
-                        .createResponse(exception.getMessage(), "Entity not found"));
+                .status(HttpStatus.BAD_REQUEST)
+                .body(badRequestResponse
+                        .createResponse(null,exception.getMessage()));
     }
+
+
+    @ExceptionHandler(value = NotFoundException.class)
+    public ResponseEntity<ApiCustomResponse<?>> notFoundException(NotFoundException exception) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(notFoundResponse
+                        .createResponse(null,exception.getMessage()));
+    }
+
+
+
     @ExceptionHandler(value = BadRequestException.class)
     public ResponseEntity<ApiCustomResponse<?>> badRequestException(BadRequestException exception) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(badRequestResponse.createResponse(exception.getMessage(), "Bad request"));
+                .body(badRequestResponse.createResponse(null,exception.getMessage()));
     }
+
+
     @ExceptionHandler(value = BadCredentialsException.class)
     public ResponseEntity<ApiCustomResponse<?>> badCredentialsException(BadCredentialsException exception) {
         return ResponseEntity
-                .status(HttpStatus.CONFLICT)
-                .body(unauthorizedResponse.createResponse(exception.getMessage(), "Something invalid"));
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(unauthorizedResponse.createResponse(null,exception.getMessage()));
     }
     @ExceptionHandler(value = RuntimeException.class)
     public ResponseEntity<ApiCustomResponse<?>> runtimeException(RuntimeException exception) {
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(unauthorizedResponse.createResponse(exception.getMessage(), "Something invalid"));
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(unauthorizedResponse.createResponse(null,exception.getMessage()));
     }
-    @ExceptionHandler(value = MisMatchException.class)
-    public ResponseEntity<ApiCustomResponse<?>> misMatchException(MisMatchException exception) {
+
+
+    @ExceptionHandler(value = PasswordMismatchException.class)
+    public ResponseEntity<ApiCustomResponse<?>> misMatchException(PasswordMismatchException exception) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(badRequestResponse.createResponse(exception.getMessage(), "Something invalid"));
+                .body(badRequestResponse.createResponse(null,exception.getMessage()));
     }
+
+
     @ExceptionHandler(value = DelegatedAuthenticationException.class)
     public ResponseEntity<ApiCustomResponse<?>> delegatedAuthenticationException(DelegatedAuthenticationException exception) {
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
-                .body(badRequestResponse.createResponse(exception.getMessage(), "Something invalid"));
+                .body(unauthorizedResponse.createResponse(null,exception.getMessage()));
     }
 }

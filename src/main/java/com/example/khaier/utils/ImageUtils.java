@@ -11,6 +11,12 @@ import java.util.zip.Inflater;
 @Component
 public class ImageUtils {
 
+    @Value("${images.host}")
+    private String host;
+
+    @Value("${api.version}")
+    private String apiVersion;
+
     public static byte[] compressImage(byte[] data) {
         Deflater deflater = new Deflater();
         deflater.setLevel(Deflater.BEST_COMPRESSION);
@@ -45,6 +51,14 @@ public class ImageUtils {
         } catch (Exception ignored) {
         }
         return outputStream.toByteArray();
+    }
+
+    public static String generateUniqueImageTitle(String name) {
+        return name + "-" + UUID.randomUUID();
+    }
+
+    public String generateImagePath(String path, String imageTitle) {
+        return host + apiVersion + "/" + path + "/" + imageTitle;
     }
 
 }
