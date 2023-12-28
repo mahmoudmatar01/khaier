@@ -20,7 +20,7 @@ public class UserRegisterDtoToUserMapper implements Function<UserRegistrationReq
     @Override
     public User apply(UserRegistrationRequestDto userRegistrationDto) {
         try{
-            UserImage userImage = userImageService.uploadImage(userRegistrationDto.imageUrl());
+            UserImage userImage = userImageService.uploadImage(userRegistrationDto.image());
             return User.builder()
                     .email(userRegistrationDto.email())
                     .username(userRegistrationDto.username())

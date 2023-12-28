@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,22 +28,18 @@ public class BannerServiceImpl implements BannerService {
 
 
     @Override
-    public List<BannerResponseDto> findAllBanners(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(()-> new NotFoundException("No user found with this id"));
-        if(user.getUserRole() == Role.ROLE_USER)
-            throw new BadRequestException("User not authorized to get all banners");
-        return bannerRepository.findAll().stream().map(b->
-            bannerToBannerResponseDto.apply(b)).toList();
+    public List<BannerResponseDto> findAllBanners() {
+        List<Banner>banners=bannerRepository.findAll();
+        return banners.stream().map(bannerToBannerResponseDto).collect(Collectors.toList());
     }
 
-    @Override
-    public BannerResponseDto save(BannerRequestDto bannerRequest, Long userId) {
 
+    @Override
+    public BannerResponseDto save(BannerRequestDto bannerRequest,Long userId) {
         User user = userRepository.findById(userId).orElseThrow(()-> new NotFoundException("No user found with this id"));
-        if(user.getUserRole() == Role.ROLE_USER)
+        if(user.getUserRole() != Role.ROLE_ADMIN)
             throw new BadRequestException("User not authorized to get this service");
         Banner banner = bannerRequestMapper.apply(bannerRequest);
-        banner = bannerRepository.save(banner);
-        return bannerToBannerResponseDto.apply(banner);
+        return bannerToBannerResponseDto.apply(bannerRepository.save(banner));
     }
 }

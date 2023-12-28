@@ -33,7 +33,7 @@ public class AuthFilter extends OncePerRequestFilter {
         //  extract information from token
         String userName = jwtService.getUserNameFromToken(jwtToken);
         String email=jwtService.getUserEmailFromToken(jwtToken);
-        if (userName != null && email!=null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (email!=null && SecurityContextHolder.getContext().getAuthentication() == null) {
             // the token is valid and not-secured yet
             // start to extract user details
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);

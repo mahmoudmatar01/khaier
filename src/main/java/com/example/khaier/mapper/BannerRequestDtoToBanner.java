@@ -19,7 +19,6 @@ public class BannerRequestDtoToBanner implements Function<BannerRequestDto, Bann
     public Banner apply(BannerRequestDto bannerRequestDto) {
         try{
             BannerImage bannerImage  = bannerImageService.uploadImage(bannerRequestDto.image());
-
             return Banner.builder()
                     .bannerImage(bannerImage)
                     .description(bannerRequestDto.description())
@@ -28,7 +27,7 @@ public class BannerRequestDtoToBanner implements Function<BannerRequestDto, Bann
                     .build();
         }
         catch (IOException e){
-            throw new RuntimeException("Banner image cannot be uploaded");
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

@@ -13,10 +13,12 @@ public class BannerToBannerResponseDto implements Function<Banner, BannerRespons
     @Override
     public BannerResponseDto apply(Banner banner) {
 
-        return BannerResponseDto.builder()
-                .description(banner.getDescription())
+        return BannerResponseDto
+                .builder()
+                .Id(banner.getBannerId())
                 .title(banner.getTitle())
+                .description(banner.getDescription())
                 .imageUrl(banner.getImageUrl())
-                .Id(banner.getBannerId()).build();
+                .build();
     }
 }

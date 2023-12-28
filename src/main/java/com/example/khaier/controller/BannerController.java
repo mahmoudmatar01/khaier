@@ -29,16 +29,16 @@ public class BannerController {
                 .body(imageData);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<?> getAllBanners(@PathVariable Long userId){
-        List<BannerResponseDto> banners = bannerService.findAllBanners(userId);
+    @GetMapping
+    public ResponseEntity<?> getAllBanners(){
+        List<BannerResponseDto> banners = bannerService.findAllBanners();
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(banners, "Banners returned successfully"));
     }
 
-    @PostMapping(value = "/{userId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> save(@PathVariable Long userId, @RequestBody BannerRequestDto bannerRequestDto){
-        BannerResponseDto bannerResponseDto = bannerService.save(bannerRequestDto, userId);
+    @PostMapping(value = "/{userId}",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> save(@ModelAttribute BannerRequestDto bannerRequestDto,@PathVariable Long userId){
+        BannerResponseDto bannerResponseDto = bannerService.save(bannerRequestDto,userId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(bannerResponseDto, "Banner saved successfully"));
     }

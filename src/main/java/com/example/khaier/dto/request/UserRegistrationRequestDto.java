@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Builder
 public record UserRegistrationRequestDto(
          @NotBlank String username,
-         @NotBlank MultipartFile imageUrl,
+         @NotBlank MultipartFile image,
          @NotBlank String email,
          @NotBlank String password,
          @NotBlank String confirmPassword,

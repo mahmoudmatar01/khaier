@@ -52,7 +52,7 @@ public class User implements UserDetails {
     private String location;
     @Pattern(regexp = "^[0-9+-]*$", message = "Invalid phone number format")
     private String phone;
-    @Column(length = 500)
+    @Column(length = 1000)
     private String accessToken;
 
     // user relationships with other entities
