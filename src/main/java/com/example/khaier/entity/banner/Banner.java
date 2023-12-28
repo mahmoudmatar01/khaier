@@ -18,6 +18,7 @@ public class Banner {
     private Long bannerId;
     private String title;
     private String description;
+    private String imageUrl;
     @OneToOne
     @JoinColumn(name = "banner_image")
     private BannerImage bannerImage;
