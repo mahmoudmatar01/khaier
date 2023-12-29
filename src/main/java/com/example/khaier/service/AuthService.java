@@ -6,5 +6,6 @@ import com.example.khaier.dto.response.UserRegisterResponseDto;
 
 public interface AuthService {
     UserRegisterResponseDto registerUser(UserRegistrationRequestDto registerRequest);
+    UserRegisterResponseDto registerAdmin(UserRegistrationRequestDto adminDto);
     String loginUser(UserLoginRequestDto loginRequest);
 }

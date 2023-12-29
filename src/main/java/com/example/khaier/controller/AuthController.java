@@ -28,6 +28,14 @@ public class AuthController {
                 .body(responseFactory.createResponse(registeredUser,"User registered successfully "));
     }
 
+    @PostMapping(value= "/admin/register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> registerAdmin(@ModelAttribute UserRegistrationRequestDto registerRequest) {
+
+        var admin = authService.registerAdmin(registerRequest);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(responseFactory.createResponse(admin,"Admin registered successfully "));
+    }
+
     @PostMapping(value = "/login", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> loginUser( @ModelAttribute UserLoginRequestDto loginRequest) {
 
