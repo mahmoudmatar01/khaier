@@ -4,15 +4,13 @@ import com.example.khaier.dto.request.ReplyRequestDto;
 import com.example.khaier.dto.response.ReplyResponseDto;
 import com.example.khaier.entity.Reply;
 import com.example.khaier.entity.user.User;
+import com.example.khaier.helper.UserHelper;
 import com.example.khaier.mapper.ReplyRequestDtoToReplyMapper;
 import com.example.khaier.mapper.ReplyToReplyResponseDtoMapper;
-import com.example.khaier.repository.CommentRepository;
 import com.example.khaier.repository.ReplyRepository;
-import com.example.khaier.repository.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 @Service
 @Transactional
@@ -21,13 +19,11 @@ public class ReplyServiceImpl {
 
     private final ReplyToReplyResponseDtoMapper toReplyResponseDtoMapper;
     private final ReplyRequestDtoToReplyMapper toReplyMapper;
-    private final UserRepository userRepository;
     private final ReplyRepository repository;
+    private final UserHelper userHelper;
 
     public ReplyResponseDto addReply(ReplyRequestDto requestDto, Long userId){
-        User user=userRepository.findById(userId).orElseThrow(
-                ()->new NotFoundException("User with id : "+userId+" not found!")
-        );
+        User user=userHelper.checkUserIsExistOrThrowException(userId);
         Reply reply=toReplyMapper.apply(requestDto);
         reply.setUser(user);
         reply=repository.save(reply);

@@ -4,11 +4,11 @@ import com.example.khaier.dto.request.CommentRequestDto;
 import com.example.khaier.dto.response.CommentResponseDto;
 import com.example.khaier.entity.Comment;
 import com.example.khaier.entity.user.User;
+import com.example.khaier.helper.UserHelper;
 import com.example.khaier.mapper.CommentRequestDtoToCommentMapper;
 import com.example.khaier.mapper.CommentToCommentResponseDtoMapper;
 import com.example.khaier.repository.CommentRepository;
 import com.example.khaier.repository.PostRepository;
-import com.example.khaier.repository.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,15 +20,13 @@ import org.webjars.NotFoundException;
 public class CommentServiceImpl {
 
     private final CommentRepository commentRepository;
-    private final UserRepository userRepository;
+    private final UserHelper userHelper;
     private final CommentRequestDtoToCommentMapper toCommentMapper;
     private final PostRepository postRepository;
     private final CommentToCommentResponseDtoMapper toCommentResponseDtoMapper;
 
     public CommentResponseDto addComment(CommentRequestDto commentRequestDto,Long userId){
-        User user=userRepository.findById(userId).orElseThrow(
-                ()->new NotFoundException("User with id : "+userId+" not found!")
-        );
+        User user=userHelper.checkUserIsExistOrThrowException(userId);
         Comment comment=toCommentMapper.apply(commentRequestDto);
         comment.setUser(user);
         comment=commentRepository.save(comment);
