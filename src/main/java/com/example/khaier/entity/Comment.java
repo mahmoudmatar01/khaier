@@ -22,16 +22,13 @@ public class Comment {
     private Long commentId;
     private String content;
     private LocalDateTime date;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
-
-    @OneToMany(mappedBy = "comment")
+    @OneToMany(mappedBy = "comment", fetch = FetchType.EAGER)
     private List<Reply> replies;
 
 }

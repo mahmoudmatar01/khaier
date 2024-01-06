@@ -21,11 +21,9 @@ public class Reply {
     private Long replyId;
     private String content;
     private LocalDateTime date;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     @ManyToOne
     @JoinColumn(name = "comment_id")
     private Comment comment;

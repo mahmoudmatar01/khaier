@@ -20,11 +20,10 @@ public class Like {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long likeId;
     private LocalDateTime date;
-
+    private boolean isLiked;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;

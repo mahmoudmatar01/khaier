@@ -21,17 +21,17 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
-    private String description;
+    private String postContent;
     private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
     private List<Like> likes;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
     private List<Comment> comments;
 
 }
