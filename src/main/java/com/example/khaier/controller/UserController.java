@@ -1,5 +1,6 @@
 package com.example.khaier.controller;
 
+import com.example.khaier.dto.request.ChangePasswordRequestDto;
 import com.example.khaier.dto.response.UserInfoResponseDto;
 import com.example.khaier.entity.user.User;
 import com.example.khaier.factory.impl.SuccessResponseFactory200;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -25,5 +28,12 @@ public class UserController {
         UserInfoResponseDto user = userService.extractUserFromToken(jwtToken);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(user,"User returned successfully "));
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> getUserFromToken(@RequestBody ChangePasswordRequestDto changePasswordRequestDto, Principal connectedUser){
+        userService.changePassword(changePasswordRequestDto,connectedUser);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(responseFactory.createResponse(null,"Password changed successfully "));
     }
 }
