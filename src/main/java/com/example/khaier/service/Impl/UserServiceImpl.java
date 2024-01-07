@@ -32,9 +32,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void changePassword(ChangePasswordRequestDto changePasswordRequestDto, Principal connectedUser) {
         var user=(User)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
-        if(!passwordEncoder.matches(changePasswordRequestDto.currentPassword(),user.getPassword())){
-           throw new BadCredentialsException("Wrong password") ;
-        }
         if(!changePasswordRequestDto.newPassword().equals(changePasswordRequestDto.confirmationPassword())){
             throw new BadCredentialsException("Passwords are not the same");
         }
