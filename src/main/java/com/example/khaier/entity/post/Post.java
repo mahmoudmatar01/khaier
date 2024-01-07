@@ -1,5 +1,7 @@
-package com.example.khaier.entity;
+package com.example.khaier.entity.post;
 
+import com.example.khaier.entity.Comment;
+import com.example.khaier.entity.Like;
 import com.example.khaier.entity.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
@@ -28,10 +30,13 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Like> likes;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Comment> comments;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostImage> images;
 
 }

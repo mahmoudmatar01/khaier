@@ -1,12 +1,11 @@
 package com.example.khaier.entity.user;
 
 import com.example.khaier.entity.Comment;
-import com.example.khaier.entity.Post;
+import com.example.khaier.entity.post.Post;
 import com.example.khaier.entity.Reply;
 import com.example.khaier.enums.Gender;
 import com.example.khaier.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.ReportAsSingleViolation;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -2,12 +2,12 @@ package com.example.khaier.service.Impl;
 
 import com.example.khaier.dto.response.LikeResponseDto;
 import com.example.khaier.entity.Like;
-import com.example.khaier.entity.Post;
+import com.example.khaier.entity.post.Post;
 import com.example.khaier.entity.user.User;
 import com.example.khaier.helper.UserHelper;
 import com.example.khaier.mapper.LikeToLikeResponseDtoMapper;
 import com.example.khaier.repository.LikeRepository;
-import com.example.khaier.repository.PostRepository;
+import com.example.khaier.repository.post.PostRepository;
 import com.example.khaier.service.LikeService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

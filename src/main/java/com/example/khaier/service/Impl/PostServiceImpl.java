@@ -2,18 +2,21 @@ package com.example.khaier.service.Impl;
 
 import com.example.khaier.dto.request.PostRequestDto;
 import com.example.khaier.dto.response.PostResponseDto;
-import com.example.khaier.entity.Post;
+import com.example.khaier.entity.post.Post;
 import com.example.khaier.entity.user.User;
 import com.example.khaier.helper.UserHelper;
 import com.example.khaier.mapper.PostRequestDtoToPostMapper;
 import com.example.khaier.mapper.PostToPostResponseDtoMapper;
-import com.example.khaier.repository.PostRepository;
+import com.example.khaier.repository.post.PostRepository;
 import com.example.khaier.service.PostService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.webjars.NotFoundException;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +41,7 @@ public class PostServiceImpl implements PostService {
         Post post = requestDtoToPostMapper.apply(postDto);
         post.setUser(user);
         post = postRepository.save(post);
-        return postToPostResponseDtoMapper.apply(post);
+        return postToPostResponseDtoMapper.apply(post,userId);
     }
 
     @Override
