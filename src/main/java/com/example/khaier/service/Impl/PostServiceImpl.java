@@ -27,9 +27,9 @@ public class PostServiceImpl implements PostService {
     private final PostToPostResponseDtoMapper postToPostResponseDtoMapper;
     private final UserHelper userHelper;
     @Override
-    public List<PostResponseDto> getAllPosts() {
+    public List<PostResponseDto> getAllPosts(Long userId) {
         List<Post> posts = postRepository.findAll();
-        return posts.stream().map(postToPostResponseDtoMapper).collect(Collectors.toList());
+        return posts.stream().map(post->postToPostResponseDtoMapper.apply(post,userId)).collect(Collectors.toList());
     }
 
     @Override
@@ -42,10 +42,10 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostResponseDto getPostById(Long postId) {
+    public PostResponseDto getPostById(Long postId,Long userId) {
         Post post =postRepository.findById(postId).orElseThrow(
                 ()->new NotFoundException("Post with id : "+postId+" not found!")
         );
-        return postToPostResponseDtoMapper.apply(post);
+        return postToPostResponseDtoMapper.apply(post,userId);
     }
 }

@@ -9,6 +9,7 @@ public record PostResponseDto (
         String content,
         LocalDateTime dateTime,
         Long userId,
+        boolean isUserLike,
         String userName,
         String userImage,
         List<LikeResponseDto>likes,

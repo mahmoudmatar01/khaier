@@ -18,15 +18,15 @@ public class PostController {
 
     private final PostServiceImpl postService;
     private final SuccessResponseFactory200 responseFactory;
-    @GetMapping
-    public ResponseEntity<?> getPosts(){
-        List<PostResponseDto> response = postService.getAllPosts();
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> getPosts(@PathVariable Long userId){
+        List<PostResponseDto> response = postService.getAllPosts(userId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Posts returned successfully "));
     }
-    @GetMapping("/{postId}")
-    public ResponseEntity<?> findPostById(@PathVariable Long postId){
-        PostResponseDto response = postService.getPostById(postId);
+    @GetMapping
+    public ResponseEntity<?> findPostById(@RequestParam Long userId,@RequestParam Long postId){
+        PostResponseDto response = postService.getPostById(postId,userId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Post returned successfully "));
     }
