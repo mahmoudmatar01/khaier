@@ -21,7 +21,7 @@ public class PostToPostResponseDtoMapper implements Function<Post, PostResponseD
                 .builder()
                 .id(post.getPostId())
                 .content(post.getPostContent())
-                .dateTime(LocalDateTime.now())
+                .dateTime(post.getDate())
                 .userId(post.getUser().getUserId())
                 .userName(post.getUser().getUsername())
                 .userImage(post.getUser().getUserImageUrl())
