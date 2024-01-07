@@ -20,4 +20,10 @@ public class ReplyController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Reply saved successfully "));
     }
+    @GetMapping("/comment/{commentId}")
+    public ResponseEntity<?> findByComment(@PathVariable Long commentId){
+        var response = replyService.getByCommentId(commentId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(responseFactory.createResponse(response,"Replies returned successfully "));
+    }
 }

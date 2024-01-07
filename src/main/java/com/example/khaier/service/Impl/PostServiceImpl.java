@@ -32,8 +32,6 @@ public class PostServiceImpl implements PostService {
         return posts.stream().map(postToPostResponseDtoMapper).collect(Collectors.toList());
     }
 
-
-
     @Override
     public PostResponseDto addNewPost(PostRequestDto postDto,Long userId) {
         User user=userHelper.checkUserIsExistOrThrowException(userId);

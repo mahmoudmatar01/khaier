@@ -5,10 +5,7 @@ import com.example.khaier.service.Impl.LikeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/like")
@@ -27,5 +24,12 @@ public class LikeController {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(responseFactory.createResponse(response, "liked removed successfully "));
         }
+    }
+
+    @GetMapping("/post/{postId}")
+    public ResponseEntity<?> findByPostId(@PathVariable Long postId){
+        var response = likeService.findLikesByPostId(postId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(responseFactory.createResponse(response,"Likes returned successfully "));
     }
 }

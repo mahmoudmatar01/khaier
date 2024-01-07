@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/comment")
 @RequiredArgsConstructor
@@ -27,5 +29,12 @@ public class CommentController {
         CommentResponseDto response = commentService.getById(commentId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Comment returned successfully "));
+    }
+
+    @GetMapping("/post/{postId}")
+    public ResponseEntity<?> findByPost(@PathVariable Long postId){
+        List<CommentResponseDto> response = commentService.getCommentsByPostId(postId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(responseFactory.createResponse(response,"Comments returned successfully "));
     }
 }
