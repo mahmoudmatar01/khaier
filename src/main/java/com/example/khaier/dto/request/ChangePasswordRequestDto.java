@@ -5,6 +5,7 @@ import lombok.Builder;
 
 @Builder
 public record ChangePasswordRequestDto(
+        @NotBlank String email,
         @NotBlank String newPassword,
         @NotBlank String confirmationPassword
 ) {

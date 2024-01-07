@@ -12,6 +12,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.security.Principal;
 
@@ -30,8 +31,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changePassword(ChangePasswordRequestDto changePasswordRequestDto, Principal connectedUser) {
-        var user=(User)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
+    public void changePassword(ChangePasswordRequestDto changePasswordRequestDto) {
+        User user=userRepository.findByEmail(changePasswordRequestDto.email()).orElseThrow(
+                ()-> new NotFoundException("User with email : "+changePasswordRequestDto.email()+" not found!")
+        );
         if(!changePasswordRequestDto.newPassword().equals(changePasswordRequestDto.confirmationPassword())){
             throw new BadCredentialsException("Passwords are not the same");
         }

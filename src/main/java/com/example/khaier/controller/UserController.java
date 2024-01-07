@@ -31,8 +31,8 @@ public class UserController {
     }
 
     @PostMapping("/change-password")
-    public ResponseEntity<?> getUserFromToken(@RequestBody ChangePasswordRequestDto changePasswordRequestDto, Principal connectedUser){
-        userService.changePassword(changePasswordRequestDto,connectedUser);
+    public ResponseEntity<?> getUserFromToken(@RequestBody ChangePasswordRequestDto changePasswordRequestDto){
+        userService.changePassword(changePasswordRequestDto);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(null,"Password changed successfully "));
     }

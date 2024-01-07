@@ -7,5 +7,5 @@ import java.security.Principal;
 
 public interface UserService {
     UserInfoResponseDto extractUserFromToken(String token);
-    void changePassword(ChangePasswordRequestDto changePasswordRequestDto, Principal connectedUser);
+    void changePassword(ChangePasswordRequestDto changePasswordRequestDto);
 }
