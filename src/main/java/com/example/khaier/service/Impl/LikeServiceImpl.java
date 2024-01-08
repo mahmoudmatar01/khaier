@@ -4,15 +4,14 @@ import com.example.khaier.dto.response.LikeResponseDto;
 import com.example.khaier.entity.Like;
 import com.example.khaier.entity.post.Post;
 import com.example.khaier.entity.user.User;
+import com.example.khaier.helper.PostHelper;
 import com.example.khaier.helper.UserHelper;
 import com.example.khaier.mapper.LikeToLikeResponseDtoMapper;
 import com.example.khaier.repository.LikeRepository;
-import com.example.khaier.repository.post.PostRepository;
 import com.example.khaier.service.LikeService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,12 +22,12 @@ import java.util.List;
 public class LikeServiceImpl implements LikeService {
 
     private final LikeRepository likeRepository;
-    private final PostRepository postRepository;
+    private final PostHelper postHelper;
     private final UserHelper userHelper;
     private final LikeToLikeResponseDtoMapper toLikeResponseDtoMapper;
     @Override
     public LikeResponseDto addOrRemoveLike(Long postId, Long userId) {
-        Post post = checkPostExistOrThrowException(postId);
+        Post post = postHelper.checkPostExistOrThrowException(postId);
         User user=userHelper.checkUserIsExistOrThrowException(userId);
         Like existingLike = likeRepository.findByPostAndUser(post, user);
         if (existingLike != null) {
@@ -51,13 +50,10 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public List<LikeResponseDto> findLikesByPostId(Long postId) {
-        Post post = checkPostExistOrThrowException(postId);
+        Post post = postHelper.checkPostExistOrThrowException(postId);
         List<Like>likes=likeRepository.findByPost(post);
-        return likes.stream().map(toLikeResponseDtoMapper::apply).toList();
+        return likes.stream().map(toLikeResponseDtoMapper).toList();
     }
 
-    private Post checkPostExistOrThrowException(Long postId){
-        return postRepository.findById(postId)
-                .orElseThrow(() -> new NotFoundException("Post with id : "+postId+" not found!"));
-    }
+
 }

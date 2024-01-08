@@ -6,9 +6,7 @@ import com.example.khaier.entity.post.PostImage;
 import com.example.khaier.helper.LikeHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -35,8 +33,8 @@ public class PostToPostResponseDtoMapper implements Function<Post, PostResponseD
                 .isUserLike(isLiked)
                 .userName(post.getUser().getUsername())
                 .userImage(post.getUser().getUserImageUrl())
-                .comments(post.getComments().stream().map(toCommentResponseDtoMapper::apply).collect(Collectors.toList()))
-                .likes(post.getLikes().stream().map(toLikeResponseDtoMapper::apply).collect(Collectors.toList()))
+                .comments(post.getComments().stream().map(toCommentResponseDtoMapper).collect(Collectors.toList()))
+                .likes(post.getLikes().stream().map(toLikeResponseDtoMapper).collect(Collectors.toList()))
                 .build();
     }
 }

@@ -2,18 +2,13 @@ package com.example.khaier.controller;
 
 import com.example.khaier.dto.request.ChangePasswordRequestDto;
 import com.example.khaier.dto.response.UserInfoResponseDto;
-import com.example.khaier.entity.user.User;
 import com.example.khaier.factory.impl.SuccessResponseFactory200;
-import com.example.khaier.service.Impl.AuthServiceImpl;
-import com.example.khaier.service.Impl.UserImageServiceImpl;
-import com.example.khaier.service.Impl.UserServiceImpl;
 import com.example.khaier.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/v1/user")

@@ -5,6 +5,7 @@ import com.example.khaier.dto.response.CommentResponseDto;
 import com.example.khaier.entity.Comment;
 import com.example.khaier.entity.post.Post;
 import com.example.khaier.entity.user.User;
+import com.example.khaier.helper.PostHelper;
 import com.example.khaier.helper.UserHelper;
 import com.example.khaier.mapper.CommentRequestDtoToCommentMapper;
 import com.example.khaier.mapper.CommentToCommentResponseDtoMapper;
@@ -27,6 +28,7 @@ public class CommentServiceImpl implements CommentService {
     private final UserHelper userHelper;
     private final CommentRequestDtoToCommentMapper toCommentMapper;
     private final PostRepository postRepository;
+    private final PostHelper postHelper;
     private final CommentToCommentResponseDtoMapper toCommentResponseDtoMapper;
 
     @Override
@@ -48,10 +50,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentResponseDto> getCommentsByPostId(Long postId) {
-        Post post=postRepository.findById(postId).orElseThrow(
-                ()-> new NotFoundException("Post with id : "+postId+" not found")
-        );
+        Post post=postHelper.checkPostExistOrThrowException(postId);
         List<Comment>comments=commentRepository.findByPost(post);
-        return comments.stream().map(toCommentResponseDtoMapper::apply).toList();
+        return comments.stream().map(toCommentResponseDtoMapper).toList();
     }
 }

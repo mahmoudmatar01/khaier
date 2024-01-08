@@ -14,15 +14,16 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 @Service
 public class JwtTokenUtils {
 
     private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    public String generateToken(UserDetails userDetails, final String tokenId) {
+    public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
-                .setId(tokenId)
+                .setClaims(new HashMap<>())
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
                 .setIssuer("app-service")

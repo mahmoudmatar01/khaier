@@ -19,14 +19,18 @@ public class CommentRequestDtoToCommentMapper implements Function<CommentRequest
     private final PostRepository postRepository;
     @Override
     public Comment apply(CommentRequestDto commentRequestDto) {
-        Post post=postRepository.findById(commentRequestDto.postId()).orElseThrow(
-                ()->new NotFoundException("Post with id : "+commentRequestDto.postId()+" not found!")
-        );
+        Post post=getPost(commentRequestDto.postId());
         return Comment.builder()
                 .content(commentRequestDto.commentContent())
                 .date(LocalDateTime.now())
                 .post(post)
                 .replies(new ArrayList<>())
                 .build();
+    }
+
+    private Post getPost(Long postId){
+        return postRepository.findById(postId).orElseThrow(
+                ()->new NotFoundException("Post with id : "+postId+" not found!")
+        );
     }
 }

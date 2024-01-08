@@ -21,10 +21,19 @@ public class PostRequestDtoToPostMapper implements Function<PostRequestDto, Post
 
     @Override
     public Post apply(PostRequestDto postRequestDto) {
-        List<PostImage> postImageList = new ArrayList<>();
+        return Post.builder()
+                .postContent(postRequestDto.postContent())
+                .date(LocalDateTime.now())
+                .comments(new ArrayList<>())
+                .likes(new ArrayList<>())
+                .images(uploadPostImage(postRequestDto.image()))
+                .build();
+    }
 
-        if (postRequestDto.image() != null) {
-            for (MultipartFile image : postRequestDto.image()) {
+    private List<PostImage>uploadPostImage(MultipartFile[]images){
+        List<PostImage> postImageList = new ArrayList<>();
+        if (images != null) {
+            for (MultipartFile image : images) {
                 try {
                     PostImage postImage = postImageService.uploadImage(image);
                     postImageList.add(postImage);
@@ -33,13 +42,6 @@ public class PostRequestDtoToPostMapper implements Function<PostRequestDto, Post
                 }
             }
         }
-
-        return Post.builder()
-                .postContent(postRequestDto.postContent())
-                .date(LocalDateTime.now())
-                .comments(new ArrayList<>())
-                .likes(new ArrayList<>())
-                .images(postImageList)
-                .build();
+        return postImageList;
     }
 }

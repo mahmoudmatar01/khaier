@@ -15,7 +15,7 @@ public class ImageUtils {
     private String host;
 
     @Value("${api.version}")
-    private String apiVersion;
+    private  String apiVersion;
 
     public static byte[] compressImage(byte[] data) {
         Deflater deflater = new Deflater();
@@ -57,8 +57,8 @@ public class ImageUtils {
         return name + "-" + UUID.randomUUID();
     }
 
-    public String generateImagePath(String path, String imageTitle) {
-        return host + apiVersion + "/" + path + "/" + imageTitle;
+    public  String generateImagePath(String path, String imageTitle) {
+        return host+apiVersion+"/"+path+"/"+imageTitle;
     }
 
 }

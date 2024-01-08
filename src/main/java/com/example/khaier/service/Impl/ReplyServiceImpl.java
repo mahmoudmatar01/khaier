@@ -44,6 +44,6 @@ public class ReplyServiceImpl implements ReplyService {
                 ()->new NotFoundException("Comment with id : "+commentId+" not found!")
         );
         List<Reply>replies=repository.findByComment(comment);
-        return replies.stream().map(reply -> toReplyResponseDtoMapper.apply(reply)).toList();
+        return replies.stream().map(toReplyResponseDtoMapper::apply).toList();
     }
 }

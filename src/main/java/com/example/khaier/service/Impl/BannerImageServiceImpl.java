@@ -2,6 +2,7 @@ package com.example.khaier.service.Impl;
 
 import com.example.khaier.entity.banner.BannerImage;
 import com.example.khaier.repository.banner.BannerImageRepository;
+import com.example.khaier.utils.ImageUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +16,7 @@ import static com.example.khaier.utils.ImageUtils.*;
 @RequiredArgsConstructor
 public class BannerImageServiceImpl {
     private final BannerImageRepository bannerImageRepository;
+    private final ImageUtils imageUtils;
     public BannerImage uploadImage(MultipartFile file) throws IOException {
         String uniqueImageTitle=generateUniqueImageTitle(file.getOriginalFilename());
         BannerImage bannerImage =BannerImage.builder()
@@ -31,6 +33,6 @@ public class BannerImageServiceImpl {
         return decompressImage(bannerImage.getData());
     }
     public String generateUrl(String title){
-        return "localhost:5920/api/v1/banner/image/"+ title ;
+        return  imageUtils.generateImagePath("banner/image",title);
     }
 }

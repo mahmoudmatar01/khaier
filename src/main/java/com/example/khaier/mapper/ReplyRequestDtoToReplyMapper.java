@@ -18,13 +18,16 @@ public class ReplyRequestDtoToReplyMapper implements Function<ReplyRequestDto, R
     private final CommentRepository commentRepository;
     @Override
     public Reply apply(ReplyRequestDto replyRequestDto) {
-        Comment comment=commentRepository.findById(replyRequestDto.commentId()).orElseThrow(
-                ()-> new NotFoundException("Comment with id : "+replyRequestDto.commentId()+" not found")
-        );
         return Reply.builder()
                 .date(LocalDateTime.now())
                 .content(replyRequestDto.content())
-                .comment(comment)
+                .comment(getComment(replyRequestDto.commentId()))
                 .build();
+    }
+
+    private Comment getComment(Long commentId){
+        return commentRepository.findById(commentId).orElseThrow(
+                ()-> new NotFoundException("Comment with id : "+commentId+" not found")
+        );
     }
 }

@@ -19,15 +19,19 @@ public class UserRegisterDtoToUserMapper implements Function<UserRegistrationReq
     private final UserImageServiceImpl userImageService;
     @Override
     public User apply(UserRegistrationRequestDto userRegistrationDto) {
+        return apply(userRegistrationDto,Role.ROLE_USER);
+    }
+
+    public User apply(UserRegistrationRequestDto adminRequestDto,Role role) {
         try{
-            UserImage userImage = userImageService.uploadImage(userRegistrationDto.image());
+            UserImage userImage = userImageService.uploadImage(adminRequestDto.image());
             return User.builder()
-                    .email(userRegistrationDto.email())
-                    .username(userRegistrationDto.username())
-                    .userRole(Role.ROLE_USER)
-                    .userGender(userRegistrationDto.userGender())
-                    .password(passwordEncoder.encode(userRegistrationDto.password()))
-                    .phone(userRegistrationDto.userPhone())
+                    .email(adminRequestDto.email())
+                    .username(adminRequestDto.username())
+                    .userRole(role)
+                    .userGender(adminRequestDto.userGender())
+                    .password(passwordEncoder.encode(adminRequestDto.password()))
+                    .phone(adminRequestDto.userPhone())
                     .userImage(userImage)
                     .userImageUrl(userImage.getUrl())
                     .build();
@@ -35,6 +39,5 @@ public class UserRegisterDtoToUserMapper implements Function<UserRegistrationReq
         catch (IOException exception){
             throw new RuntimeException(exception.getMessage());
         }
-
     }
 }

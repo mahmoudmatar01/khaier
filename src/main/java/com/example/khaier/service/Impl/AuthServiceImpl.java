@@ -4,9 +4,8 @@ import com.example.khaier.dto.request.UserLoginRequestDto;
 import com.example.khaier.dto.request.UserRegistrationRequestDto;
 import com.example.khaier.dto.response.UserRegisterResponseDto;
 import com.example.khaier.entity.user.User;
-import com.example.khaier.exceptions.PasswordMismatchException;
-import com.example.khaier.exceptions.EmailAlreadyExistException;
-import com.example.khaier.mapper.AdminRegisterDtoToAdmin;
+import com.example.khaier.enums.Role;
+import com.example.khaier.helper.UserHelper;
 import com.example.khaier.mapper.UserRegisterDtoToUserMapper;
 import com.example.khaier.mapper.UserToUserResponseDtoMapper;
 import com.example.khaier.repository.user.UserRepository;
@@ -16,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 
 @Service
@@ -24,15 +22,15 @@ import org.webjars.NotFoundException;
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
+    private final UserHelper userHelper;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenUtils jwtTokenUtils;
     private final UserRegisterDtoToUserMapper userRegisterDtoToUserMapper;
     private final UserToUserResponseDtoMapper userResponseDtoMapper;
-    private final AdminRegisterDtoToAdmin adminRegisterDtoToAdmin;
 
     @Override
     public UserRegisterResponseDto registerUser(UserRegistrationRequestDto registerRequest) {
-        checkUser(registerRequest);
+        userHelper.checkUserExistAndPasswordEqualAfterRegister(registerRequest);
         User user = userRegisterDtoToUserMapper.apply(registerRequest);
         userRepository.save(user);
         return userResponseDtoMapper.apply(user);
@@ -40,34 +38,26 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserRegisterResponseDto registerAdmin(UserRegistrationRequestDto adminDto) {
-        checkUser(adminDto);
-        User user = adminRegisterDtoToAdmin.apply(adminDto);
+        userHelper.checkUserExistAndPasswordEqualAfterRegister(adminDto);
+        User user = userRegisterDtoToUserMapper.apply(adminDto, Role.ROLE_ADMIN);
         userRepository.save(user);
         return userResponseDtoMapper.apply(user);
     }
     @Override
     public String loginUser(UserLoginRequestDto loginRequest) {
-        User user = userRepository.findByEmail(loginRequest.email())
-                .orElseThrow(() -> new NotFoundException("User not found with email: " + loginRequest.email()));
-
-        if (!passwordEncoder.matches(loginRequest.password(), user.getPassword())) {
-            throw new BadCredentialsException("Invalid password");
-        }
-        String jwtToken = jwtTokenUtils.generateToken(user, "loginToken");
+        User user = userHelper.checkUserIsExistOrByEmailThrowException(loginRequest.email());
+        checkPasswordsMatch(loginRequest.password(), user.getPassword());
+        String jwtToken = jwtTokenUtils.generateToken(user);
         user.setAccessToken(jwtToken);
-        userRepository.save(user);
-
+        user=userRepository.save(user);
         return user.getAccessToken();
     }
 
-    private void checkUser(UserRegistrationRequestDto adminDto) {
-        if (userRepository.existsByEmail(adminDto.email())) {
-            throw new EmailAlreadyExistException("Email address already exists.");
-        }
-        if(!adminDto.password().equals(adminDto.confirmPassword())){
-            throw new PasswordMismatchException("The passwords entered don't match. Please try again.");
-        }
-    }
+  private void checkPasswordsMatch(String pass1,String pass2){
+      if (!passwordEncoder.matches(pass1, pass2)) {
+          throw new BadCredentialsException("Invalid password");
+      }
+  }
 
 }
 

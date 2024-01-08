@@ -1,6 +1,9 @@
 package com.example.khaier.helper;
 
+import com.example.khaier.dto.request.UserRegistrationRequestDto;
 import com.example.khaier.entity.user.User;
+import com.example.khaier.exceptions.EmailAlreadyExistException;
+import com.example.khaier.exceptions.PasswordMismatchException;
 import com.example.khaier.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,10 +15,21 @@ public class UserHelper {
 
     private final UserRepository userRepository;
     public User checkUserIsExistOrThrowException(Long userId){
-        User user=userRepository.findById(userId).orElseThrow(
+        return userRepository.findById(userId).orElseThrow(
                 ()-> new NotFoundException("user with id : "+userId+" not found!")
         );
-        return user;
+    }
+    public User checkUserIsExistOrByEmailThrowException(String email){
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("User not found with email: " + email));
     }
 
+    public void checkUserExistAndPasswordEqualAfterRegister(UserRegistrationRequestDto adminDto) {
+        if (userRepository.existsByEmail(adminDto.email())) {
+            throw new EmailAlreadyExistException("Email address already exists.");
+        }
+        if(!adminDto.password().equals(adminDto.confirmPassword())){
+            throw new PasswordMismatchException("The passwords entered don't match. Please try again.");
+        }
+    }
 }

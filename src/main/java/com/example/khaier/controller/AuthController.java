@@ -20,7 +20,7 @@ public class AuthController {
     private final SuccessResponseFactory200 responseFactory;
     private final UserImageServiceImpl userImageService;
 
-    @PostMapping(value= "/register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value= "/user/register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> registerUser(@ModelAttribute UserRegistrationRequestDto registerRequest) {
 
         var registeredUser = authService.registerUser(registerRequest);
