@@ -12,8 +12,13 @@ import com.example.khaier.repository.post.PostRepository;
 import com.example.khaier.service.PostService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -26,9 +31,12 @@ public class PostServiceImpl implements PostService {
     private final UserHelper userHelper;
     private final PostHelper postHelper;
     @Override
-    public List<PostResponseDto> getAllPosts(Long userId) {
-        List<Post> posts = postRepository.findAll();
-        return posts.stream().map(post->postToPostResponseDtoMapper.apply(post,userId)).toList();
+    public List<PostResponseDto> getAllPosts(Long userId, Pageable pageable) {
+        Page<Post> posts = postRepository.findAll(pageable);
+        return posts.getContent()
+                .stream()
+                .map(post -> postToPostResponseDtoMapper.apply(post, userId))
+                .toList();
     }
 
     @Override

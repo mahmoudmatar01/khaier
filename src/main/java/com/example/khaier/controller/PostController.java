@@ -6,6 +6,10 @@ import com.example.khaier.factory.impl.SuccessResponseFactory200;
 import com.example.khaier.service.Impl.PostImageService;
 import com.example.khaier.service.Impl.PostServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +25,13 @@ public class PostController {
     private final PostServiceImpl postService;
     private final PostImageService postImageService;
     private final SuccessResponseFactory200 responseFactory;
+    @Value("${page.size}")
+    private int pageSize;
+
     @GetMapping("/{userId}")
-    public ResponseEntity<?> getPosts(@PathVariable Long userId){
-        List<PostResponseDto> response = postService.getAllPosts(userId);
+    public ResponseEntity<?> getPosts(@PathVariable Long userId, @RequestParam(defaultValue = "0") int page){
+        Pageable pageable = PageRequest.of(page, pageSize);
+        List<PostResponseDto> response = postService.getAllPosts(userId, pageable);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Posts returned successfully "));
     }
