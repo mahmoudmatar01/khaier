@@ -36,7 +36,7 @@ public class Post {
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Comment> comments;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<PostImage> images;
 
 }
