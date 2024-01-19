@@ -2,10 +2,10 @@ package com.example.khaier.service.Impl;
 
 import com.example.khaier.dto.request.ChangePasswordRequestDto;
 import com.example.khaier.dto.response.UserInfoResponseDto;
-import com.example.khaier.entity.user.User;
+import com.example.khaier.entity.User;
 import com.example.khaier.exceptions.BadRequestException;
 import com.example.khaier.helper.UserHelper;
-import com.example.khaier.repository.user.UserRepository;
+import com.example.khaier.repository.UserRepository;
 import com.example.khaier.security.JwtTokenUtils;
 import com.example.khaier.service.UserService;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,8 @@
 package com.example.khaier.mapper;
 
 import com.example.khaier.dto.response.PostResponseDto;
-import com.example.khaier.entity.post.Post;
-import com.example.khaier.entity.post.PostImage;
+import com.example.khaier.entity.Post;
+import com.example.khaier.entity.PostImage;
 import com.example.khaier.helper.LikeHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

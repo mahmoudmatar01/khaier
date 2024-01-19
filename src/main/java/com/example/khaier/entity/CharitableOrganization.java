@@ -20,6 +20,16 @@ public class CharitableOrganization {
     private Long orgId;
     private String orgName;
     private String description;
+    private String location;
+    private String facebookUrl;
+    private String instagramUrl;
+    private String orgPhoneNumber;
+    private String orgWhatsappNumber;
+
+    @OneToOne
+    @JoinColumn(name = "Charity_image")
+    private CharitableOrgImage charitableOrgImage;
+
     @OneToMany(mappedBy = "charitableOrganization")
     private List<DonationCategories> donationCategories;
 

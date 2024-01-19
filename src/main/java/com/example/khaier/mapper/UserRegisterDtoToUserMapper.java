@@ -1,8 +1,8 @@
 package com.example.khaier.mapper;
 
 import com.example.khaier.dto.request.UserRegistrationRequestDto;
-import com.example.khaier.entity.user.User;
-import com.example.khaier.entity.user.UserImage;
+import com.example.khaier.entity.User;
+import com.example.khaier.entity.UserImage;
 import com.example.khaier.enums.Role;
 import com.example.khaier.service.Impl.UserImageServiceImpl;
 import lombok.RequiredArgsConstructor;

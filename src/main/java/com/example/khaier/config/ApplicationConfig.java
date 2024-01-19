@@ -1,6 +1,6 @@
 package com.example.khaier.config;
 
-import com.example.khaier.repository.user.UserRepository;
+import com.example.khaier.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

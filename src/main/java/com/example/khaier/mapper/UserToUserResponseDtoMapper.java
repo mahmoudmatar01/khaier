@@ -1,7 +1,7 @@
 package com.example.khaier.mapper;
 
 import com.example.khaier.dto.response.UserRegisterResponseDto;
-import com.example.khaier.entity.user.User;
+import com.example.khaier.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;

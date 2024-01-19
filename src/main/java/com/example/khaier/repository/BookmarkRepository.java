@@ -1,7 +1,7 @@
 package com.example.khaier.repository;
 
 import com.example.khaier.entity.Bookmark;
-import com.example.khaier.entity.user.User;
+import com.example.khaier.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

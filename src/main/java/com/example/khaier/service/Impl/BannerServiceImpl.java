@@ -2,14 +2,14 @@ package com.example.khaier.service.Impl;
 
 import com.example.khaier.dto.request.BannerRequestDto;
 import com.example.khaier.dto.response.BannerResponseDto;
-import com.example.khaier.entity.banner.Banner;
-import com.example.khaier.entity.user.User;
+import com.example.khaier.entity.Banner;
+import com.example.khaier.entity.User;
 import com.example.khaier.enums.Role;
 import com.example.khaier.exceptions.BadRequestException;
 import com.example.khaier.helper.UserHelper;
 import com.example.khaier.mapper.BannerRequestDtoToBanner;
 import com.example.khaier.mapper.BannerToBannerResponseDto;
-import com.example.khaier.repository.banner.BannerRepository;
+import com.example.khaier.repository.BannerRepository;
 import com.example.khaier.service.BannerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,10 @@
 package com.example.khaier.helper;
 
 import com.example.khaier.dto.request.UserRegistrationRequestDto;
-import com.example.khaier.entity.user.User;
+import com.example.khaier.entity.User;
 import com.example.khaier.exceptions.EmailAlreadyExistException;
 import com.example.khaier.exceptions.PasswordMismatchException;
-import com.example.khaier.repository.user.UserRepository;
+import com.example.khaier.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.webjars.NotFoundException;

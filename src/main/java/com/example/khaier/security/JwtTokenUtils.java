@@ -1,7 +1,7 @@
 package com.example.khaier.security;
 
 import com.example.khaier.dto.response.UserInfoResponseDto;
-import com.example.khaier.entity.user.User;
+import com.example.khaier.entity.User;
 import com.example.khaier.enums.Gender;
 import com.example.khaier.enums.Role;
 import io.jsonwebtoken.Claims;

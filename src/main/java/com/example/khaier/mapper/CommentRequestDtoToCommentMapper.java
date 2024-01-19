@@ -2,8 +2,8 @@ package com.example.khaier.mapper;
 
 import com.example.khaier.dto.request.CommentRequestDto;
 import com.example.khaier.entity.Comment;
-import com.example.khaier.entity.post.Post;
-import com.example.khaier.repository.post.PostRepository;
+import com.example.khaier.entity.Post;
+import com.example.khaier.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.webjars.NotFoundException;

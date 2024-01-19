@@ -2,8 +2,8 @@ package com.example.khaier.service.Impl;
 
 import com.example.khaier.dto.response.PostResponseDto;
 import com.example.khaier.entity.Bookmark;
-import com.example.khaier.entity.post.Post;
-import com.example.khaier.entity.user.User;
+import com.example.khaier.entity.Post;
+import com.example.khaier.entity.User;
 import com.example.khaier.helper.PostHelper;
 import com.example.khaier.helper.UserHelper;
 import com.example.khaier.mapper.PostToPostResponseDtoMapper;

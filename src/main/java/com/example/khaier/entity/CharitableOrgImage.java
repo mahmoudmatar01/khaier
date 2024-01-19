@@ -1,4 +1,4 @@
-package com.example.khaier.entity.banner;
+package com.example.khaier.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,12 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "banner_image")
-@Builder
-@AllArgsConstructor
+@Table(name = "charitable_organizations-image")
 @Data
+@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class BannerImage {
+public class CharitableOrgImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,5 +20,4 @@ public class BannerImage {
     private byte[] data;
     private String title;
     private String url;
-
 }

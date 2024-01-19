@@ -1,8 +1,5 @@
-package com.example.khaier.entity.post;
+package com.example.khaier.entity;
 
-import com.example.khaier.entity.Comment;
-import com.example.khaier.entity.Like;
-import com.example.khaier.entity.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
 package com.example.khaier.mapper;
 
 import com.example.khaier.dto.response.BannerResponseDto;
-import com.example.khaier.entity.banner.Banner;
+import com.example.khaier.entity.Banner;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package com.example.khaier.helper;
 
-import com.example.khaier.entity.post.Post;
-import com.example.khaier.repository.post.PostRepository;
+import com.example.khaier.entity.Post;
+import com.example.khaier.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.webjars.NotFoundException;

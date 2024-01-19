@@ -1,8 +1,5 @@
-package com.example.khaier.entity.user;
+package com.example.khaier.entity;
 
-import com.example.khaier.entity.Comment;
-import com.example.khaier.entity.post.Post;
-import com.example.khaier.entity.Reply;
 import com.example.khaier.enums.Gender;
 import com.example.khaier.enums.Role;
 import jakarta.persistence.*;

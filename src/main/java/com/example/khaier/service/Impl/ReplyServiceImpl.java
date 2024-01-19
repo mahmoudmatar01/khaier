@@ -4,7 +4,7 @@ import com.example.khaier.dto.request.ReplyRequestDto;
 import com.example.khaier.dto.response.ReplyResponseDto;
 import com.example.khaier.entity.Comment;
 import com.example.khaier.entity.Reply;
-import com.example.khaier.entity.user.User;
+import com.example.khaier.entity.User;
 import com.example.khaier.helper.UserHelper;
 import com.example.khaier.mapper.ReplyRequestDtoToReplyMapper;
 import com.example.khaier.mapper.ReplyToReplyResponseDtoMapper;

@@ -1,4 +1,4 @@
-package com.example.khaier.entity.user;
+package com.example.khaier.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,6 +1,6 @@
-package com.example.khaier.repository.post;
+package com.example.khaier.repository;
 
-import com.example.khaier.entity.post.PostImage;
+import com.example.khaier.entity.PostImage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

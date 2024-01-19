@@ -1,4 +1,4 @@
-package com.example.khaier.entity.post;
+package com.example.khaier.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

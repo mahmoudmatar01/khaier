@@ -1,7 +1,7 @@
 package com.example.khaier.service.Impl;
 
-import com.example.khaier.entity.user.UserImage;
-import com.example.khaier.repository.user.UserImageRepository;
+import com.example.khaier.entity.UserImage;
+import com.example.khaier.repository.UserImageRepository;
 import com.example.khaier.utils.ImageUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
