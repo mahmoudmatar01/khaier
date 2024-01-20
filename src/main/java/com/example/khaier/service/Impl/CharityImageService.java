@@ -1,7 +1,9 @@
 package com.example.khaier.service.Impl;
 
+import com.example.khaier.entity.BannerImage;
 import com.example.khaier.entity.CharitableOrgImage;
 import com.example.khaier.repository.CharityImageRepository;
+import com.example.khaier.service.ImageService;
 import com.example.khaier.utils.ImageUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,28 +16,37 @@ import static com.example.khaier.utils.ImageUtils.*;
 
 @Service
 @RequiredArgsConstructor
-public class CharityImageService {
+public class CharityImageService implements ImageService<CharitableOrgImage> {
 
     private final CharityImageRepository charityImageRepository;
     private final ImageUtils imageUtils;
+
+    @Override
     public CharitableOrgImage uploadImage(MultipartFile file) throws IOException {
         String uniqueImageTitle=generateUniqueImageTitle(file.getOriginalFilename());
-        CharitableOrgImage charitableOrgImage =CharitableOrgImage.builder()
-                .title(uniqueImageTitle)
-                .type(file.getContentType())
-                .data(compressImage(file.getBytes()))
-                .url(generateUrl(uniqueImageTitle))
-                .build();
+        CharitableOrgImage charitableOrgImage =createImage(uniqueImageTitle,file);
         charitableOrgImage= charityImageRepository.save(charitableOrgImage);
         return charitableOrgImage;
     }
+
+    @Override
     public byte[] downloadImage(String title){
         CharitableOrgImage postImage = charityImageRepository.findByTitle(title).orElseThrow(()->
                 new NotFoundException("Image with title:" + title + " is not found"));
         return decompressImage(postImage.getData());
     }
+    @Override
     public String generateUrl(String title){
         return  imageUtils.generateImagePath("charity/image",title);
 
+    }
+
+    private CharitableOrgImage createImage(String uniqueImageTitle, MultipartFile file) throws IOException {
+        return CharitableOrgImage.builder()
+                .title(uniqueImageTitle)
+                .type(file.getContentType())
+                .data(compressImage(file.getBytes()))
+                .url(generateUrl(uniqueImageTitle))
+                .build();
     }
 }
