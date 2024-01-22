@@ -39,12 +39,12 @@ public class UserImageServiceImpl implements ImageService<UserImage> {
     }
 
     private UserImage createImage(String uniqueImageTitle, MultipartFile file) throws IOException {
-        return UserImage.builder()
-                .title(uniqueImageTitle)
-                .type(file.getContentType())
-                .data(compressImage(file.getBytes()))
-                .url(generateUrl(uniqueImageTitle))
-                .build();
+        UserImage userImage=new UserImage();
+        userImage.setData(compressImage(file.getBytes()));
+        userImage.setTitle(uniqueImageTitle);
+        userImage.setUrl(generateUrl(uniqueImageTitle));
+        userImage.setType(file.getContentType());
+        return userImage;
     }
 
 }

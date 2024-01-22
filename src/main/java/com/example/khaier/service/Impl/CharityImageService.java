@@ -42,11 +42,11 @@ public class CharityImageService implements ImageService<CharitableOrgImage> {
     }
 
     private CharitableOrgImage createImage(String uniqueImageTitle, MultipartFile file) throws IOException {
-        return CharitableOrgImage.builder()
-                .title(uniqueImageTitle)
-                .type(file.getContentType())
-                .data(compressImage(file.getBytes()))
-                .url(generateUrl(uniqueImageTitle))
-                .build();
+        CharitableOrgImage charitableOrgImage=new CharitableOrgImage();
+        charitableOrgImage.setData(compressImage(file.getBytes()));
+        charitableOrgImage.setTitle(uniqueImageTitle);
+        charitableOrgImage.setUrl(generateUrl(uniqueImageTitle));
+        charitableOrgImage.setType(file.getContentType());
+        return charitableOrgImage;
     }
 }

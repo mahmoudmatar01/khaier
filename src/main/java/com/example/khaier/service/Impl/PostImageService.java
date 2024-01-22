@@ -40,11 +40,11 @@ public class PostImageService implements ImageService<PostImage> {
 
     }
     private PostImage createImage(String uniqueImageTitle, MultipartFile file) throws IOException {
-        return PostImage.builder()
-                .title(uniqueImageTitle)
-                .type(file.getContentType())
-                .data(compressImage(file.getBytes()))
-                .url(generateUrl(uniqueImageTitle))
-                .build();
+        PostImage postImage=new PostImage();
+        postImage.setData(compressImage(file.getBytes()));
+        postImage.setTitle(uniqueImageTitle);
+        postImage.setUrl(generateUrl(uniqueImageTitle));
+        postImage.setType(file.getContentType());
+        return postImage;
     }
 }

@@ -37,11 +37,11 @@ public class BannerImageServiceImpl implements ImageService<BannerImage> {
     }
 
     private BannerImage createImage(String uniqueImageTitle, MultipartFile file) throws IOException {
-        return BannerImage.builder()
-                .title(uniqueImageTitle)
-                .type(file.getContentType())
-                .data(compressImage(file.getBytes()))
-                .url(generateUrl(uniqueImageTitle))
-                .build();
+        BannerImage bannerImage= new BannerImage();
+        bannerImage.setData(compressImage(file.getBytes()));
+        bannerImage.setTitle(uniqueImageTitle);
+        bannerImage.setUrl(generateUrl(uniqueImageTitle));
+        bannerImage.setType(file.getContentType());
+        return bannerImage;
     }
 }
