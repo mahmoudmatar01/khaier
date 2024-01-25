@@ -1,7 +1,7 @@
 package com.example.khaier.mapper;
 
-import com.example.khaier.dto.response.DonationCampaignResponseDto;
-import com.example.khaier.entity.DonationCampaign;
+import com.example.khaier.dto.response.CampaignResponseDto;
+import com.example.khaier.entity.Campaign;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -11,10 +11,10 @@ import java.util.function.Function;
 
 @Component
 @Repository
-public class CampaignToCampaignResponseDtoMapper implements Function<DonationCampaign, DonationCampaignResponseDto> {
+public class CampaignToCampaignResponseDtoMapper implements Function<Campaign, CampaignResponseDto> {
     @Override
-    public DonationCampaignResponseDto apply(DonationCampaign donationCampaign) {
-        return DonationCampaignResponseDto.builder()
+    public CampaignResponseDto apply(Campaign donationCampaign) {
+        return CampaignResponseDto.builder()
                 .campaignId(donationCampaign.getCampaignId())
                 .campaignName(donationCampaign.getCampaignName())
                 .campaignAdditionalName(donationCampaign.getCampaignAdditionalName())

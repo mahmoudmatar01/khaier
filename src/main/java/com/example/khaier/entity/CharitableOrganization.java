@@ -34,7 +34,7 @@ public class CharitableOrganization {
     private List<DonationCategories> donationCategories;
 
     @OneToMany(mappedBy = "charitableOrganization")
-    private List<DonationCampaign> donationCampaigns;
+    private List<Campaign> donationCampaigns;
 
     @OneToMany(mappedBy = "charitableOrganization")
     private List<InKindDonation> inKindDonations;

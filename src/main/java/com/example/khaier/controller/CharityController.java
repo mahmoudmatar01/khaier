@@ -1,21 +1,14 @@
 package com.example.khaier.controller;
 
 import com.example.khaier.dto.request.CharityRequestDto;
-import com.example.khaier.dto.request.CharityResponseDto;
-import com.example.khaier.dto.request.PostRequestDto;
-import com.example.khaier.dto.response.PostResponseDto;
 import com.example.khaier.factory.impl.SuccessResponseFactory200;
 import com.example.khaier.service.CharityService;
 import com.example.khaier.service.Impl.CharityImageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/charity")

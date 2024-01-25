@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 
 @Builder
-public record DonationCampaignRequestDto(
+public record CampaignRequestDto(
        @NotBlank Long charityId,
        @NotBlank String campaignName,
        @NotBlank String campaignAdditionalName,

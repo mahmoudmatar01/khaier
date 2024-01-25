@@ -1,7 +1,7 @@
 package com.example.khaier.service;
 
 import com.example.khaier.dto.request.CharityRequestDto;
-import com.example.khaier.dto.request.CharityResponseDto;
+import com.example.khaier.dto.response.CharityResponseDto;
 
 import java.util.List;
 

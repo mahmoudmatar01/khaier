@@ -1,4 +1,4 @@
-package com.example.khaier.dto.request;
+package com.example.khaier.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;

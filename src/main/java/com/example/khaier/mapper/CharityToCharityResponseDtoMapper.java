@@ -1,6 +1,6 @@
 package com.example.khaier.mapper;
 
-import com.example.khaier.dto.request.CharityResponseDto;
+import com.example.khaier.dto.response.CharityResponseDto;
 import com.example.khaier.entity.CharitableOrganization;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

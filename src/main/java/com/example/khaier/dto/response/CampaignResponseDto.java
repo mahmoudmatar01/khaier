@@ -4,10 +4,9 @@ package com.example.khaier.dto.response;
 import lombok.Builder;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 
 @Builder
-public record DonationCampaignResponseDto(
+public record CampaignResponseDto(
         Long campaignId,
         String campaignName,
         String campaignAdditionalName,

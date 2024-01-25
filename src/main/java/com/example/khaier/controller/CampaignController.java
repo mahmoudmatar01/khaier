@@ -1,6 +1,6 @@
 package com.example.khaier.controller;
 
-import com.example.khaier.dto.request.DonationCampaignRequestDto;
+import com.example.khaier.dto.request.CampaignRequestDto;
 import com.example.khaier.factory.impl.SuccessResponseFactory200;
 import com.example.khaier.service.CampaignService;
 import com.example.khaier.service.Impl.CampaignImageService;
@@ -26,7 +26,7 @@ public class CampaignController {
                 .body(responseFactory.createResponse(response,"Campaigns returned successfully "));
     }
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> savePost(@ModelAttribute DonationCampaignRequestDto campaignRequestDto){
+    public ResponseEntity<?> savePost(@ModelAttribute CampaignRequestDto campaignRequestDto){
         campaignService.saveCampaign(campaignRequestDto);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(null,"Campaign data saved successfully"));

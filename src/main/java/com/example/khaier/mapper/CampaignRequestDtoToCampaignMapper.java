@@ -1,9 +1,9 @@
 package com.example.khaier.mapper;
 
-import com.example.khaier.dto.request.DonationCampaignRequestDto;
+import com.example.khaier.dto.request.CampaignRequestDto;
 import com.example.khaier.entity.CampaignImage;
 import com.example.khaier.entity.CharitableOrganization;
-import com.example.khaier.entity.DonationCampaign;
+import com.example.khaier.entity.Campaign;
 import com.example.khaier.repository.CharityRepository;
 import com.example.khaier.service.Impl.CampaignImageService;
 import lombok.RequiredArgsConstructor;
@@ -16,14 +16,14 @@ import java.util.function.Function;
 
 @Component
 @RequiredArgsConstructor
-public class CampaignRequestDtoToCampaignMapper implements Function<DonationCampaignRequestDto, DonationCampaign> {
+public class CampaignRequestDtoToCampaignMapper implements Function<CampaignRequestDto, Campaign> {
     private final CampaignImageService campaignImageService;
     private final CharityRepository charityRepository;
     @Override
-    public DonationCampaign apply(DonationCampaignRequestDto donationCampaignRequestDto) {
+    public Campaign apply(CampaignRequestDto donationCampaignRequestDto) {
         CharitableOrganization charitableOrganization=findCharity(donationCampaignRequestDto.charityId());
         CampaignImage image=uploadImage(donationCampaignRequestDto.image());
-        return DonationCampaign.builder()
+        return Campaign.builder()
                 .campaignName(donationCampaignRequestDto.campaignName())
                 .campaignDescription(donationCampaignRequestDto.campaignDescription())
                 .campaignAdditionalName(donationCampaignRequestDto.campaignAdditionalName())

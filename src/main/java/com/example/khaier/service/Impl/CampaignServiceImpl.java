@@ -1,8 +1,8 @@
 package com.example.khaier.service.Impl;
 
-import com.example.khaier.dto.request.DonationCampaignRequestDto;
-import com.example.khaier.dto.response.DonationCampaignResponseDto;
-import com.example.khaier.entity.DonationCampaign;
+import com.example.khaier.dto.request.CampaignRequestDto;
+import com.example.khaier.dto.response.CampaignResponseDto;
+import com.example.khaier.entity.Campaign;
 import com.example.khaier.mapper.CampaignRequestDtoToCampaignMapper;
 import com.example.khaier.mapper.CampaignToCampaignResponseDtoMapper;
 import com.example.khaier.repository.CampaignRepository;
@@ -20,14 +20,14 @@ public class CampaignServiceImpl implements CampaignService {
     private final CampaignRequestDtoToCampaignMapper toCampaignMapper;
     private final CampaignToCampaignResponseDtoMapper toCampaignResponseDtoMapper;
     @Override
-    public void saveCampaign(DonationCampaignRequestDto requestDto) {
-        DonationCampaign campaign=toCampaignMapper.apply(requestDto);
+    public void saveCampaign(CampaignRequestDto requestDto) {
+        Campaign campaign=toCampaignMapper.apply(requestDto);
         campaignRepository.save(campaign);
     }
 
     @Override
-    public List<DonationCampaignResponseDto> findAllCampaigns() {
-        List<DonationCampaign>campaigns=campaignRepository.findAll();
+    public List<CampaignResponseDto> findAllCampaigns() {
+        List<Campaign>campaigns=campaignRepository.findAll();
         return campaigns.stream().map(toCampaignResponseDtoMapper).toList();
     }
 }

@@ -1,7 +1,7 @@
 package com.example.khaier.service.Impl;
 
 import com.example.khaier.dto.request.CharityRequestDto;
-import com.example.khaier.dto.request.CharityResponseDto;
+import com.example.khaier.dto.response.CharityResponseDto;
 import com.example.khaier.entity.CharitableOrganization;
 import com.example.khaier.entity.User;
 import com.example.khaier.enums.Role;
