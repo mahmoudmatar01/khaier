@@ -20,11 +20,18 @@ public class DonationCampaign {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long campaignId;
     private String campaignName;
-    private LocalDateTime startDay;
-    private LocalDateTime endDay;
+    private String campaignAdditionalName;
+    private String campaignDescription;
+    private LocalDateTime campaignEndDay;
+    private Long numberOfBeneficiaries;
+    private double amountRequired;
 
     @ManyToOne
     @JoinColumn(name = "org_id")
     private CharitableOrganization charitableOrganization;
+
+    @OneToOne
+    @JoinColumn(name = "campaign-image-id")
+    private CampaignImage campaignImage;
 
 }
