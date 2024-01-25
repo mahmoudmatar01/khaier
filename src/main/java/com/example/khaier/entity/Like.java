@@ -19,6 +19,7 @@ public class Like {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long likeId;
     private LocalDateTime date;
+    // TODO : this column is useless, if there is no like the row will be deleted from table
     private boolean isLiked;
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -45,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
     }
     @Override
     public String loginUser(UserLoginRequestDto loginRequest) {
-        User user = userHelper.checkUserIsExistOrByEmailThrowException(loginRequest.email());
+        User user = userHelper.findUserByEmailOrThrowNotFoundException(loginRequest.email());
         checkPasswordsMatch(loginRequest.password(), user.getPassword());
         String jwtToken = jwtTokenUtils.generateToken(user);
         user.setAccessToken(jwtToken);

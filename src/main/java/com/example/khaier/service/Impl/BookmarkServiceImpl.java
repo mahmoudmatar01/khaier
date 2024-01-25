@@ -28,8 +28,8 @@ public class BookmarkServiceImpl implements BookmarkService {
 
     @Override
     public void savePostToBookmark(Long userId, Long postId) {
-        User user=userHelper.checkUserIsExistOrThrowException(userId);
-        Post post=postHelper.checkPostExistOrThrowException(postId);
+        User user=userHelper.findUserByIdOrThrowNotFoundException(userId);
+        Post post=postHelper.findPostByIdOrThrowNotFound(postId);
         Bookmark bookmark=Bookmark.
                 builder()
                 .date(LocalDateTime.now())
@@ -41,7 +41,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 
     @Override
     public List<PostResponseDto> getBookmarkedPosts(Long userId) {
-        User user=userHelper.checkUserIsExistOrThrowException(userId);
+        User user=userHelper.findUserByIdOrThrowNotFoundException(userId);
         List<Bookmark>bookmarks=bookmarkRepository.findByUser(user);
         List<Post>posts= bookmarks.stream()
                 .map(Bookmark::getPost)

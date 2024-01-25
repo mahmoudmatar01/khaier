@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface LikeRepository extends JpaRepository<Like,Long> {
     boolean existsByPostAndUser(Post post, User user);
-    List<Like>findByPost(Post post);
-    Like findByPostAndUser(Post post, User user);
+    List<Like>findAllByPostPostId(Long postId);
+    Like findByPostPostIdAndUserUserId(Long postId, Long userId);
 }

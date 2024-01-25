@@ -13,7 +13,7 @@ public class LikeHelper {
     private final UserHelper userHelper;
     private final LikeRepository likeRepository;
     public boolean isUserLikedPost(Post post, Long userId) {
-        User user =userHelper.checkUserIsExistOrThrowException(userId);
+        User user =userHelper.findUserByIdOrThrowNotFoundException(userId);
         return likeRepository.existsByPostAndUser(post, user);
     }
 }

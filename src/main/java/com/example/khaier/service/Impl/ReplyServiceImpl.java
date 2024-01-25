@@ -30,7 +30,7 @@ public class ReplyServiceImpl implements ReplyService {
     private final UserHelper userHelper;
     @Override
     public ReplyResponseDto addReply(ReplyRequestDto requestDto, Long userId){
-        User user=userHelper.checkUserIsExistOrThrowException(userId);
+        User user=userHelper.findUserByIdOrThrowNotFoundException(userId);
         Reply reply=toReplyMapper.apply(requestDto);
         reply.setUser(user);
         reply=repository.save(reply);

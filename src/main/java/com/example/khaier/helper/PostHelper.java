@@ -11,8 +11,12 @@ import org.webjars.NotFoundException;
 public class PostHelper {
 
     private final PostRepository postRepository;
-    public Post checkPostExistOrThrowException(Long postId){
+    public Post findPostByIdOrThrowNotFound(Long postId){
         return postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("Post with id : "+postId+" not found!"));
+    }
+
+    public Boolean checkExistenceOfPostById(Long postId){
+        return postRepository.existsByPostId(postId);
     }
 }

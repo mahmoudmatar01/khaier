@@ -40,7 +40,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostResponseDto addNewPost(PostRequestDto postDto,Long userId) {
-        User user=userHelper.checkUserIsExistOrThrowException(userId);
+        User user=userHelper.findUserByIdOrThrowNotFoundException(userId);
         Post post = requestDtoToPostMapper.apply(postDto);
         post.setUser(user);
         post = postRepository.save(post);
@@ -49,7 +49,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostResponseDto getPostById(Long postId,Long userId) {
-        Post post =postHelper.checkPostExistOrThrowException(postId);
+        Post post =postHelper.findPostByIdOrThrowNotFound(postId);
         return postToPostResponseDtoMapper.apply(post,userId);
     }
 }

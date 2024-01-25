@@ -27,7 +27,7 @@ public class CharityServiceImpl implements CharityService {
     private final UserHelper userHelper;
     @Override
     public CharityResponseDto saveCharity(CharityRequestDto requestDto,Long adminId) {
-        User user = userHelper.checkUserIsExistOrThrowException(adminId);
+        User user = userHelper.findUserByIdOrThrowNotFoundException(adminId);
         if(user.getUserRole() != Role.ROLE_ADMIN)
             throw new BadRequestException("User not authorized to get this service");
         CharitableOrganization charity=toCharityMapper.apply(requestDto);

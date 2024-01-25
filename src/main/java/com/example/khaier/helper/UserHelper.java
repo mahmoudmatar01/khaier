@@ -14,12 +14,12 @@ import org.webjars.NotFoundException;
 public class UserHelper {
 
     private final UserRepository userRepository;
-    public User checkUserIsExistOrThrowException(Long userId){
+    public User findUserByIdOrThrowNotFoundException(Long userId){
         return userRepository.findById(userId).orElseThrow(
                 ()-> new NotFoundException("user with id : "+userId+" not found!")
         );
     }
-    public User checkUserIsExistOrByEmailThrowException(String email){
+    public User findUserByEmailOrThrowNotFoundException(String email){
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("User not found with email: " + email));
     }

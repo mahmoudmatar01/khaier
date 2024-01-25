@@ -35,7 +35,7 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public BannerResponseDto save(BannerRequestDto bannerRequest,Long userId) {
-        User user = userHelper.checkUserIsExistOrThrowException(userId);
+        User user = userHelper.findUserByIdOrThrowNotFoundException(userId);
         if(user.getUserRole() != Role.ROLE_ADMIN)
             throw new BadRequestException("User not authorized to get this service");
         Banner banner = bannerRequestMapper.apply(bannerRequest);

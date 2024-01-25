@@ -33,7 +33,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentResponseDto addComment(CommentRequestDto commentRequestDto,Long userId){
-        User user=userHelper.checkUserIsExistOrThrowException(userId);
+        User user=userHelper.findUserByIdOrThrowNotFoundException(userId);
         Comment comment=toCommentMapper.apply(commentRequestDto);
         comment.setUser(user);
         comment=commentRepository.save(comment);
@@ -50,7 +50,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentResponseDto> getCommentsByPostId(Long postId) {
-        Post post=postHelper.checkPostExistOrThrowException(postId);
+        Post post=postHelper.findPostByIdOrThrowNotFound(postId);
         List<Comment>comments=commentRepository.findByPost(post);
         return comments.stream().map(toCommentResponseDtoMapper).toList();
     }

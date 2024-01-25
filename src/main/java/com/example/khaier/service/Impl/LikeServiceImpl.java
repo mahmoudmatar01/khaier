@@ -12,6 +12,7 @@ import com.example.khaier.service.LikeService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,11 +26,12 @@ public class LikeServiceImpl implements LikeService {
     private final PostHelper postHelper;
     private final UserHelper userHelper;
     private final LikeToLikeResponseDtoMapper toLikeResponseDtoMapper;
+
     @Override
     public LikeResponseDto addOrRemoveLike(Long postId, Long userId) {
-        Post post = postHelper.checkPostExistOrThrowException(postId);
-        User user=userHelper.checkUserIsExistOrThrowException(userId);
-        Like existingLike = likeRepository.findByPostAndUser(post, user);
+        Post post = postHelper.findPostByIdOrThrowNotFound(postId);
+        User user = userHelper.findUserByIdOrThrowNotFoundException(userId);
+        Like existingLike = likeRepository.findByPostPostIdAndUserUserId(postId, userId);
         if (existingLike != null) {
             existingLike.setLiked(false);
             likeRepository.delete(existingLike);
@@ -42,7 +44,7 @@ public class LikeServiceImpl implements LikeService {
                     .post(post)
                     .user(user)
                     .build();
-            newLike=likeRepository.save(newLike);
+            newLike = likeRepository.save(newLike);
             post.getLikes().add(newLike);
             return toLikeResponseDtoMapper.apply(newLike);
         }
@@ -50,8 +52,10 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public List<LikeResponseDto> findLikesByPostId(Long postId) {
-        Post post = postHelper.checkPostExistOrThrowException(postId);
-        List<Like>likes=likeRepository.findByPost(post);
+        if (!postHelper.checkExistenceOfPostById(postId)) {
+            throw new NotFoundException("Not Found Post with ID : " + postId);
+        }
+        List<Like> likes = likeRepository.findAllByPostPostId(postId);
         return likes.stream().map(toLikeResponseDtoMapper).toList();
     }
 

@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changePassword(ChangePasswordRequestDto changePasswordRequestDto) {
-        User user=userHelper.checkUserIsExistOrByEmailThrowException(changePasswordRequestDto.email());
+        User user=userHelper.findUserByEmailOrThrowNotFoundException(changePasswordRequestDto.email());
         if(!changePasswordRequestDto.newPassword().equals(changePasswordRequestDto.confirmationPassword())){
             throw new BadCredentialsException("Passwords are not the same!");
         }
