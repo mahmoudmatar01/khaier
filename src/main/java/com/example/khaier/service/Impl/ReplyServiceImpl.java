@@ -2,7 +2,6 @@ package com.example.khaier.service.Impl;
 
 import com.example.khaier.dto.request.ReplyRequestDto;
 import com.example.khaier.dto.response.ReplyResponseDto;
-import com.example.khaier.entity.Comment;
 import com.example.khaier.entity.Reply;
 import com.example.khaier.entity.User;
 import com.example.khaier.helper.UserHelper;
@@ -40,10 +39,10 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public List<ReplyResponseDto> getByCommentId(Long commentId) {
-        Comment comment=commentRepository.findById(commentId).orElseThrow(
+        commentRepository.findById(commentId).orElseThrow(
                 ()->new NotFoundException("Comment with id : "+commentId+" not found!")
         );
-        List<Reply>replies=repository.findByComment(comment);
-        return replies.stream().map(toReplyResponseDtoMapper::apply).toList();
+        List<Reply>replies=repository.findByComment_CommentId(commentId);
+        return replies.stream().map(toReplyResponseDtoMapper).toList();
     }
 }

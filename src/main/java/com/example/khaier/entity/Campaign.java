@@ -7,10 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
-@Table(name = "donation_campaigns")
+@Table(name = "campaigns")
 @Data
 @AllArgsConstructor
 @Builder
@@ -33,5 +36,11 @@ public class Campaign {
     @OneToOne
     @JoinColumn(name = "campaign-image-id")
     private CampaignImage campaignImage;
+
+    @ManyToMany(mappedBy = "campaigns")
+    private List<User> users ;
+
+    @OneToMany(mappedBy = "campaign", fetch = FetchType.EAGER)
+    private List<CampaignDonation> donations ;
 
 }

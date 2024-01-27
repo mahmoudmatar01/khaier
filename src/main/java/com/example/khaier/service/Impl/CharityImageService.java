@@ -1,6 +1,5 @@
 package com.example.khaier.service.Impl;
 
-import com.example.khaier.entity.BannerImage;
 import com.example.khaier.entity.CharitableOrgImage;
 import com.example.khaier.repository.CharityImageRepository;
 import com.example.khaier.service.ImageService;

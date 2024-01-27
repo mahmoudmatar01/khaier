@@ -25,7 +25,7 @@ public class AuthController {
 
         var registeredUser = authService.registerUser(registerRequest);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(responseFactory.createResponse(registeredUser,"User registered successfully "));
+                .body(responseFactory.createResponse(null,"User registered successfully "));
     }
 
     @PostMapping(value= "/admin/register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})

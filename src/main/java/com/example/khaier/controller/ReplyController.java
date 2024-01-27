@@ -15,13 +15,13 @@ public class ReplyController {
     private final ReplyServiceImpl replyService;
 
     @PostMapping("/{userId}")
-    public ResponseEntity<?> savePost(@RequestBody ReplyRequestDto requestDto, @PathVariable Long userId){
+    public ResponseEntity<?> saveReply(@RequestBody ReplyRequestDto requestDto, @PathVariable Long userId){
         var response = replyService.addReply(requestDto,userId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Reply saved successfully "));
     }
     @GetMapping("/comment/{commentId}")
-    public ResponseEntity<?> findByComment(@PathVariable Long commentId){
+    public ResponseEntity<?> findByCommentId(@PathVariable Long commentId){
         var response = replyService.getByCommentId(commentId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Replies returned successfully "));

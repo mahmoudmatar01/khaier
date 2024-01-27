@@ -41,8 +41,8 @@ public class BookmarkServiceImpl implements BookmarkService {
 
     @Override
     public List<PostResponseDto> getBookmarkedPosts(Long userId) {
-        User user=userHelper.findUserByIdOrThrowNotFoundException(userId);
-        List<Bookmark>bookmarks=bookmarkRepository.findByUser(user);
+        userHelper.findUserByIdOrThrowNotFoundException(userId);
+        List<Bookmark>bookmarks=bookmarkRepository.findByUser_UserId(userId);
         List<Post>posts= bookmarks.stream()
                 .map(Bookmark::getPost)
                 .toList();

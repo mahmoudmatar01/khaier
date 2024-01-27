@@ -38,6 +38,6 @@ public class CharityServiceImpl implements CharityService {
     @Override
     public List<CharityResponseDto> getAllCharity() {
         List<CharitableOrganization>charities=charityRepository.findAll();
-        return charities.stream().map(toCharityResponseDtoMapper::apply).toList();
+        return charities.stream().map(toCharityResponseDtoMapper).toList();
     }
 }

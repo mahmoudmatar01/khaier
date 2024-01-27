@@ -3,7 +3,6 @@ package com.example.khaier.service.Impl;
 import com.example.khaier.dto.request.CommentRequestDto;
 import com.example.khaier.dto.response.CommentResponseDto;
 import com.example.khaier.entity.Comment;
-import com.example.khaier.entity.Post;
 import com.example.khaier.entity.User;
 import com.example.khaier.helper.PostHelper;
 import com.example.khaier.helper.UserHelper;
@@ -50,8 +49,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentResponseDto> getCommentsByPostId(Long postId) {
-        Post post=postHelper.findPostByIdOrThrowNotFound(postId);
-        List<Comment>comments=commentRepository.findByPost(post);
+        postHelper.findPostByIdOrThrowNotFound(postId);
+        List<Comment>comments=commentRepository.findByPost_PostId(postId);
         return comments.stream().map(toCommentResponseDtoMapper).toList();
     }
 }

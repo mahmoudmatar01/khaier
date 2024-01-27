@@ -25,7 +25,7 @@ public class CharityController {
                 .body(responseFactory.createResponse(response,"Charities returned successfully "));
     }
     @PostMapping(value = "/{adminId}",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> savePost(@ModelAttribute CharityRequestDto charityRequestDto, @PathVariable Long adminId){
+    public ResponseEntity<?> saveCharity(@ModelAttribute CharityRequestDto charityRequestDto, @PathVariable Long adminId){
         var response = charityService.saveCharity(charityRequestDto,adminId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Charity data saved successfully"));

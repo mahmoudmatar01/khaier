@@ -13,7 +13,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -73,6 +75,16 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "post_id"))
     private List<Post> bookmarks;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_campaigns",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "campaign_id"))
+    private List<Campaign> campaigns;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<CampaignDonation> donations;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

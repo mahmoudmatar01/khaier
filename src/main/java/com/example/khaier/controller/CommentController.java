@@ -19,7 +19,7 @@ public class CommentController {
     private final CommentServiceImpl commentService;
 
     @PostMapping("/{userId}")
-    public ResponseEntity<?> savePost(@RequestBody CommentRequestDto commentRequestDto, @PathVariable Long userId){
+    public ResponseEntity<?> saveComment(@RequestBody CommentRequestDto commentRequestDto, @PathVariable Long userId){
         CommentResponseDto response = commentService.addComment(commentRequestDto,userId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Comment saved successfully "));
@@ -32,7 +32,7 @@ public class CommentController {
     }
 
     @GetMapping("/post/{postId}")
-    public ResponseEntity<?> findByPost(@PathVariable Long postId){
+    public ResponseEntity<?> findByPostId(@PathVariable Long postId){
         List<CommentResponseDto> response = commentService.getCommentsByPostId(postId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Comments returned successfully "));

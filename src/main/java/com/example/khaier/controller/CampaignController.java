@@ -20,13 +20,13 @@ public class CampaignController {
     private final CampaignService campaignService;
 
     @GetMapping
-    public ResponseEntity<?> getAllCharities(){
+    public ResponseEntity<?> getAllCampaigns(){
         var response = campaignService.findAllCampaigns();
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Campaigns returned successfully "));
     }
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> savePost(@ModelAttribute CampaignRequestDto campaignRequestDto){
+    public ResponseEntity<?> saveCampaign(@ModelAttribute CampaignRequestDto campaignRequestDto){
         campaignService.saveCampaign(campaignRequestDto);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(null,"Campaign data saved successfully"));
