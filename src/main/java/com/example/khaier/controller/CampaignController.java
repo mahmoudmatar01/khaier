@@ -19,9 +19,9 @@ public class CampaignController {
     private final SuccessResponseFactory200 responseFactory;
     private final CampaignService campaignService;
 
-    @GetMapping
-    public ResponseEntity<?> getAllCampaigns(){
-        var response = campaignService.findAllCampaigns();
+    @GetMapping("/{charityId}")
+    public ResponseEntity<?> getAllCampaigns(@PathVariable Long charityId){
+        var response = campaignService.findAllCampaigns(charityId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Campaigns returned successfully "));
     }

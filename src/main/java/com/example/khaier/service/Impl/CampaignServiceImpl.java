@@ -26,8 +26,8 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-    public List<CampaignResponseDto> findAllCampaigns() {
-        List<Campaign>campaigns=campaignRepository.findAll();
+    public List<CampaignResponseDto> findAllCampaigns(Long charityId) {
+        List<Campaign>campaigns=campaignRepository.findByCharitableOrganization_OrgId(charityId);
         return campaigns.stream().map(toCampaignResponseDtoMapper).toList();
     }
 }

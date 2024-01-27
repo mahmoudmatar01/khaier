@@ -12,8 +12,8 @@ public class LikeHelper {
 
     private final UserHelper userHelper;
     private final LikeRepository likeRepository;
-    public boolean isUserLikedPost(Post post, Long userId) {
-        User user =userHelper.findUserByIdOrThrowNotFoundException(userId);
-        return likeRepository.existsByPostAndUser(post, user);
+    public boolean isUserLikedPost(Long postId, Long userId) {
+        userHelper.findUserByIdOrThrowNotFoundException(userId);
+        return likeRepository.existsByPost_PostIdAndUser_UserId(postId, userId);
     }
 }

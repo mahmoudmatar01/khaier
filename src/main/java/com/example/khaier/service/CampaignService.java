@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CampaignService {
     void saveCampaign(CampaignRequestDto requestDto);
-    List<CampaignResponseDto> findAllCampaigns();
+    List<CampaignResponseDto> findAllCampaigns(Long charityId);
 }

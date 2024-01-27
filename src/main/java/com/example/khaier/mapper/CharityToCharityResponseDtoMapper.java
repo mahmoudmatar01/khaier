@@ -10,6 +10,8 @@ import java.util.function.Function;
 @Component
 @RequiredArgsConstructor
 public class CharityToCharityResponseDtoMapper implements Function<CharitableOrganization,CharityResponseDto> {
+
+    private final CampaignToCampaignResponseDtoMapper toCampaignResponseDtoMapper;
     @Override
     public CharityResponseDto apply(CharitableOrganization charitableOrganization) {
         return CharityResponseDto
@@ -23,6 +25,7 @@ public class CharityToCharityResponseDtoMapper implements Function<CharitableOrg
                 .instagramPageUrl(charitableOrganization.getInstagramUrl())
                 .whatsappNumber(charitableOrganization.getOrgWhatsappNumber())
                 .phoneNumber(charitableOrganization.getOrgPhoneNumber())
+                .campaigns(charitableOrganization.getDonationCampaigns().stream().map(toCampaignResponseDtoMapper).toList())
                 .build();
     }
 }

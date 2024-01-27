@@ -22,7 +22,7 @@ public class PostToPostResponseDtoMapper implements Function<Post, PostResponseD
         return apply(post,null);
     }
     public PostResponseDto apply(Post post, Long userId) {
-        boolean isLiked = (userId != null) && likeHelper.isUserLikedPost(post, userId);
+        boolean isLiked = (userId != null) && likeHelper.isUserLikedPost(post.getPostId(), userId);
         return PostResponseDto
                 .builder()
                 .id(post.getPostId())
