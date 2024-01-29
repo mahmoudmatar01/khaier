@@ -9,6 +9,7 @@ public record ReplyResponseDto(
         Long id,
         String content,
         LocalDateTime publishDate,
+        String createdSince,
         Long commentId,
         Long userId,
         String userName,

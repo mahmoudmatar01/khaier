@@ -8,6 +8,7 @@ public record CommentResponseDto(
         Long id,
         String commentContent,
         LocalDateTime publishDate,
+        String createdSince,
         Long postId,
         Long userId,
         String userName,

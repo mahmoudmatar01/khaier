@@ -2,6 +2,7 @@ package com.example.khaier.mapper;
 
 import com.example.khaier.dto.response.CommentResponseDto;
 import com.example.khaier.entity.Comment;
+import com.example.khaier.helper.TimeSinceFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -20,11 +21,12 @@ public class CommentToCommentResponseDtoMapper implements Function<Comment, Comm
                 .id(comment.getCommentId())
                 .commentContent(comment.getContent())
                 .publishDate(comment.getDate())
+                .createdSince(TimeSinceFormatter.formatTimeSince(comment.getDate()))
                 .postId(comment.getPost().getPostId())
                 .userId(comment.getUser().getUserId())
                 .userName(comment.getUser().getUsername())
                 .userImageUrl(comment.getUser().getUserImageUrl())
-                .replies(comment.getReplies().stream().map(toReplyResponseDtoMapper::apply).collect(Collectors.toList()))
+                .replies(comment.getReplies().stream().map(toReplyResponseDtoMapper).collect(Collectors.toList()))
                 .build();
     }
 }

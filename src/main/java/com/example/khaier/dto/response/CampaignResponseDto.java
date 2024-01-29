@@ -12,7 +12,7 @@ public record CampaignResponseDto(
         String campaignAdditionalName,
         String campaignDescription,
         String campaignImageUrl,
-        Duration campaignEndDay,
+        String campaignEndDay,
         Long numberOfBeneficiaries,
         double amountRequired,
         Long charityId,

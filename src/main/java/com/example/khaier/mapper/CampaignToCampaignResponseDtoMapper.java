@@ -20,7 +20,7 @@ public class CampaignToCampaignResponseDtoMapper implements Function<Campaign, C
                 .campaignAdditionalName(donationCampaign.getCampaignAdditionalName())
                 .campaignDescription(donationCampaign.getCampaignDescription())
                 .campaignImageUrl(donationCampaign.getCampaignImage().getUrl())
-                .campaignEndDay(Duration.between(donationCampaign.getCampaignEndDay(),LocalDateTime.now()))
+                .campaignEndDay(Duration.between(LocalDateTime.now(),donationCampaign.getCampaignEndDay()).toDays()<=0?"تم الانتهاء منها":"متبقي : " +(Duration.between(LocalDateTime.now(),donationCampaign.getCampaignEndDay()).toDays()+1)+" ايام ")
                 .amountRequired(donationCampaign.getAmountRequired())
                 .numberOfBeneficiaries(donationCampaign.getNumberOfBeneficiaries())
                 .charityId(donationCampaign.getCharitableOrganization().getOrgId())

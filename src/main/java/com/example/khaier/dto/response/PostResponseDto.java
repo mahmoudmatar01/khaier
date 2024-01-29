@@ -8,6 +8,7 @@ public record PostResponseDto (
         Long id,
         String content,
         LocalDateTime dateTime,
+        String createdSince,
         List<String>imagesUrl,
         Long userId,
         boolean isUserLike,
