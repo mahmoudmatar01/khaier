@@ -4,7 +4,7 @@ import com.example.khaier.dto.response.PostResponseDto;
 import com.example.khaier.entity.Post;
 import com.example.khaier.entity.PostImage;
 import com.example.khaier.helper.LikeHelper;
-import com.example.khaier.helper.TimeSinceFormatter;
+import com.example.khaier.helper.TimeSinceFormatterHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class PostToPostResponseDtoMapper implements Function<Post, PostResponseD
                 .id(post.getPostId())
                 .content(post.getPostContent())
                 .dateTime(post.getDate())
-                .createdSince(TimeSinceFormatter.formatTimeSince(post.getDate()))
+                .createdSince(TimeSinceFormatterHelper.formatTimeSince(post.getDate()))
                 .imagesUrl(post.getImages()!=null?post.getImages().stream().map(PostImage::getUrl).toList():new ArrayList<>())
                 .userId(post.getUser().getUserId())
                 .isUserLike(isLiked)

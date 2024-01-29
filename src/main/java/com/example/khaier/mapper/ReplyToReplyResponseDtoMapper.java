@@ -2,7 +2,7 @@ package com.example.khaier.mapper;
 
 import com.example.khaier.dto.response.ReplyResponseDto;
 import com.example.khaier.entity.Reply;
-import com.example.khaier.helper.TimeSinceFormatter;
+import com.example.khaier.helper.TimeSinceFormatterHelper;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
@@ -16,7 +16,7 @@ public class ReplyToReplyResponseDtoMapper implements Function<Reply, ReplyRespo
                 .id(reply.getReplyId())
                 .content(reply.getContent())
                 .publishDate(reply.getDate())
-                .createdSince(TimeSinceFormatter.formatTimeSince(reply.getDate()))
+                .createdSince(TimeSinceFormatterHelper.formatTimeSince(reply.getDate()))
                 .commentId(reply.getComment().getCommentId())
                 .userId(reply.getUser().getUserId())
                 .userName(reply.getUser().getUsername())

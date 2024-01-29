@@ -7,6 +7,7 @@ import com.example.khaier.service.Impl.CharityImageService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,24 +19,29 @@ public class CharityRequestDtoToCharityMapper implements Function<CharityRequest
     private final CharityImageService charityImageService;
     @Override
     public CharitableOrganization apply(CharityRequestDto charityRequestDto) {
+        return CharitableOrganization
+                .builder()
+                .orgName(charityRequestDto.charityName())
+                .description(charityRequestDto.charityDescription())
+                .charitableOrgImage(uploadImage(charityRequestDto.image()))
+                .facebookUrl(charityRequestDto.facebookPageUrl())
+                .location(charityRequestDto.charityLocation())
+                .instagramUrl(charityRequestDto.instagramPageUrl())
+                .orgPhoneNumber(charityRequestDto.phoneNumber())
+                .orgWhatsappNumber(charityRequestDto.whatsappNumber())
+                .donationCampaigns(new ArrayList<>())
+                .donationCategories(new ArrayList<>())
+                .inKindDonations(new ArrayList<>())
+                .build();
+
+    }
+
+    private CharitableOrgImage uploadImage(MultipartFile image){
         try {
-            CharitableOrgImage charitableOrgImage=charityImageService.uploadImage(charityRequestDto.image());
-            return CharitableOrganization
-                    .builder()
-                    .orgName(charityRequestDto.charityName())
-                    .description(charityRequestDto.charityDescription())
-                    .charitableOrgImage(charitableOrgImage)
-                    .facebookUrl(charityRequestDto.facebookPageUrl())
-                    .location(charityRequestDto.charityLocation())
-                    .instagramUrl(charityRequestDto.instagramPageUrl())
-                    .orgPhoneNumber(charityRequestDto.phoneNumber())
-                    .orgWhatsappNumber(charityRequestDto.whatsappNumber())
-                    .donationCampaigns(new ArrayList<>())
-                    .donationCategories(new ArrayList<>())
-                    .inKindDonations(new ArrayList<>())
-                    .build();
+            return charityImageService.uploadImage(image);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 }

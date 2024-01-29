@@ -26,11 +26,11 @@ public class PostRequestDtoToPostMapper implements Function<PostRequestDto, Post
                 .date(LocalDateTime.now())
                 .comments(new ArrayList<>())
                 .likes(new ArrayList<>())
-                .images(uploadPostImage(postRequestDto.image()))
+                .images(uploadPostImages(postRequestDto.image()))
                 .build();
     }
 
-    private List<PostImage>uploadPostImage(MultipartFile[]images){
+    private List<PostImage>uploadPostImages(MultipartFile[]images){
         List<PostImage> postImageList = new ArrayList<>();
         if (images != null) {
             for (MultipartFile image : images) {

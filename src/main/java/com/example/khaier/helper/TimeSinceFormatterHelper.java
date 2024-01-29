@@ -3,7 +3,7 @@ package com.example.khaier.helper;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class TimeSinceFormatter {
+public class TimeSinceFormatterHelper {
 
     public static String formatTimeSince(LocalDateTime creationDate) {
 
