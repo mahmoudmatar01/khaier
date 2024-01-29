@@ -8,6 +8,7 @@ import com.example.khaier.service.Impl.UserImageServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.function.Function;
@@ -23,18 +24,22 @@ public class UserRegisterDtoToUserMapper implements Function<UserRegistrationReq
     }
 
     public User apply(UserRegistrationRequestDto adminRequestDto,Role role) {
+        UserImage userImage=uploadImage(adminRequestDto.image());
+        return User.builder()
+                .email(adminRequestDto.email())
+                .username(adminRequestDto.username())
+                .userRole(role)
+                .userGender(adminRequestDto.userGender())
+                .password(passwordEncoder.encode(adminRequestDto.password()))
+                .phone(adminRequestDto.userPhone())
+                .userImage(userImage)
+                .userImageUrl(userImage.getUrl())
+                .build();
+    }
+
+    private UserImage uploadImage(MultipartFile image){
         try{
-            UserImage userImage = userImageService.uploadImage(adminRequestDto.image());
-            return User.builder()
-                    .email(adminRequestDto.email())
-                    .username(adminRequestDto.username())
-                    .userRole(role)
-                    .userGender(adminRequestDto.userGender())
-                    .password(passwordEncoder.encode(adminRequestDto.password()))
-                    .phone(adminRequestDto.userPhone())
-                    .userImage(userImage)
-                    .userImageUrl(userImage.getUrl())
-                    .build();
+            return userImageService.uploadImage(image);
         }
         catch (IOException exception){
             throw new RuntimeException(exception.getMessage());
