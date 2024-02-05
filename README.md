@@ -128,7 +128,7 @@ Welcome to الخيــــــــــــــــــــــــــــــ�
 | instagramUrl: String                         |
 | orgPhoneNumber: String                       |
 | orgWhatsappNumber: String                    |
-| charitableOrgImage: CharitableOrgImage        |
+| charitableOrgImage: CharitableOrgImage       |
 | donationCategories: List<DonationCategories> |
 | donationCampaigns: List<Campaign>            |
 | inKindDonations: List<InKindDonation>        |
