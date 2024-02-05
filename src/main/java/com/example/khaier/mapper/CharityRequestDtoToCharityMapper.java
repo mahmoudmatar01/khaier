@@ -31,7 +31,6 @@ public class CharityRequestDtoToCharityMapper implements Function<CharityRequest
                 .orgWhatsappNumber(charityRequestDto.whatsappNumber())
                 .donationCampaigns(new ArrayList<>())
                 .donationCategories(new ArrayList<>())
-                .inKindDonations(new ArrayList<>())
                 .build();
 
     }
