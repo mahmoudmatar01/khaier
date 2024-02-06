@@ -40,26 +40,4 @@ public class InKindDonation {
     private Float lang;
     private Float lat;
     private String addressDescription;
-
-
-    public InKindDonation(User user,
-                          String phone,
-                          CharitableOrganization organization,
-                          InKindCase inKindCase,
-                          BigDecimal itemAmount,
-                          String itemName,
-                          Float lang,
-                          Float lat,
-                          String addressDescription) {
-        this.user = user;
-        this.phone = phone;
-        this.organization = organization;
-        this.inKindCase = inKindCase;
-        this.itemAmount = itemAmount;
-        this.itemName = itemName;
-        this.donationTime = LocalDateTime.now();
-        this.lang = lang;
-        this.lat = lat;
-        this.addressDescription = addressDescription;
-    }
 }

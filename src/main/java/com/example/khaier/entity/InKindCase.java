@@ -1,6 +1,5 @@
 package com.example.khaier.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,18 +17,14 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 public class InKindCase {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-
-    @JsonIgnore
     private String includedItemName;
 
-    @OneToMany(mappedBy = "inKindCase")
+    @OneToMany(mappedBy = "inKindCase",fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private List<InKindDonation> donations;
 
 }

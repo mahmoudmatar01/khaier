@@ -1,13 +1,10 @@
 package com.example.khaier.service;
-
 import com.example.khaier.dto.request.InKindDonationRequestDto;
 import com.example.khaier.dto.response.InKindDonationResponseDto;
-import com.example.khaier.entity.InKindCase;
-
 import java.util.List;
 
 public interface InKindDonationsService {
-    List<InKindCase> getAllInKindDonationCases();
-
+    List<InKindDonationResponseDto> getAllInKindDonation();
+    List<InKindDonationResponseDto> getAllInKindDonationByCharityId(Long charityId);
     InKindDonationResponseDto addDonation(InKindDonationRequestDto requestDto);
 }

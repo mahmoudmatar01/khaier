@@ -2,76 +2,48 @@ package com.example.khaier.service.Impl;
 
 import com.example.khaier.dto.request.InKindDonationRequestDto;
 import com.example.khaier.dto.response.InKindDonationResponseDto;
-import com.example.khaier.entity.InKindCase;
 import com.example.khaier.entity.InKindDonation;
-import com.example.khaier.exceptions.NotFoundCustomException;
-import com.example.khaier.repository.InKindCasesRepository;
+import com.example.khaier.helper.CharityOrgHelper;
+import com.example.khaier.mapper.InKindDonationRequestDtoToInKindDonationMapper;
+import com.example.khaier.mapper.InKindDonationToInKindDonationResponseDtoMapper;
 import com.example.khaier.repository.InKindDonationRepository;
-import com.example.khaier.repository.OrganizationsRepository;
-import com.example.khaier.repository.UserRepository;
 import com.example.khaier.service.InKindDonationsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 @RequiredArgsConstructor
 public class InKindDonationsServiceImpl implements InKindDonationsService {
 
-    private final InKindCasesRepository inKindCasesRepository;
-    private final UserRepository usersRepository;
-    private final OrganizationsRepository organizationsRepository;
+    private final InKindDonationRequestDtoToInKindDonationMapper toInKindDonationMapper;
+    private final InKindDonationToInKindDonationResponseDtoMapper toInKindDonationResponseDtoMapper;
     private final InKindDonationRepository inKindDonationRepository;
+    private final CharityOrgHelper charityOrgHelper;
+
 
     @Override
-    public List<InKindCase> getAllInKindDonationCases() {
-        return inKindCasesRepository.findAll();
+    public List<InKindDonationResponseDto> getAllInKindDonation() {
+        return inKindDonationRepository.findAll().stream().map(
+                toInKindDonationResponseDtoMapper
+        ).toList();
+    }
+
+    @Override
+    public List<InKindDonationResponseDto> getAllInKindDonationByCharityId(Long charityId) {
+        charityOrgHelper.findCharityByIdOrThrowNotFound(charityId);
+        List<InKindDonation>inKindDonations=inKindDonationRepository.findByOrganization_OrgId(charityId);
+        return inKindDonations.stream().map(toInKindDonationResponseDtoMapper).toList();
     }
 
     @Override
     public InKindDonationResponseDto addDonation(InKindDonationRequestDto requestDto) {
-        var user = usersRepository.findById(requestDto.userId())
-                .orElseThrow(() -> new NotFoundCustomException("There is no User with id : " + requestDto.userId()));
-
-        var organization = organizationsRepository.findById(requestDto.organizationId())
-                .orElseThrow(() -> new NotFoundCustomException("There is no Organization with id : " + requestDto.organizationId()));
-
-        var inKindCase = inKindCasesRepository.findById(requestDto.inKindCaseId()).
-                orElseThrow(() -> new NotFoundCustomException("There is no InKind Case with id : " + requestDto.inKindCaseId()));
-
-
-        var itemName = inKindCase.getIncludedItemName() == null
-                ? requestDto.itemName()
-                : inKindCase.getIncludedItemName();
-
-        var donation = new InKindDonation(user,
-                requestDto.phone(),
-                organization,
-                inKindCase,
-                requestDto.itemAmount(),
-                itemName,
-                requestDto.lang(),
-                requestDto.lat(),
-                requestDto.addressDescription());
+        InKindDonation donation = toInKindDonationMapper.apply(requestDto);
         donation = inKindDonationRepository.save(donation);
-
-        return new InKindDonationResponseDto(
-                donation.getDonationId(),
-                user.getUserId(),
-                user.getUsername(),
-                donation.getPhone(),
-                organization.getOrgId(),
-                organization.getOrgName(),
-                inKindCase.getId(),
-                inKindCase.getTitle(),
-                donation.getItemAmount(),
-                donation.getItemName(),
-                donation.getDonationTime(),
-                donation.getLang(),
-                donation.getLat(),
-                donation.getAddressDescription()
-        );
+        donation.getInKindCase().getDonations().add(donation);
+        return toInKindDonationResponseDtoMapper.apply(donation);
     }
 
 }

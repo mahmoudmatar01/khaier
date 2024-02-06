@@ -16,17 +16,23 @@ public class InKindDonationsController {
     private final SuccessResponseFactory200 responseFactory;
     private final InKindDonationsService inKindDonationsService;
 
-    @GetMapping("/cases")
-    public ResponseEntity<?> getAllInKindDonationCases() {
-        var result = inKindDonationsService.getAllInKindDonationCases();
-        var responseBody = responseFactory.createResponse(result,null);
+    @GetMapping
+    public ResponseEntity<?> getAllInKindDonation() {
+        var result = inKindDonationsService.getAllInKindDonation();
+        var responseBody = responseFactory.createResponse(result,"InKind donations returned successfully!");
+        return ResponseEntity.ok(responseBody);
+    }
+    @GetMapping("/{charityId}")
+    public ResponseEntity<?> getAllInKindDonationByCharityId(@PathVariable Long charityId) {
+        var result = inKindDonationsService.getAllInKindDonationByCharityId(charityId);
+        var responseBody = responseFactory.createResponse(result,"InKind donations returned successfully!");
         return ResponseEntity.ok(responseBody);
     }
 
     @PostMapping
     public ResponseEntity<?> addInKindDonation(@RequestBody InKindDonationRequestDto requestDto){
         var result = inKindDonationsService.addDonation(requestDto);
-        var responseBody = responseFactory.createResponse(result,null);
+        var responseBody = responseFactory.createResponse(result,"InKind donation save successfully!");
         return ResponseEntity.ok(responseBody);
     }
 }
