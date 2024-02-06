@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -36,7 +38,9 @@ public class CharitableOrganization {
     @OneToMany(mappedBy = "charitableOrganization")
     private List<Campaign> donationCampaigns;
 
-    @OneToMany(mappedBy = "charitableOrganization")
+    @OneToMany(mappedBy = "organization")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<InKindDonation> inKindDonations;
+
 
 }
