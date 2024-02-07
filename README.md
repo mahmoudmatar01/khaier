@@ -26,7 +26,7 @@ Welcome to الخيــــــــــــــــــــــــــــــ�
 
 ```plaintext
 +--------------------------------------+
-|               User                   |
+|             User                     |
 +--------------------------------------+
 | userId: Long                         |
 | username: String                     |
@@ -37,8 +37,6 @@ Welcome to الخيــــــــــــــــــــــــــــــ�
 | location: String                     |
 | phone: String                        |
 | accessToken: String                  |
-| userImage: UserImage                 |
-| userImageUrl: String                 |
 | posts: List<Post>                    |
 | likedPosts: List<Post>               |
 | comments: List<Comment>              |
@@ -46,120 +44,188 @@ Welcome to الخيــــــــــــــــــــــــــــــ�
 | bookmarks: List<Post>                |
 | campaigns: List<Campaign>            |
 | donations: List<CampaignDonation>    |
+| inKindDonations: List<InKindDonation>|
+| caseDonations: List<CaseDonation>    |
+| giftDonations: List<GiftDonation>    |
 +--------------------------------------+
 
-+--------------------------------------+
-|              Post                    |
-+--------------------------------------+
-| postId: Long                         |
-| postContent: String                  |
-| date: LocalDateTime                  |
-| user: User                           |
-| likes: List<Like>                    |
-| comments: List<Comment>              |
-| images: List<PostImage>              |
-+--------------------------------------+
++----------------------------------+
+|             Post                 |
++----------------------------------+
+| postId: Long                     |
+| postContent: String              |
+| date: LocalDateTime              |
+| user: User                       |
+| likes: List<Like>                |
+| comments: List<Comment>          |
+| images: List<PostImage>          |
++----------------------------------+
 
-+--------------------------------------+
-|             Comment                  |
-+--------------------------------------+
-| commentId: Long                      |
-| content: String                      |
-| date: LocalDateTime                  |
-| user: User                           |
-| post: Post                           |
-| replies: List<Reply>                 |
-+--------------------------------------+
++----------------------------------+
+|             Like                 |
++----------------------------------+
+| likeId: Long                     |
+| date: LocalDateTime              |
+| isLiked: boolean                 |
+| user: User                       |
+| post: Post                       |
++----------------------------------+
 
-+--------------------------------------+
-|              Reply                   |
-+--------------------------------------+
-| replyId: Long                        |
-| content: String                      |
-| date: LocalDateTime                  |
-| user: User                           |
-| comment: Comment                     |
-+--------------------------------------+
++----------------------------------+
+|           Comment                |
++----------------------------------+
+| commentId: Long                  |
+| content: String                  |
+| date: LocalDateTime              |
+| user: User                       |
+| post: Post                       |
+| replies: List<Reply>             |
++----------------------------------+
 
-+--------------------------------------+
-|              Like                    |
-+--------------------------------------+
-| likeId: Long                         |
-| date: LocalDateTime                  |
-| isLiked: boolean                     |
-| user: User                           |
-| post: Post                           |
-+--------------------------------------+
++----------------------------------+
+|            Reply                 |
++----------------------------------+
+| replyId: Long                    |
+| content: String                  |
+| date: LocalDateTime              |
+| user: User                       |
+| comment: Comment                 |
++----------------------------------+
 
-+--------------------------------------+
-|           Campaign                   |
-+--------------------------------------+
-| campaignId: Long                     |
-| campaignName: String                 |
-| campaignAdditionalName: String       |
-| campaignDescription: String          |
-| campaignEndDay: LocalDateTime        |
-| numberOfBeneficiaries: Long          |
-| amountRequired: double               |
-| charitableOrganization: CharitableOrg|
-| campaignImage: CampaignImage         |
-| users: List<User>                    |
-| donations: List<CampaignDonation>    |
-+--------------------------------------+
++---------------------------------------------+
+| CharitableOrganization                      |
++---------------------------------------------+
+| orgId: Long                                 |
+| orgName: String                             |
+| description: String                         |
+| location: String                            |
+| facebookUrl: String                         |
+| instagramUrl: String                        |
+| orgPhoneNumber: String                      |
+| orgWhatsappNumber: String                   |
+| charitableOrgImage: CharitableOrgImage      |
+| donationCategories: List<DonationCategories>|
+| donationCampaigns: List<Campaign>           |
+| inKindDonations: List<InKindDonation>       |
+| caseDonations: List<CaseDonation>           |
++---------------------------------------------+
 
-+--------------------------------------+
-|       CampaignDonation               |
-+--------------------------------------+
-| donationId: Long                     |
-| user: User                           |
-| campaign: Campaign                   |
-| amount: BigDecimal                   |
-| donationTime: LocalDateTime          |
-+--------------------------------------+
++-----------------------------------------------+
+|      DonationCategories                       |
++-----------------------------------------------+
+| categoryId: Long                              |
+| categoryTitle: String                         |
+| charitableOrganization: CharitableOrganization|
+| donationCases: List<DonationCategoryCase>     |
++-----------------------------------------------+
 
-+----------------------------------------------+
-|      CharitableOrganization                  |
-+----------------------------------------------+
-| orgId: Long                                  |
-| orgName: String                              |
-| description: String                          |
-| location: String                             |
-| facebookUrl: String                          |
-| instagramUrl: String                         |
-| orgPhoneNumber: String                       |
-| orgWhatsappNumber: String                    |
-| charitableOrgImage: CharitableOrgImage       |
-| donationCategories: List<DonationCategories> |
-| donationCampaigns: List<Campaign>            |
-| inKindDonations: List<InKindDonation>        |
-+----------------------------------------------+
++-------------------------------------+
+|    DonationCategoryCase             |
++-------------------------------------+
+| caseId: Long                        |
+| caseName: String                    |
+| maxim: String                       |
+| description: String                 |
+| requiredAmount: BigDecimal          |
+| paidAmount: BigDecimal              |
+| remainingAmount: BigDecimal         |
+| donationCategory: DonationCategories|
+| donations: List<CaseDonation>       |
++-------------------------------------+
 
-+--------------------------------------+
-|     DonationCategories               |
-+--------------------------------------+
-| categoryId: Long                     |
-| categoryTitle: String                |
-| charitableOrganization: CharitableOrg|
-| donationCases: List<DonationCase>    |
-+--------------------------------------+
++-------------------------------------+
+|         CaseDonation                |
++-------------------------------------+
+| donationId: Long                    |
+| user: User                          |
+| organization: CharitableOrganization|
+| donationCase: DonationCategoryCase  |
+| donationTime: LocalDateTime         |
+| donationWay: String                 |
+| amount: BigDecimal                  |
++-------------------------------------+
 
-+--------------------------------------+
-|         DonationCase                 |
-+--------------------------------------+
-| caseId: Long                         |
-| caseName: String                     |
-| description: String                  |
-| donationCategory: DonationCategories |
-+--------------------------------------+
++-----------------------------------------------+
+|            Campaign                           |
++-----------------------------------------------+
+| campaignId: Long                              |
+| campaignName: String                          |
+| campaignAdditionalName: String                |
+| campaignDescription: String                   |
+| campaignEndDay: LocalDateTime                 |
+| numberOfBeneficiaries: Long                   |
+| amountRequired: double                        |
+| charitableOrganization: CharitableOrganization|
+| campaignImage: CampaignImage                  |
+| users: List<User>                             |
+| donations: List<CampaignDonation>             |
++-----------------------------------------------+
 
-+--------------------------------------+
-|       InKindDonation                 |
-+--------------------------------------+
-| id: Long                             |
-| title: String                        |
-| description: String                  |
-| charitableOrganization: CharitableOrg|
-+--------------------------------------+
++----------------------------------+
+|      CampaignDonation            |
++----------------------------------+
+| donationId: Long                 |
+| user: User                       |
+| campaign: Campaign               |
+| amount: BigDecimal               |
+| donationTime: LocalDateTime      |
++----------------------------------+
+
++----------------------------------+
+|          InKindCase              |
++----------------------------------+
+| id: Long                         |
+| title: String                    |
+| includedItemName: String         |
+| donations: List<InKindDonation>  |
++----------------------------------+
+
++-------------------------------------+
+|      InKindDonation                 |
++-------------------------------------+
+| donationId: Long                    |
+| user: User                          |
+| phone: String                       |
+| organization: CharitableOrganization|
+| inKindCase: InKindCase              |
+| itemAmount: BigDecimal              |
+| itemName: String                    |
+| donationTime: LocalDateTime         |
+| lang: Float                         |
+| lat: Float                          |
+| addressDescription: String          |
++-------------------------------------+
+
++-----------------------------------+
+|         GiftDonation              |
++-----------------------------------+
+| id: Long                          |
+| giftDonationType: GiftDonationType|
+| amount: BigDecimal                |
+| sender: User                      |
+| receiverName: String              |
+| receiverPhone: String             |
+| message: String                   |
++-----------------------------------+
+
++----------------------------------+
+|           Banner                 |
++----------------------------------+
+| bannerId: Long                   |
+| title: String                    |
+| description: String              |
+| imageUrl: String                 |
+| bannerImage: BannerImage         |
++----------------------------------+
+
++----------------------------------+
+|         Bookmark                 |
++----------------------------------+
+| bookmarkId: Long                 |
+| date: LocalDateTime              |
+| user: User                       |
+| post: Post                       |
++----------------------------------+
 
 ```
 
