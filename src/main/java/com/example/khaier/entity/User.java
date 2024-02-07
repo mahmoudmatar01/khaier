@@ -86,6 +86,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<CampaignDonation> donations;
 
+
+    @OneToMany(mappedBy = "sender", fetch = FetchType.EAGER)
+    private List<GiftDonation> giftDonations;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(userRole.name()));
