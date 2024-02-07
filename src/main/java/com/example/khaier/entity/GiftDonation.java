@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "gift_donations")
 @Data
@@ -18,7 +20,7 @@ public class GiftDonation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private GiftDonationType giftDonationType;
-    private float amount;
+    private BigDecimal amount;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User sender;

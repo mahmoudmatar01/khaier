@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum GiftDonationType {
-    ProvideWater, Sadaqah, FeedThePoor, AvertingAfflication, ProvideShelter, Clothes
+    توفيرمياه, صدقة, اطعام_مسكين, دفع_بلاء, سكن, كساء
 }

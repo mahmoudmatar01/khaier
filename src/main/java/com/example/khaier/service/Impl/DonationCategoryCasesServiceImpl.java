@@ -36,4 +36,12 @@ public class DonationCategoryCasesServiceImpl implements DonationCategoryCasesSe
         saveCase.getDonationCategory().getDonationCases().add(saveCase);
         return toCaseResponseMapper.apply(saveCase);
     }
+
+    @Override
+    public CaseResponseDto findCaseById(Long caseId) {
+        DonationCategoryCase donationCategoryCase=caseRepository.findById(caseId).orElseThrow(
+                ()-> new NotFoundCustomException("Case with id : "+caseId+" not found!")
+        );
+        return toCaseResponseMapper.apply(donationCategoryCase);
+    }
 }

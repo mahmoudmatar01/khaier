@@ -8,4 +8,5 @@ import java.util.List;
 public interface DonationCategoryCasesService {
     List<CaseResponseDto>findCaseByCategoryId(Long categoryId);
     CaseResponseDto saveCase(CaseRequestDto caseRequestDto);
+    CaseResponseDto findCaseById(Long caseId);
 }

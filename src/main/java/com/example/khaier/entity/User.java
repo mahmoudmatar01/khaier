@@ -98,6 +98,7 @@ public class User implements UserDetails {
     private List<CaseDonation> caseDonations;
   
     @OneToMany(mappedBy = "sender", fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<GiftDonation> giftDonations;
 
     @Override

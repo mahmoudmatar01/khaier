@@ -1,6 +1,5 @@
 package com.example.khaier.mapper;
 
-import com.example.khaier.dto.request.GiftRequestDto;
 import com.example.khaier.dto.response.GiftResponseDto;
 import com.example.khaier.entity.GiftDonation;
 import org.springframework.stereotype.Component;
@@ -8,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.function.Function;
 
 @Component
-public class GiftDonationToGiftResponseDtoMapper implements Function<GiftDonation, GiftResponseDto> {
+public class GiftDonationToGiftDonationResponseDtoMapper implements Function<GiftDonation, GiftResponseDto> {
 
     @Override
     public GiftResponseDto apply(GiftDonation giftDonation) {
@@ -20,6 +19,7 @@ public class GiftDonationToGiftResponseDtoMapper implements Function<GiftDonatio
                 .senderPhone(giftDonation.getSender().getPhone())
                 .receiverName(giftDonation.getReceiverName())
                 .receiverPhone(giftDonation.getReceiverPhone())
-                .message(giftDonation.getMessage()).build();
+                .message(giftDonation.getMessage())
+                .build();
     }
 }
