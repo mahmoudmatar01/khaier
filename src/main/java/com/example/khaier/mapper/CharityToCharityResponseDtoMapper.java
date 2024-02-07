@@ -12,6 +12,7 @@ import java.util.function.Function;
 public class CharityToCharityResponseDtoMapper implements Function<CharitableOrganization,CharityResponseDto> {
 
     private final CampaignToCampaignResponseDtoMapper toCampaignResponseDtoMapper;
+    private final CharityCategoryToCharityCategoryResponseDtoMapper toCharityCategoryResponseDtoMapper;
     @Override
     public CharityResponseDto apply(CharitableOrganization charitableOrganization) {
         return CharityResponseDto
@@ -25,6 +26,7 @@ public class CharityToCharityResponseDtoMapper implements Function<CharitableOrg
                 .instagramPageUrl(charitableOrganization.getInstagramUrl())
                 .whatsappNumber(charitableOrganization.getOrgWhatsappNumber())
                 .phoneNumber(charitableOrganization.getOrgPhoneNumber())
+                .categories(charitableOrganization.getDonationCategories().stream().map(toCharityCategoryResponseDtoMapper).toList())
                 .campaigns(charitableOrganization.getDonationCampaigns().stream().map(toCampaignResponseDtoMapper).toList())
                 .build();
     }

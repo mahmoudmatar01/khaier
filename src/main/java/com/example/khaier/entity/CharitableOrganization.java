@@ -32,15 +32,19 @@ public class CharitableOrganization {
     @JoinColumn(name = "Charity_image")
     private CharitableOrgImage charitableOrgImage;
 
-    @OneToMany(mappedBy = "charitableOrganization")
+    @OneToMany(mappedBy = "charitableOrganization", fetch = FetchType.EAGER)
     private List<DonationCategories> donationCategories;
 
-    @OneToMany(mappedBy = "charitableOrganization")
+    @OneToMany(mappedBy = "charitableOrganization", fetch = FetchType.EAGER)
     private List<Campaign> donationCampaigns;
 
     @OneToMany(mappedBy = "organization")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<InKindDonation> inKindDonations;
+
+    @OneToMany(mappedBy = "organization")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<CaseDonation> caseDonations;
 
 
 }
