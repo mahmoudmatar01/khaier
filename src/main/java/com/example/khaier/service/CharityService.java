@@ -8,4 +8,5 @@ import java.util.List;
 public interface CharityService {
     CharityResponseDto saveCharity(CharityRequestDto requestDto,Long adminId);
     List<CharityResponseDto> getAllCharity();
+    CharityResponseDto getCharityById(Long charityId);
 }

@@ -4,6 +4,7 @@ import com.example.khaier.dto.request.CampaignRequestDto;
 import com.example.khaier.entity.CampaignImage;
 import com.example.khaier.entity.CharitableOrganization;
 import com.example.khaier.entity.Campaign;
+import com.example.khaier.helper.CharityOrgHelper;
 import com.example.khaier.repository.CharityRepository;
 import com.example.khaier.service.Impl.CampaignImageService;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,10 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class CampaignRequestDtoToCampaignMapper implements Function<CampaignRequestDto, Campaign> {
     private final CampaignImageService campaignImageService;
-    private final CharityRepository charityRepository;
+    private final CharityOrgHelper charityOrgHelper;
     @Override
     public Campaign apply(CampaignRequestDto donationCampaignRequestDto) {
-        CharitableOrganization charitableOrganization=findCharity(donationCampaignRequestDto.charityId());
+        CharitableOrganization charitableOrganization=charityOrgHelper.findCharityByIdOrThrowNotFound(donationCampaignRequestDto.charityId());
         CampaignImage image=uploadImage(donationCampaignRequestDto.image());
         return Campaign.builder()
                 .campaignName(donationCampaignRequestDto.campaignName())
@@ -33,12 +34,6 @@ public class CampaignRequestDtoToCampaignMapper implements Function<CampaignRequ
                 .amountRequired(donationCampaignRequestDto.amountRequired())
                 .charitableOrganization(charitableOrganization)
                 .build();
-    }
-
-    private CharitableOrganization findCharity(Long charityId){
-        return charityRepository.findById(charityId).orElseThrow(
-                ()-> new NotFoundException("Charity with id : "+charityId+" not found!")
-        );
     }
 
     private CampaignImage uploadImage(MultipartFile image){

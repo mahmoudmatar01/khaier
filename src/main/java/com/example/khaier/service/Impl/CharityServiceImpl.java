@@ -6,6 +6,7 @@ import com.example.khaier.entity.CharitableOrganization;
 import com.example.khaier.entity.User;
 import com.example.khaier.enums.Role;
 import com.example.khaier.exceptions.BadRequestException;
+import com.example.khaier.helper.CharityOrgHelper;
 import com.example.khaier.helper.UserHelper;
 import com.example.khaier.mapper.CharityRequestDtoToCharityMapper;
 import com.example.khaier.mapper.CharityToCharityResponseDtoMapper;
@@ -25,6 +26,7 @@ public class CharityServiceImpl implements CharityService {
     private final CharityToCharityResponseDtoMapper toCharityResponseDtoMapper;
     private final CharityRequestDtoToCharityMapper toCharityMapper;
     private final UserHelper userHelper;
+    private final CharityOrgHelper charityOrgHelper;
     @Override
     public CharityResponseDto saveCharity(CharityRequestDto requestDto,Long adminId) {
         User user = userHelper.findUserByIdOrThrowNotFoundException(adminId);
@@ -39,5 +41,11 @@ public class CharityServiceImpl implements CharityService {
     public List<CharityResponseDto> getAllCharity() {
         List<CharitableOrganization>charities=charityRepository.findAll();
         return charities.stream().map(toCharityResponseDtoMapper).toList();
+    }
+
+    @Override
+    public CharityResponseDto getCharityById(Long charityId) {
+        CharitableOrganization charitableOrganization=charityOrgHelper.findCharityByIdOrThrowNotFound(charityId);
+        return toCharityResponseDtoMapper.apply(charitableOrganization);
     }
 }

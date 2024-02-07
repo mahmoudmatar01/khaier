@@ -17,6 +17,7 @@ public record CharityResponseDto(
         String instagramPageUrl,
         String whatsappNumber,
         String phoneNumber,
+        List<CharityCategoryResponseDto>categories,
         List<CampaignResponseDto> campaigns
 
 ) {

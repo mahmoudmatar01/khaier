@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -30,13 +32,19 @@ public class CharitableOrganization {
     @JoinColumn(name = "Charity_image")
     private CharitableOrgImage charitableOrgImage;
 
-    @OneToMany(mappedBy = "charitableOrganization")
+    @OneToMany(mappedBy = "charitableOrganization", fetch = FetchType.EAGER)
     private List<DonationCategories> donationCategories;
 
-    @OneToMany(mappedBy = "charitableOrganization")
+    @OneToMany(mappedBy = "charitableOrganization", fetch = FetchType.EAGER)
     private List<Campaign> donationCampaigns;
 
-    @OneToMany(mappedBy = "charitableOrganization")
+    @OneToMany(mappedBy = "organization")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<InKindDonation> inKindDonations;
+
+    @OneToMany(mappedBy = "organization")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<CaseDonation> caseDonations;
+
 
 }

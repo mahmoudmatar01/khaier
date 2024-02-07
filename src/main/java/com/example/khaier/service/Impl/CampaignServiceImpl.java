@@ -3,15 +3,13 @@ package com.example.khaier.service.Impl;
 import com.example.khaier.dto.request.CampaignRequestDto;
 import com.example.khaier.dto.response.CampaignResponseDto;
 import com.example.khaier.entity.Campaign;
-import com.example.khaier.entity.CharitableOrganization;
+import com.example.khaier.helper.CharityOrgHelper;
 import com.example.khaier.mapper.CampaignRequestDtoToCampaignMapper;
 import com.example.khaier.mapper.CampaignToCampaignResponseDtoMapper;
 import com.example.khaier.repository.CampaignRepository;
-import com.example.khaier.repository.CharityRepository;
 import com.example.khaier.service.CampaignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class CampaignServiceImpl implements CampaignService {
 
     private final CampaignRequestDtoToCampaignMapper toCampaignMapper;
     private final CampaignToCampaignResponseDtoMapper toCampaignResponseDtoMapper;
-    private final CharityRepository charityRepository;
+    private final CharityOrgHelper charityOrgHelper;
 
     @Override
     public void saveCampaign(CampaignRequestDto requestDto) {
@@ -33,9 +31,7 @@ public class CampaignServiceImpl implements CampaignService {
 
     @Override
     public List<CampaignResponseDto> findAllCampaigns(Long charityId) {
-        CharitableOrganization charity=charityRepository.findById(charityId).orElseThrow(
-                ()-> new NotFoundException("Charity with id : "+charityId+" not found!")
-        );
+        charityOrgHelper.findCharityByIdOrThrowNotFound(charityId);
         List<Campaign>campaigns=campaignRepository.findByCharitableOrganization_OrgId(charityId);
         return campaigns.stream().map(toCampaignResponseDtoMapper).toList();
     }

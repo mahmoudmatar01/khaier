@@ -2,6 +2,7 @@ package com.example.khaier.controller;
 
 import com.example.khaier.dto.request.CharityRequestDto;
 import com.example.khaier.factory.impl.SuccessResponseFactory200;
+import com.example.khaier.service.CaseDonationService;
 import com.example.khaier.service.CharityService;
 import com.example.khaier.service.Impl.CharityImageService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ public class CharityController {
     private final SuccessResponseFactory200 responseFactory;
     private final CharityImageService charityImageService;
     private final CharityService charityService;
+    private final CaseDonationService donationService;
+
 
     @GetMapping
     public ResponseEntity<?> getAllCharities(){
@@ -29,6 +32,18 @@ public class CharityController {
         var response = charityService.saveCharity(charityRequestDto,adminId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Charity data saved successfully"));
+    }
+    @GetMapping("/{charityId}")
+    public ResponseEntity<?> getCharityByID(@PathVariable Long charityId){
+        var result = charityService.getCharityById(charityId);
+        var responseBody = responseFactory.createResponse(result,"Charity returned successfully!");
+        return ResponseEntity.ok(responseBody);
+    }
+    @GetMapping("/donation/{charityId}")
+    public ResponseEntity<?> geTDonationInCharity(@PathVariable Long charityId){
+        var result = donationService.findDonationByCharityId(charityId);
+        var responseBody = responseFactory.createResponse(result,"Donations returned successfully!");
+        return ResponseEntity.ok(responseBody);
     }
 
     @GetMapping(value = "/image/{title}", produces = MediaType.ALL_VALUE, consumes = MediaType.ALL_VALUE)

@@ -1,19 +1,21 @@
 package com.example.khaier.entity;
 
-
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "in_kind_donations")
+@Table(name = "donation_cases_donations")
 @Data
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class InKindDonation {
+public class CaseDonation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long donationId;
@@ -21,23 +23,19 @@ public class InKindDonation {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    private String phone;
 
     @ManyToOne
     @JoinColumn(name = "organization_id")
     private CharitableOrganization organization;
 
     @ManyToOne
-    @JoinColumn(name = "in_kind_case_id")
-    private InKindCase inKindCase;
-
-    private BigDecimal itemAmount;
-    private String itemName;
+    @JoinColumn(name = "donation_case_id")
+    private DonationCategoryCase donationCase;
 
     @Column(name = "donation_time")
     private LocalDateTime donationTime;
 
-    private Float lang;
-    private Float lat;
-    private String addressDescription;
+    private String donationWay;
+
+    private BigDecimal amount;
 }

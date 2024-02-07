@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -85,10 +87,19 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<CampaignDonation> donations;
+  
+  
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<InKindDonation> inKindDonations;
 
-
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<CaseDonation> caseDonations;
+  
     @OneToMany(mappedBy = "sender", fetch = FetchType.EAGER)
     private List<GiftDonation> giftDonations;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(userRole.name()));
