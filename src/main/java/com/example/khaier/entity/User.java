@@ -87,7 +87,8 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<CampaignDonation> donations;
-
+  
+  
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<InKindDonation> inKindDonations;
@@ -95,6 +96,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<CaseDonation> caseDonations;
+  
+    @OneToMany(mappedBy = "sender", fetch = FetchType.EAGER)
+    private List<GiftDonation> giftDonations;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
