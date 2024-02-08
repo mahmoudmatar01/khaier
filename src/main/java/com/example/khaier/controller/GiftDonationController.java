@@ -25,6 +25,13 @@ public class GiftDonationController {
                 .body(responseFactory.createResponse(response,"Gift Donations returned successfully "));
     }
 
+    @GetMapping("/category")
+    public ResponseEntity<?> getAllEnumValues(){
+        var response = giftDonationService.getAllEnumValues();
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(responseFactory.createResponse(response,"Gift Donations categories returned successfully "));
+    }
+
     @PostMapping
     public ResponseEntity<?> saveGiftDonation(@RequestParam Long userId, @RequestBody GiftRequestDto giftRequestDto){
         giftDonationService.save(giftRequestDto, userId);

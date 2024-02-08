@@ -4,6 +4,7 @@ import com.example.khaier.dto.request.GiftRequestDto;
 import com.example.khaier.dto.response.GiftResponseDto;
 import com.example.khaier.entity.GiftDonation;
 import com.example.khaier.entity.User;
+import com.example.khaier.enums.GiftDonationType;
 import com.example.khaier.helper.UserHelper;
 import com.example.khaier.mapper.GiftDonationToGiftDonationResponseDtoMapper;
 import com.example.khaier.mapper.GiftDonationRequestDtoToGiftDonationMapper;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -35,6 +37,11 @@ public class GiftDonationServiceImpl implements GiftDonationService {
         userHelper.findUserByIdOrThrowNotFoundException(userId);
         List<GiftDonation> giftDonations=giftDonationRepository.findAllBySender_UserId(userId);
         return giftDonations.stream().map(toGiftResponseDtoMapper).toList();
+    }
+
+    @Override
+    public List<GiftDonationType> getAllEnumValues() {
+        return Arrays.asList(GiftDonationType.values());
     }
 
     @Override
