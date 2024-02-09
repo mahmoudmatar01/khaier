@@ -37,6 +37,7 @@ public class BookmarkServiceImpl implements BookmarkService {
                 .post(post)
                 .build();
         bookmarkRepository.save(bookmark);
+        user.getBookmarks().add(post);
     }
 
     @Override

@@ -33,13 +33,11 @@ public class CampaignDonationServiceImpl implements CampaignDonationService {
         User user=userHelper.findUserByIdOrThrowNotFoundException(userId);
         Campaign campaign = findCampaign(campaignId);
         CampaignDonation donation = createCampaignDonation(user,campaign,amount);
-
-        user.getDonations().add(donation);
-        campaign.getDonations().add(donation);
-
         userRepository.save(user);
         campaignRepository.save(campaign);
         campaignDonationRepository.save(donation);
+        user.getDonations().add(donation);
+        campaign.getDonations().add(donation);
     }
 
     @Override
