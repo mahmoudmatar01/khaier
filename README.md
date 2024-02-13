@@ -259,9 +259,9 @@ The first and most important function for all users is:
    
 ###	Non-Functional Requirements
 It’s a set of specifications that describe the system’s operation capabilities and constraints.
-`Responsiveness`: The app responds quickly to user interactions and page loads, regardless of device or network conditions with a maximum load time of 5 seconds.
-`Data Security`: The user’s login information is encrypted using JWT authentication and Password encoders to make sure that intruders cannot access users’ private data like their payment data.
-`Availability`: As the Railway server is almost 24/7 available, there might be outages or downtime but it is insignificant and most of the time it would be some maintenance and upgrades in the server which happen in the less busy hours and are pre-announced.
+1. `Responsiveness`: The app responds quickly to user interactions and page loads, regardless of device or network conditions with a maximum load time of 5 seconds.
+2. `Data Security`: The user’s login information is encrypted using JWT authentication and Password encoders to make sure that intruders cannot access users’ private data like their payment data.
+3. `Availability`: As the Railway server is almost 24/7 available, there might be outages or downtime but it is insignificant and most of the time it would be some maintenance and upgrades in the server which happen in the less busy hours and are pre-announced.
 
 ##  Use Case Diagram
 The following diagram is a depiction of the UML diagram of our project.
