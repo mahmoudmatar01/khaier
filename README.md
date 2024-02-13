@@ -1,6 +1,9 @@
 # Overview
 Welcome to الخيـــــــــــــــــــــــــــــــــــــــــــر - a platform that brings together donors, volunteers, and charitable organizations to make a positive impact on the world. This document provides an overview of the project, its functionality, and how to get started.
 
+## Background:
+In today's interconnected world, being aware of social issues and supporting charitable efforts is important for helping people in need. But it can be hard to find the right charities and know how to contribute. This project aims to solve that problem by connecting charitable organizations with people who want to help. It makes it easier for everyone to work together to make a positive difference.
+
 ## Features
 ### User Registration and Login
 - Donors, volunteers, and charitable organizations can create accounts.
@@ -228,6 +231,37 @@ Welcome to الخيــــــــــــــــــــــــــــــ�
 +----------------------------------+
 
 ```
+
+## Requirements Specification
+Software Requirement specification “SRS” is a process of writing down all the system and user requirements. And in the following subsection, we’ll explain more about the functional requirements of the application.
+
+### Functional requirements
+It’s the answer to the question of what the system does as it highlights the functions/features which the application offers. 
+The first and most important function for all users is:
+
+- User registration and Login: Donors, volunteers, and charity organizations can create a new account and log in to access their corresponding user interface. This applies the concept of authentication and authorization as each user has a specific role that enables him/her to access specific content.
+  
+- For the donors:
+1.	View the charity cases in each organization.
+2.	Search for a specific organization.
+3.	Select the donation type to a charity case or a campaign like donating money, clothes, or food. 
+4.	Filter the charity cases based on their category.
+5.	Post a charity case to the application which will be pending before being reviewed by the administrators.
+6.	Interact with another person’s post by liking, commenting, or saving that post.
+7.	Donors can also apply for volunteering.
+8.	Issue a problem that he/she faced when donating to a specific organization.
+9.	Track your donations.
+    
+- For charity organizations:
+1.	Post their upcoming campaigns like Food Bank or donating to Gaza, these campaigns are bigger and take a longer time to complete than a charity case.
+2.	They can post charity cases like families that need help or a person that needs urgent surgery, these cases are shown on the application according to their urgency and the charity needs to select how urgent the case is.
+3.	Get notified when the case has been fully donated so that they can proceed with their work.
+   
+###	Non-Functional Requirements
+It’s a set of specifications that describe the system’s operation capabilities and constraints.
+`Responsiveness`: The app responds quickly to user interactions and page loads, regardless of device or network conditions with a maximum load time of 5 seconds.
+`Data Security`: The user’s login information is encrypted using JWT authentication and Password encoders to make sure that intruders cannot access users’ private data like their payment data.
+`Availability`: As the Railway server is almost 24/7 available, there might be outages or downtime but it is insignificant and most of the time it would be some maintenance and upgrades in the server which happen in the less busy hours and are pre-announced.
 
 ##  Use Case Diagram
 The following diagram is a depiction of the UML diagram of our project.
