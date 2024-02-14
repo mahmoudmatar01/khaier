@@ -1,15 +1,15 @@
 # Overview
 Welcome to الخيـــــــــــــــــــــــــــــــــــــــــــر - a platform that brings together donors, volunteers, and charitable organizations to make a positive impact on the world. This document provides an overview of the project, its functionality, and how to get started.
 
-## Background:
+# Background:
 In today's interconnected world, being aware of social issues and supporting charitable efforts is important for helping people in need. But it can be hard to find the right charities and know how to contribute. This project aims to solve that problem by connecting charitable organizations with people who want to help. It makes it easier for everyone to work together to make a positive difference.
 
-## Features
-### User Registration and Login
+# Features
+## User Registration and Login
 - Donors, volunteers, and charitable organizations can create accounts.
 - Authentication and authorization ensure role-specific access.
 
-### For Donors
+## For Donors
 1. View charity cases in each organization.
 2. Search for specific organizations.
 3. Select a donation type (money, clothes, food) for a charity case or campaign.
@@ -20,12 +20,107 @@ In today's interconnected world, being aware of social issues and supporting cha
 8. Report issues faced during donations.
 9. Track donation history.
 
-### For Charitable Organizations
+## For Charitable Organizations
 1. Post upcoming campaigns and charity cases.
 2. Manage urgent charity cases and set urgency levels.
 3. Receive notifications when a case is fully donated.
 
-## UML Diagram 
+# Database Schema
+The application uses a relational database with tables for users, posts, comments, likes, bookmarks, charitable organizations, campaigns, campaign donations, donation categories, donation cases, in-kind donations, and gift donations. Refer to the Database Schema for a detailed structure.
+
+```plaintext
+Table: users
+- userId (PK)
+- username
+- userImageUrl
+- email
+- password
+- userRole
+- userGender
+- location
+- phone
+- accessToken
+
+Table: posts
+- postId (PK)
+- postContent
+- date
+- userId (FK references users.userId)
+
+Table: comments
+- commentId (PK)
+- content
+- date
+- userId (FK references users.userId)
+- postId (FK references posts.postId)
+
+Table: likes
+- likeId (PK)
+- date
+- isLiked
+- userId (FK references users.userId)
+- postId (FK references posts.postId)
+
+Table: bookmarks
+- bookmarkId (PK)
+- date
+- userId (FK references users.userId)
+- postId (FK references posts.postId)
+
+Table: charitable_organizations
+- orgId (PK)
+- orgName
+- description
+- location
+- facebookUrl
+- instagramUrl
+- orgPhoneNumber
+- orgWhatsappNumber
+- charitableOrgImageId (FK references charitable_org_images.charitableOrgImageId)
+
+Table: campaigns
+- campaignId (PK)
+- campaignName
+- campaignAdditionalName
+- campaignDescription
+- campaignEndDay
+- numberOfBeneficiaries
+- amountRequired
+- orgId (FK references charitable_organizations.orgId)
+- campaignImageId (FK references campaign_images.campaignImageId)
+
+Table: campaign_donations
+- donationId (PK)
+- userId (FK references users.userId)
+- campaignId (FK references campaigns.campaignId)
+- amount
+- donationTime
+
+Table: donation_categories
+- categoryId (PK)
+- categoryTitle
+- orgId (FK references charitable_organizations.orgId)
+
+Table: donation_cases
+- caseId (PK)
+- caseName
+- description
+- categoryId (FK references donation_categories.categoryId)
+
+Table: in_kind_donations
+- id (PK)
+- title
+- description
+- orgId (FK references charitable_organizations.orgId)
+
+Table: gift_donations
+- giftDonationId (PK)
+- userId (FK references users.userId)
+- amount
+- donationMessage
+```
+
+# UML Diagram 
 
 ```plaintext
 +--------------------------------------+
@@ -232,10 +327,10 @@ In today's interconnected world, being aware of social issues and supporting cha
 
 ```
 
-## Requirements Specification
+# Requirements Specification
 Software Requirement specification “SRS” is a process of writing down all the system and user requirements. And in the following subsection, we’ll explain more about the functional requirements of the application.
 
-### Functional requirements
+## Functional requirements
 It’s the answer to the question of what the system does as it highlights the functions/features which the application offers. 
 The first and most important function for all users is:
 
@@ -257,13 +352,13 @@ The first and most important function for all users is:
 2.	They can post charity cases like families that need help or a person that needs urgent surgery, these cases are shown on the application according to their urgency and the charity needs to select how urgent the case is.
 3.	Get notified when the case has been fully donated so that they can proceed with their work.
    
-###	Non-Functional Requirements
+##	Non-Functional Requirements
 It’s a set of specifications that describe the system’s operation capabilities and constraints.
 1. `Responsiveness`: The app responds quickly to user interactions and page loads, regardless of device or network conditions with a maximum load time of 5 seconds.
 2. `Data Security`: The user’s login information is encrypted using JWT authentication and Password encoders to make sure that intruders cannot access users’ private data like their payment data.
 3. `Availability`: As the Railway server is almost 24/7 available, there might be outages or downtime but it is insignificant and most of the time it would be some maintenance and upgrades in the server which happen in the less busy hours and are pre-announced.
 
-##  Use Case Diagram
+#  Use Case Diagram
 The following diagram is a depiction of the UML diagram of our project.
 
 <img src="https://rebekia-api-02084fade382.herokuapp.com/api/v1/auth/images/photo-1c87b029-4bea-413a-9258-cde5616c02a9" />
