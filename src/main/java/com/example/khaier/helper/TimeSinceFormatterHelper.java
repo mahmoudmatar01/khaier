@@ -5,7 +5,21 @@ import java.time.LocalDateTime;
 
 public class TimeSinceFormatterHelper {
 
-    public static String formatTimeSince(LocalDateTime creationDate) {
+    private static volatile TimeSinceFormatterHelper instance=null;
+    private TimeSinceFormatterHelper(){}
+
+    public static TimeSinceFormatterHelper getInstance() {
+        if (instance == null) {
+            synchronized (TimeSinceFormatterHelper.class) {
+                if (instance == null) {
+                    instance = new TimeSinceFormatterHelper();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public String formatTimeSince(LocalDateTime creationDate) {
 
         LocalDateTime currentDate = LocalDateTime.now();
         Duration duration = Duration.between(creationDate, currentDate);
@@ -35,7 +49,7 @@ public class TimeSinceFormatterHelper {
 
     }
 
-    private static String formatSeconds(long seconds) {
+    private String formatSeconds(long seconds) {
         String createdSince;
         if (seconds == 0) {
             createdSince = "الان";
@@ -51,7 +65,7 @@ public class TimeSinceFormatterHelper {
         return createdSince;
     }
 
-    private static String formatMinutes(long minutes) {
+    private String formatMinutes(long minutes) {
         String createdSince;
         if (minutes == 1) {
             createdSince = "منذ دقيقة";
@@ -66,7 +80,7 @@ public class TimeSinceFormatterHelper {
         return createdSince;
     }
 
-    private static String formatHours(long hours) {
+    private String formatHours(long hours) {
         String createdSince;
         if (hours == 2) {
             createdSince = "منذ ساعتين";
@@ -80,7 +94,7 @@ public class TimeSinceFormatterHelper {
         return createdSince;
     }
 
-    private static String formatDays(long days) {
+    private String formatDays(long days) {
         String createdSince;
         if (days == 2) {
             createdSince = "منذ يومين";
@@ -94,7 +108,7 @@ public class TimeSinceFormatterHelper {
         return createdSince;
     }
 
-    private static String formatMonths(long days) {
+    private String formatMonths(long days) {
         String createdSince;
         long months = days / 30;
         if (months == 2) {
@@ -110,7 +124,7 @@ public class TimeSinceFormatterHelper {
 
     }
 
-    private static String formatYears(long days) {
+    private String formatYears(long days) {
         String createdSince;
         long years = days / 365;
         if (years == 2) {

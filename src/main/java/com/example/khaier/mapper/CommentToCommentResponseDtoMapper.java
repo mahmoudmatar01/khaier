@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class CommentToCommentResponseDtoMapper implements Function<Comment, CommentResponseDto> {
 
     private final ReplyToReplyResponseDtoMapper toReplyResponseDtoMapper;
+    private final TimeSinceFormatterHelper timeSinceFormatterHelper=TimeSinceFormatterHelper.getInstance();
     @Override
     public CommentResponseDto apply(Comment comment) {
         return CommentResponseDto
@@ -21,7 +22,7 @@ public class CommentToCommentResponseDtoMapper implements Function<Comment, Comm
                 .id(comment.getCommentId())
                 .commentContent(comment.getContent())
                 .publishDate(comment.getDate())
-                .createdSince(TimeSinceFormatterHelper.formatTimeSince(comment.getDate()))
+                .createdSince(timeSinceFormatterHelper.formatTimeSince(comment.getDate()))
                 .postId(comment.getPost().getPostId())
                 .userId(comment.getUser().getUserId())
                 .userName(comment.getUser().getUsername())

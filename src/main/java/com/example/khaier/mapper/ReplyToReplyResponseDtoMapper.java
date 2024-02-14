@@ -9,6 +9,7 @@ import java.util.function.Function;
 
 @Component
 public class ReplyToReplyResponseDtoMapper implements Function<Reply, ReplyResponseDto> {
+    private final TimeSinceFormatterHelper timeSinceFormatterHelper=TimeSinceFormatterHelper.getInstance();
     @Override
     public ReplyResponseDto apply(Reply reply) {
         return ReplyResponseDto
@@ -16,7 +17,7 @@ public class ReplyToReplyResponseDtoMapper implements Function<Reply, ReplyRespo
                 .id(reply.getReplyId())
                 .content(reply.getContent())
                 .publishDate(reply.getDate())
-                .createdSince(TimeSinceFormatterHelper.formatTimeSince(reply.getDate()))
+                .createdSince(timeSinceFormatterHelper.formatTimeSince(reply.getDate()))
                 .commentId(reply.getComment().getCommentId())
                 .userId(reply.getUser().getUserId())
                 .userName(reply.getUser().getUsername())

@@ -18,6 +18,8 @@ public class PostToPostResponseDtoMapper implements Function<Post, PostResponseD
     private final CommentToCommentResponseDtoMapper toCommentResponseDtoMapper;
     private final LikeToLikeResponseDtoMapper toLikeResponseDtoMapper;
     private final LikeHelper likeHelper;
+    private final TimeSinceFormatterHelper timeSinceFormatterHelper=TimeSinceFormatterHelper.getInstance();
+
     @Override
     public PostResponseDto apply(Post post) {
         return apply(post,null);
@@ -29,7 +31,7 @@ public class PostToPostResponseDtoMapper implements Function<Post, PostResponseD
                 .id(post.getPostId())
                 .content(post.getPostContent())
                 .dateTime(post.getDate())
-                .createdSince(TimeSinceFormatterHelper.formatTimeSince(post.getDate()))
+                .createdSince(timeSinceFormatterHelper.formatTimeSince(post.getDate()))
                 .imagesUrl(post.getImages()!=null?post.getImages().stream().map(PostImage::getUrl).toList():new ArrayList<>())
                 .userId(post.getUser().getUserId())
                 .isUserLike(isLiked)
