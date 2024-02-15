@@ -5,12 +5,10 @@ import com.example.khaier.entity.CampaignImage;
 import com.example.khaier.entity.CharitableOrganization;
 import com.example.khaier.entity.Campaign;
 import com.example.khaier.helper.CharityOrgHelper;
-import com.example.khaier.repository.CharityRepository;
 import com.example.khaier.service.Impl.CampaignImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import org.webjars.NotFoundException;
 
 import java.io.IOException;
 import java.util.function.Function;

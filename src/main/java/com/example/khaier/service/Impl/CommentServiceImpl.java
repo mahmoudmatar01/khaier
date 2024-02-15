@@ -9,7 +9,6 @@ import com.example.khaier.helper.UserHelper;
 import com.example.khaier.mapper.CommentRequestDtoToCommentMapper;
 import com.example.khaier.mapper.CommentToCommentResponseDtoMapper;
 import com.example.khaier.repository.CommentRepository;
-import com.example.khaier.repository.PostRepository;
 import com.example.khaier.service.CommentService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,6 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final UserHelper userHelper;
     private final CommentRequestDtoToCommentMapper toCommentMapper;
-    private final PostRepository postRepository;
     private final PostHelper postHelper;
     private final CommentToCommentResponseDtoMapper toCommentResponseDtoMapper;
 
@@ -36,7 +34,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment=toCommentMapper.apply(commentRequestDto);
         comment.setUser(user);
         comment=commentRepository.save(comment);
-        postRepository.findById(commentRequestDto.postId()).get().getComments().add(comment);
+        postHelper.findPostByIdOrThrowNotFound(commentRequestDto.postId()).getComments().add(comment);
         return  toCommentResponseDtoMapper.apply(comment);
     }
     @Override

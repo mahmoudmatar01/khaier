@@ -4,8 +4,6 @@ import com.example.khaier.dto.response.PostResponseDto;
 import com.example.khaier.factory.impl.SuccessResponseFactory200;
 import com.example.khaier.service.BookmarkService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

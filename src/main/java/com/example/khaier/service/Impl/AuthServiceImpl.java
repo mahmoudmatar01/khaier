@@ -29,11 +29,11 @@ public class AuthServiceImpl implements AuthService {
     private final UserToUserResponseDtoMapper userResponseDtoMapper;
 
     @Override
-    public UserRegisterResponseDto registerUser(UserRegistrationRequestDto registerRequest) {
+    public void registerUser(UserRegistrationRequestDto registerRequest) {
         userHelper.checkUserExistAndPasswordEqualAfterRegister(registerRequest);
         User user = userRegisterDtoToUserMapper.apply(registerRequest);
         userRepository.save(user);
-        return userResponseDtoMapper.apply(user);
+        userResponseDtoMapper.apply(user);
     }
 
     @Override

@@ -1,7 +1,4 @@
 package com.example.khaier.helper;
-
-import com.example.khaier.entity.Post;
-import com.example.khaier.entity.User;
 import com.example.khaier.repository.LikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
