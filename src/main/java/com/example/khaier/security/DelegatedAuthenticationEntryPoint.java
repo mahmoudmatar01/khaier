@@ -10,9 +10,8 @@ import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import java.io.IOException;
 
-@Component("delegatedAuthenticationEntryPoint")
+@Component
 public class DelegatedAuthenticationEntryPoint implements AuthenticationEntryPoint{
     private final HandlerExceptionResolver resolver;
     private final static Logger LOGGER = LoggerFactory.getLogger(DelegatedAuthenticationEntryPoint.class);
