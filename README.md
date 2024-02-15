@@ -1,4 +1,4 @@
-# Platform for Positive Impact - الخيــــــــــــــــــــــــــــــــــــــــــــــــر
+# Platform - الخيــــــــــــــــــــــــــــــــــــــــــــــــر
 
 # Table of Contents
 1. [Overview](#overview)
