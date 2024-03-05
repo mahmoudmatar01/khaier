@@ -372,7 +372,7 @@ It’s a set of specifications that describe the system’s operation capabiliti
 
 ##  Use Case Diagram
 The Use Case Diagram provides a visual representation of the interactions between users and the system. Refer to the Use Case Diagram section for a detailed illustration.
-<img src="https://rebekia-api-02084fade382.herokuapp.com/api/v1/auth/images/photo-1c87b029-4bea-413a-9258-cde5616c02a9" />
+<img src="https://raw.githubusercontent.com/mahmoudmatar01/khaier/master/assets/usecases_diagram.png" />
 Each use case in a use case diagram can have an associated behavior specification that describes the sequence of actions that make up the use case scenario.
 
 
