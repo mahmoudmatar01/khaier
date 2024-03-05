@@ -378,4 +378,4 @@ Each use case in a use case diagram can have an associated behavior specificatio
 
 ##  ERD Diagram
 The Entity-Relationship Diagram (ERD) illustrates the relationships between entities in the database. Refer to the ERD Diagram section for a visual representation.
-<img src="https://rebekia-api-02084fade382.herokuapp.com/api/v1/auth/images/photo-9f7e3d5d-ef44-4e37-bb3c-afe84dea9ae1" />
+<img src="https://raw.githubusercontent.com/mahmoudmatar01/khaier/master/assets/package.png" />
