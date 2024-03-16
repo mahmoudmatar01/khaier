@@ -23,14 +23,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.*;
 
 @SpringBootTest
-public class BannerServiceTest {
+public class BannerServiceUnitTest {
     @MockBean
     private BannerRepository bannerRepository;
     private final BannerService bannerService;
     private final BannerToBannerResponseDto toBannerResponseDto;
 
     @Autowired
-    public BannerServiceTest(BannerService bannerService,BannerToBannerResponseDto toBannerResponseDto) {
+    public BannerServiceUnitTest(BannerService bannerService, BannerToBannerResponseDto toBannerResponseDto) {
         this.bannerService = bannerService;
         this.toBannerResponseDto=toBannerResponseDto;
     }

@@ -51,7 +51,7 @@ public class BannerControllerIntegrationTest {
         bannerResponseDtos.add(new BannerResponseDto(1L, "banner1", "This is banner1", "blahblahblah"));
         bannerResponseDtos.add(new BannerResponseDto(2L, "banner2", "This is banner2", "lalalalalalalala"));
         when(bannerService.findAllBanners()).thenReturn(bannerResponseDtos);
-        ApiCustomResponse apiCustomResponse = new ApiCustomResponse<>("Banners returned successfully", bannerResponseDtos,
+        ApiCustomResponse<?> apiCustomResponse = new ApiCustomResponse<>("Banners returned successfully", bannerResponseDtos,
                 200, true);
         ObjectMapper mapper = new ObjectMapper();
         String expectedData = mapper.writeValueAsString(apiCustomResponse);
