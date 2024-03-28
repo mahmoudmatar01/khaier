@@ -51,4 +51,28 @@ public class SecurityConfig {
         return http.build();
     }
 
+    @Bean
+    @Profile({"production"})
+    public SecurityFilterChain AuthenticatedFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(request ->
+                        request.requestMatchers(
+                                        "/v3/api-docs/**",
+                                        "/swagger-ui/**",
+                                        "/actuator/**"
+                                ).permitAll()
+                                .anyRequest()
+                                .authenticated())
+                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(
+                        authFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(c -> c.authenticationEntryPoint(jwtUnAuthResponse)
+                );
+
+
+        return http.build();
+    }
+
 }
