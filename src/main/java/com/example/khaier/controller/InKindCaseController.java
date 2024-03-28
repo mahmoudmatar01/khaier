@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/in-kind-cases")
+@RequestMapping("/${api.version}/in-kind-cases")
 @RequiredArgsConstructor
 public class InKindCaseController {
     private final SuccessResponseFactory200 responseFactory;

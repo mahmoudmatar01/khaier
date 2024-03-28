@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/donation-case")
+@RequestMapping("/${api.version}/donation-case")
 @RequiredArgsConstructor
 public class DonationCaseController {
     private final SuccessResponseFactory200 responseFactory;

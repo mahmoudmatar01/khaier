@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/gift-donation")
+@RequestMapping("/${api.version}/gift-donation")
 @RequiredArgsConstructor
 public class GiftDonationController {
     private final SuccessResponseFactory200 responseFactory;

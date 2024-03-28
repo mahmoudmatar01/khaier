@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/charity")
+@RequestMapping("/${api.version}/charity")
 @RequiredArgsConstructor
 public class CharityController {
     private final SuccessResponseFactory200 responseFactory;

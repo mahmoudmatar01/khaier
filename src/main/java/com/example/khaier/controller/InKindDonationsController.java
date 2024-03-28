@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/in-kind-donations")
+@RequestMapping("/${api.version}/in-kind-donations")
 @RequiredArgsConstructor
 public class InKindDonationsController {
 

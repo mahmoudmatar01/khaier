@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/banner")
+@RequestMapping("/${api.version}/banner")
 @RequiredArgsConstructor
 public class BannerController {
     private final BannerService bannerService;

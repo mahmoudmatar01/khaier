@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/comment")
+@RequestMapping("/${api.version}/comment")
 @RequiredArgsConstructor
 public class CommentController {
     private final SuccessResponseFactory200 responseFactory;

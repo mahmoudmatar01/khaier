@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @OpenAPIDefinition(servers =
         {
                 @Server(
-                        url = "khaier-production.up.railway.app",
+                        url = "https://khaier-production.up.railway.app",
                         description = "Remote Project for Historian API"
                 ),
                 @Server(

@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/like")
+@RequestMapping("/${api.version}/like")
 @RequiredArgsConstructor
 public class LikeController {
     private final SuccessResponseFactory200 responseFactory;

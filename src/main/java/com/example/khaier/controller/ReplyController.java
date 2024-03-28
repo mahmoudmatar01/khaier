@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/reply")
+@RequestMapping("/${api.version}/reply")
 @RequiredArgsConstructor
 public class ReplyController {
     private final SuccessResponseFactory200 responseFactory;

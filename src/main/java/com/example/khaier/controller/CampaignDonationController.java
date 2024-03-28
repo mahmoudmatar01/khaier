@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 
 @RestController
-@RequestMapping("/api/v1/campaign-donation")
+@RequestMapping("/${api.version}/campaign-donation")
 @RequiredArgsConstructor
 public class CampaignDonationController {
 
