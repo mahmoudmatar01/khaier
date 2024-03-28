@@ -372,10 +372,8 @@ It’s a set of specifications that describe the system’s operation capabiliti
 
 ##  Use Case Diagram
 The Use Case Diagram provides a visual representation of the interactions between users and the system. Refer to the Use Case Diagram section for a detailed illustration.
-<img src="https://raw.githubusercontent.com/mahmoudmatar01/khaier/master/assets/usecases_diagram.png" />
 Each use case in a use case diagram can have an associated behavior specification that describes the sequence of actions that make up the use case scenario.
 
 
 ##  ERD Diagram
 The Entity-Relationship Diagram (ERD) illustrates the relationships between entities in the database. Refer to the ERD Diagram section for a visual representation.
-<img src="https://raw.githubusercontent.com/mahmoudmatar01/khaier/master/assets/ERD_diagram.png" />
