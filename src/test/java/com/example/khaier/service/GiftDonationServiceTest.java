@@ -36,7 +36,7 @@ public class GiftDonationServiceTest {
     private GiftDonationRequestDtoToGiftDonationMapper toGiftDonationMapper;
     @Autowired
     private GiftDonationToGiftDonationResponseDtoMapper toGiftDonationResponseDtoMapper;
-    private User userMock = Mockito.mock(User.class);
+    private final User userMock = Mockito.mock(User.class);
     private User userMock2;
     private UserHelper userHelperMock = Mockito.mock(UserHelper.class);
 
