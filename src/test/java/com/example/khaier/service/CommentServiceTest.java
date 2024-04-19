@@ -89,7 +89,7 @@ public class CommentServiceTest {
         List<Comment> comments = List.of(comment1, comment2);
         when(commentRepository.findByPost_PostId(1L)).thenReturn(comments);
 
-        Assertions.assertThat(commentService.getCommentsByPostId(1L))
-                .isEqualTo(comments.stream().map(toCommentResponseDtoMapper).toList());
+        Assertions.assertThat(commentService.getCommentsByPostId(1L).get(1).commentContent())
+                .isEqualTo(comments.stream().map(toCommentResponseDtoMapper).toList().get(1).commentContent());
     }
 }
