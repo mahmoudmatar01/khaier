@@ -8,6 +8,7 @@ import com.example.khaier.mapper.InKindDonationRequestDtoToInKindDonationMapper;
 import com.example.khaier.mapper.InKindDonationToInKindDonationResponseDtoMapper;
 import com.example.khaier.repository.InKindDonationRepository;
 import com.example.khaier.service.InKindDonationsService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class InKindDonationsServiceImpl implements InKindDonationsService {
 
     private final InKindDonationRequestDtoToInKindDonationMapper toInKindDonationMapper;

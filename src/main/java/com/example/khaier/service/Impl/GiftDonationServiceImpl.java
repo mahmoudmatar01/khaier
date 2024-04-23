@@ -3,7 +3,6 @@ package com.example.khaier.service.Impl;
 import com.example.khaier.dto.request.GiftRequestDto;
 import com.example.khaier.dto.response.GiftResponseDto;
 import com.example.khaier.entity.GiftDonation;
-import com.example.khaier.entity.User;
 import com.example.khaier.enums.GiftDonationType;
 import com.example.khaier.helper.UserHelper;
 import com.example.khaier.mapper.GiftDonationToGiftDonationResponseDtoMapper;
