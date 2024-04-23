@@ -13,7 +13,7 @@ public record CommentResponseDto(
         Long userId,
         String userName,
         String userImageUrl,
-        List<ReplyResponseDto>replies
+        long numberOfReplies
 
 ) {
 }

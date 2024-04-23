@@ -3,17 +3,13 @@ package com.example.khaier.mapper;
 import com.example.khaier.dto.response.CommentResponseDto;
 import com.example.khaier.entity.Comment;
 import com.example.khaier.helper.TimeSinceFormatterHelper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Component
-@RequiredArgsConstructor
 public class CommentToCommentResponseDtoMapper implements Function<Comment, CommentResponseDto> {
 
-    private final ReplyToReplyResponseDtoMapper toReplyResponseDtoMapper;
     private final TimeSinceFormatterHelper timeSinceFormatterHelper=TimeSinceFormatterHelper.getInstance();
     @Override
     public CommentResponseDto apply(Comment comment) {
@@ -27,7 +23,7 @@ public class CommentToCommentResponseDtoMapper implements Function<Comment, Comm
                 .userId(comment.getUser().getUserId())
                 .userName(comment.getUser().getUsername())
                 .userImageUrl(comment.getUser().getUserImageUrl())
-                .replies(comment.getReplies().stream().map(toReplyResponseDtoMapper).collect(Collectors.toList()))
+                .numberOfReplies(comment.getReplies().size())
                 .build();
     }
 }

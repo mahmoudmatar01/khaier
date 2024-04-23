@@ -40,7 +40,7 @@ public class Campaign {
     @ManyToMany(mappedBy = "campaigns")
     private List<User> users ;
 
-    @OneToMany(mappedBy = "campaign", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "campaign")
     private List<CampaignDonation> donations ;
 
 }

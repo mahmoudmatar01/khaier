@@ -32,10 +32,10 @@ public class CharitableOrganization {
     @JoinColumn(name = "Charity_image")
     private CharitableOrgImage charitableOrgImage;
 
-    @OneToMany(mappedBy = "charitableOrganization", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "charitableOrganization")
     private List<DonationCategories> donationCategories;
 
-    @OneToMany(mappedBy = "charitableOrganization", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "charitableOrganization")
     private List<Campaign> donationCampaigns;
 
     @OneToMany(mappedBy = "organization")

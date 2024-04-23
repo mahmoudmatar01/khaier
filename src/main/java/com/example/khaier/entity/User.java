@@ -15,9 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -85,19 +83,19 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "campaign_id"))
     private List<Campaign> campaigns;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     private List<CampaignDonation> donations;
   
   
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<InKindDonation> inKindDonations;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<CaseDonation> caseDonations;
   
-    @OneToMany(mappedBy = "sender", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "sender")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<GiftDonation> giftDonations;
 

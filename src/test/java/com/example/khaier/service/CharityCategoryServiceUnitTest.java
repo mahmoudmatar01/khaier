@@ -48,7 +48,7 @@ public class CharityCategoryServiceUnitTest {
         // Mock data
         CharityCategoryRequestDto requestDto = new CharityCategoryRequestDto("Test Category", 1L);
         DonationCategories mockCategory = new DonationCategories(null, "Test Category", null, null);
-        CharityCategoryResponseDto expectedResponse = new CharityCategoryResponseDto(1L, "Test Category", Collections.emptyList());
+        CharityCategoryResponseDto expectedResponse = new CharityCategoryResponseDto(1L, "Test Category");
 
         CharitableOrganization mockCharityOrg = CharitableOrganization.builder()
                 .donationCategories(new ArrayList<>())
@@ -68,7 +68,6 @@ public class CharityCategoryServiceUnitTest {
         // Assertions
         assertEquals(expectedResponse.categoryId(), actualResponse.categoryId());
         assertEquals(expectedResponse.categoryTitle(), actualResponse.categoryTitle());
-        assertEquals(expectedResponse.caseList(), actualResponse.caseList());
     }
 
     @Test(expected = NotFoundCustomException.class)
@@ -93,7 +92,7 @@ public class CharityCategoryServiceUnitTest {
         Mockito.when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(mockCategory));
 
         // Mock toCharityCategoryResponseDtoMapper
-        Mockito.when(toCharityCategoryResponseDtoMapper.apply(Mockito.any(DonationCategories.class))).thenReturn(new CharityCategoryResponseDto(categoryId, "Test Category", null));
+        Mockito.when(toCharityCategoryResponseDtoMapper.apply(Mockito.any(DonationCategories.class))).thenReturn(new CharityCategoryResponseDto(categoryId, "Test Category"));
 
         // Call the service method
         CharityCategoryResponseDto responseDto = charityCategoryService.findCharityCategoryById(categoryId);

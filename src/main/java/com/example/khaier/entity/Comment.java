@@ -27,7 +27,7 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
-    @OneToMany(mappedBy = "comment", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "comment")
     private List<Reply> replies;
 
 }

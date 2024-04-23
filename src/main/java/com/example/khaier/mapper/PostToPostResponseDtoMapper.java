@@ -9,14 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class PostToPostResponseDtoMapper implements Function<Post, PostResponseDto> {
-
-    private final CommentToCommentResponseDtoMapper toCommentResponseDtoMapper;
-    private final LikeToLikeResponseDtoMapper toLikeResponseDtoMapper;
     private final LikeHelper likeHelper;
     private final TimeSinceFormatterHelper timeSinceFormatterHelper=TimeSinceFormatterHelper.getInstance();
 
@@ -37,8 +33,8 @@ public class PostToPostResponseDtoMapper implements Function<Post, PostResponseD
                 .isUserLike(isLiked)
                 .userName(post.getUser().getUsername())
                 .userImage(post.getUser().getUserImageUrl())
-                .comments(post.getComments().stream().map(toCommentResponseDtoMapper).collect(Collectors.toList()))
-                .likes(post.getLikes().stream().map(toLikeResponseDtoMapper).collect(Collectors.toList()))
+                .numberOfLikes(post.getLikes().size())
+                .numberOfComments(post.getComments().size())
                 .build();
     }
 }

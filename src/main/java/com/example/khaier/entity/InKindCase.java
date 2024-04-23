@@ -23,7 +23,7 @@ public class InKindCase {
     private String title;
     private String includedItemName;
 
-    @OneToMany(mappedBy = "inKindCase",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "inKindCase")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<InKindDonation> donations;
 

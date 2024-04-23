@@ -19,7 +19,6 @@ public record CaseResponseDto(
          BigDecimal requiredAmount,
          BigDecimal paidAmount,
          BigDecimal remainingAmount,
-         Long categoryId,
-         List<CaseDonationResponseDto>donations
+         Long categoryId
 ) {
 }

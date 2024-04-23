@@ -23,6 +23,6 @@ public class DonationCategories {
     @JoinColumn(name = "org_id")
     private CharitableOrganization charitableOrganization;
 
-    @OneToMany(mappedBy = "donationCategory", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "donationCategory")
     private List<DonationCategoryCase> donationCases;
 }

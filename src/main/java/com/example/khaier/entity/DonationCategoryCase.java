@@ -33,7 +33,7 @@ public class DonationCategoryCase {
     @JoinColumn(name = "category_id")
     private DonationCategories donationCategory;
 
-    @OneToMany(mappedBy = "donationCase",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "donationCase")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<CaseDonation> donations;
 

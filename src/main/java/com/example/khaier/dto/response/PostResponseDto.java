@@ -14,7 +14,8 @@ public record PostResponseDto (
         boolean isUserLike,
         String userName,
         String userImage,
-        List<LikeResponseDto>likes,
-        List<CommentResponseDto>comments
+        long numberOfLikes,
+        long numberOfComments
+
 ){
 }
