@@ -27,23 +27,23 @@ public class PostController {
     @Value("${page.size}")
     private int pageSize;
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<?> getPosts(@PathVariable Long userId, @RequestParam(defaultValue = "0") int page){
+    @GetMapping
+    public ResponseEntity<?> getPosts(@RequestParam(defaultValue = "0") int page){
         Pageable pageable = PageRequest.of(page, pageSize);
-        List<PostResponseDto> response = postService.getAllPosts(userId, pageable);
+        List<PostResponseDto> response = postService.getAllPosts(pageable);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Posts returned successfully "));
     }
-    @GetMapping
-    public ResponseEntity<?> findPostById(@RequestParam Long userId,@RequestParam Long postId){
-        PostResponseDto response = postService.getPostById(postId,userId);
+    @GetMapping("/{postId}")
+    public ResponseEntity<?> findPostById(@PathVariable Long postId){
+        PostResponseDto response = postService.getPostById(postId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Post returned successfully "));
     }
 
-    @PostMapping(value = "/{userId}",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> savePost(@ModelAttribute PostRequestDto postRequestDto,@PathVariable Long userId){
-        PostResponseDto response = postService.addNewPost(postRequestDto,userId);
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> savePost(@ModelAttribute PostRequestDto postRequestDto){
+        PostResponseDto response = postService.addNewPost(postRequestDto);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Posts saved successfully "));
     }

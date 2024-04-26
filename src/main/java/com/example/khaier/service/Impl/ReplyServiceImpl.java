@@ -12,6 +12,7 @@ import com.example.khaier.repository.ReplyRepository;
 import com.example.khaier.service.ReplyService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
@@ -28,8 +29,9 @@ public class ReplyServiceImpl implements ReplyService {
     private final CommentRepository commentRepository;
     private final UserHelper userHelper;
     @Override
-    public ReplyResponseDto addReply(ReplyRequestDto requestDto, Long userId){
-        User user=userHelper.findUserByIdOrThrowNotFoundException(userId);
+    public ReplyResponseDto addReply(ReplyRequestDto requestDto){
+        User authUser= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user=userHelper.findUserByIdOrThrowNotFoundException(authUser.getUserId());
         Reply reply=toReplyMapper.apply(requestDto);
         reply.setUser(user);
         reply=repository.save(reply);

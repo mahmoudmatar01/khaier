@@ -59,7 +59,7 @@ public class PostServiceTest {
         Post post = toPostMapper.apply(postRequestDto);
         post.setUser(user);
         Mockito.when(postRepository.save(Mockito.any(Post.class))).thenReturn(post);
-        Assertions.assertThat(postService.addNewPost(postRequestDto, 1L).content())
+        Assertions.assertThat(postService.addNewPost(postRequestDto).content())
                 .isEqualTo(toPostResponseDtoMapper.apply(post).content());
     }
 
@@ -80,7 +80,7 @@ public class PostServiceTest {
                 .map(post -> toPostResponseDtoMapper.apply(post, 1L))
                 .toList();
         Mockito.when(postRepository.findAll(firstPage)).thenReturn(posts);
-        Assertions.assertThat(postService.getAllPosts(1L, firstPage).size()).isEqualTo(postResponseDtos.size());
+        Assertions.assertThat(postService.getAllPosts(firstPage).size()).isEqualTo(postResponseDtos.size());
     }
 
     @Test
@@ -97,6 +97,6 @@ public class PostServiceTest {
         actualPost.setUser(user);
         PostResponseDto expectedPost = toPostResponseDtoMapper.apply(actualPost);
         Mockito.when(postRepository.findById(1L)).thenReturn(Optional.of(actualPost));
-        Assertions.assertThat(postService.getPostById(1L, 1L).content()).isEqualTo(expectedPost.content());
+        Assertions.assertThat(postService.getPostById( 1L).content()).isEqualTo(expectedPost.content());
     }
 }

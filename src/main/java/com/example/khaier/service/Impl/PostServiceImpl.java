@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,26 +31,29 @@ public class PostServiceImpl implements PostService {
     private final UserHelper userHelper;
     private final PostHelper postHelper;
     @Override
-    public List<PostResponseDto> getAllPosts(Long userId, Pageable pageable) {
+    public List<PostResponseDto> getAllPosts(Pageable pageable) {
+        User user = (User)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Page<Post> posts = postRepository.findAll(pageable);
         return posts.getContent()
                 .stream()
-                .map(post -> postToPostResponseDtoMapper.apply(post, userId))
+                .map(post -> postToPostResponseDtoMapper.apply(post, user.getUserId()))
                 .toList();
     }
 
     @Override
-    public PostResponseDto addNewPost(PostRequestDto postDto,Long userId) {
-        User user=userHelper.findUserByIdOrThrowNotFoundException(userId);
+    public PostResponseDto addNewPost(PostRequestDto postDto) {
+        User authUser=  (User)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user=userHelper.findUserByIdOrThrowNotFoundException(authUser.getUserId());
         Post post = requestDtoToPostMapper.apply(postDto);
         post.setUser(user);
         post = postRepository.save(post);
-        return postToPostResponseDtoMapper.apply(post,userId);
+        return postToPostResponseDtoMapper.apply(post,user.getUserId());
     }
 
     @Override
-    public PostResponseDto getPostById(Long postId,Long userId) {
+    public PostResponseDto getPostById(Long postId) {
+        User authUser=  (User)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Post post =postHelper.findPostByIdOrThrowNotFound(postId);
-        return postToPostResponseDtoMapper.apply(post,userId);
+        return postToPostResponseDtoMapper.apply(post,authUser.getUserId());
     }
 }

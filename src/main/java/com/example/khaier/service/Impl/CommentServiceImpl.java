@@ -12,6 +12,7 @@ import com.example.khaier.repository.CommentRepository;
 import com.example.khaier.service.CommentService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
@@ -29,8 +30,9 @@ public class CommentServiceImpl implements CommentService {
     private final CommentToCommentResponseDtoMapper toCommentResponseDtoMapper;
 
     @Override
-    public CommentResponseDto addComment(CommentRequestDto commentRequestDto,Long userId){
-        User user=userHelper.findUserByIdOrThrowNotFoundException(userId);
+    public CommentResponseDto addComment(CommentRequestDto commentRequestDto){
+        User authUser= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user=userHelper.findUserByIdOrThrowNotFoundException(authUser.getUserId());
         Comment comment=toCommentMapper.apply(commentRequestDto);
         comment.setUser(user);
         comment=commentRepository.save(comment);

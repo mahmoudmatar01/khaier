@@ -18,9 +18,9 @@ public class CommentController {
     private final SuccessResponseFactory200 responseFactory;
     private final CommentServiceImpl commentService;
 
-    @PostMapping("/{userId}")
-    public ResponseEntity<?> saveComment(@RequestBody CommentRequestDto commentRequestDto, @PathVariable Long userId){
-        CommentResponseDto response = commentService.addComment(commentRequestDto,userId);
+    @PostMapping
+    public ResponseEntity<?> saveComment(@RequestBody CommentRequestDto commentRequestDto){
+        CommentResponseDto response = commentService.addComment(commentRequestDto);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Comment saved successfully "));
     }

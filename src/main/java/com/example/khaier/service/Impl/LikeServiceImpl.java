@@ -11,6 +11,7 @@ import com.example.khaier.repository.LikeRepository;
 import com.example.khaier.service.LikeService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
@@ -28,10 +29,11 @@ public class LikeServiceImpl implements LikeService {
     private final LikeToLikeResponseDtoMapper toLikeResponseDtoMapper;
 
     @Override
-    public LikeResponseDto addOrRemoveLike(Long postId, Long userId) {
+    public LikeResponseDto addOrRemoveLike(Long postId) {
         Post post = postHelper.findPostByIdOrThrowNotFound(postId);
-        User user = userHelper.findUserByIdOrThrowNotFoundException(userId);
-        Like existingLike = likeRepository.findByPostPostIdAndUserUserId(postId, userId);
+        User authUser= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userHelper.findUserByIdOrThrowNotFoundException(authUser.getUserId());
+        Like existingLike = likeRepository.findByPostPostIdAndUserUserId(postId, authUser.getUserId());
         if (existingLike != null) {
             existingLike.setLiked(false);
             likeRepository.delete(existingLike);

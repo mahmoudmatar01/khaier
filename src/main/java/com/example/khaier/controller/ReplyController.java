@@ -15,8 +15,8 @@ public class ReplyController {
     private final ReplyServiceImpl replyService;
 
     @PostMapping("/{userId}")
-    public ResponseEntity<?> saveReply(@RequestBody ReplyRequestDto requestDto, @PathVariable Long userId){
-        var response = replyService.addReply(requestDto,userId);
+    public ResponseEntity<?> saveReply(@RequestBody ReplyRequestDto requestDto){
+        var response = replyService.addReply(requestDto);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Reply saved successfully "));
     }

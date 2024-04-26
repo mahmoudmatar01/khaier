@@ -15,8 +15,8 @@ public class LikeController {
     private final LikeServiceImpl likeService;
 
     @PostMapping
-    public ResponseEntity<?> addOrRemoveLike(@RequestParam Long postId, @RequestParam Long userId) {
-        var response = likeService.addOrRemoveLike(postId, userId);
+    public ResponseEntity<?> addOrRemoveLike(@RequestParam Long postId) {
+        var response = likeService.addOrRemoveLike(postId);
         if(response.isLiked()){
             return ResponseEntity.status(HttpStatus.OK)
                     .body(responseFactory.createResponse(response, "liked returned successfully "));

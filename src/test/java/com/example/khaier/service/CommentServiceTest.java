@@ -57,7 +57,7 @@ public class CommentServiceTest {
         when(commentRepository.save(Mockito.any(Comment.class))).thenReturn(actualComment);
 
         //Test the Service
-        Assertions.assertThat(commentService.addComment(commentRequestDto, 1L))
+        Assertions.assertThat(commentService.addComment(commentRequestDto))
                 .isEqualTo(toCommentResponseDtoMapper.apply(actualComment));
     }
 
