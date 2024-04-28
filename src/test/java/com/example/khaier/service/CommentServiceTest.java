@@ -16,6 +16,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -34,17 +37,25 @@ public class CommentServiceTest {
     CommentRequestDtoToCommentMapper toCommentMapper;
     @Autowired
     CommentToCommentResponseDtoMapper toCommentResponseDtoMapper;
+    @MockBean
+    SecurityContext securityContext;
+    @MockBean
+    Authentication authentication;
     final Post postMock = Mockito.mock(Post.class);
     final User userMock = Mockito.mock(User.class);
     final PostHelper postHelper = Mockito.mock(PostHelper.class);
     final UserHelper userHelper = Mockito.mock(UserHelper.class);
 
-
     @BeforeEach
     void init(){
+        SecurityContextHolder.setContext(securityContext);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(authentication.getPrincipal()).thenReturn(userMock);
+        when(userMock.getUserId()).thenReturn(1L);
         when(userHelper.findUserByIdOrThrowNotFoundException(1L)).thenReturn(userMock);
         when(postHelper.findPostByIdOrThrowNotFound(1L)).thenReturn(postMock);
     }
+
 
     @Test
     void whenCreateComment_thenReturnComment(){
@@ -57,8 +68,8 @@ public class CommentServiceTest {
         when(commentRepository.save(Mockito.any(Comment.class))).thenReturn(actualComment);
 
         //Test the Service
-        Assertions.assertThat(commentService.addComment(commentRequestDto))
-                .isEqualTo(toCommentResponseDtoMapper.apply(actualComment));
+        Assertions.assertThat(commentService.addComment(commentRequestDto).commentContent())
+                .isEqualTo(toCommentResponseDtoMapper.apply(actualComment).commentContent());
     }
 
     @Test

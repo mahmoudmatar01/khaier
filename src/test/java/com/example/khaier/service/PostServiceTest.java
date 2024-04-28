@@ -20,12 +20,17 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
@@ -38,11 +43,19 @@ public class PostServiceTest {
     private PostRequestDtoToPostMapper toPostMapper;
     @Autowired
     private PostToPostResponseDtoMapper toPostResponseDtoMapper;
+    @MockBean
+    SecurityContext securityContext;
+    @MockBean
+    Authentication authentication;
     private final User user = Mockito.mock(User.class);
     private final UserHelper userHelperMock = Mockito.mock(UserHelper.class);
 
     @BeforeEach
     void init(){
+        SecurityContextHolder.setContext(securityContext);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(authentication.getPrincipal()).thenReturn(user);
+        when(user.getUserId()).thenReturn(1L);
         Mockito.when(userHelperMock.findUserByIdOrThrowNotFoundException(1L)).thenReturn(user);
     }
 
