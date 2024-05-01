@@ -58,6 +58,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request ->
                         request.requestMatchers(
                                         "/api/v*/auth/**",
+                                        "/api/v*/**/image/**",
                                         "/v3/api-docs/**",
                                         "/swagger-ui/**",
                                         "/actuator/**"

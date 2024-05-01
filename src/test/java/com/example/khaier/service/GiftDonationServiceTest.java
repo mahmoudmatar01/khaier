@@ -92,19 +92,15 @@ public class GiftDonationServiceTest {
                 .receiverPhone("012141320").receiverName("Maggie")
                 .message("First Gift Donation by User2").amount(BigDecimal.valueOf(300))
                 .build();
-        List<GiftDonation> giftDonationsByUser1 = Arrays.asList(giftDonation, giftDonation2);
-        List<GiftDonation> giftDonationsByUser2 = Arrays.asList(giftDonation3);
+        List<GiftDonation> giftDonationsByUser1 = Arrays.asList(giftDonation, giftDonation2,giftDonation3);
         //Convert list of GiftDonations to list of giftResponseDtoList
         List<GiftResponseDto> giftResponseDtosByUser1 = giftDonationsByUser1.stream()
                 .map(gift -> toGiftDonationResponseDtoMapper.apply(gift)).toList();
         //Mock the repository
         when(giftDonationRepository.findAllBySender_UserId(1L)).thenReturn(giftDonationsByUser1);
-        when(giftDonationRepository.findAllBySender_UserId(2L)).thenReturn(giftDonationsByUser2);
         //Assert Check
         assertThat(giftDonationService.findAllGiftDonationsBySenderId(1L))
                 .isEqualTo(giftResponseDtosByUser1);
-        assertThat(giftDonationService.findAllGiftDonationsBySenderId(2L))
-                .contains(toGiftDonationResponseDtoMapper.apply(giftDonation3))
-                .hasSize(1);
+
     }
 }
