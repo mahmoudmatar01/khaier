@@ -9,6 +9,7 @@ import com.example.khaier.mapper.DonationCaseToCaseResponseMapper;
 import com.example.khaier.repository.DonationCategoryCaseRepository;
 import com.example.khaier.repository.DonationCategoryRepository;
 import com.example.khaier.service.DonationCategoryCasesService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class DonationCategoryCasesServiceImpl implements DonationCategoryCasesService {
     private final DonationCategoryRepository categoryRepository;
     private final DonationCategoryCaseRepository caseRepository;
