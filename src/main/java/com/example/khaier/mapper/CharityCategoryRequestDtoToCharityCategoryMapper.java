@@ -20,7 +20,6 @@ public class CharityCategoryRequestDtoToCharityCategoryMapper implements Functio
         return DonationCategories.builder()
                 .categoryTitle(charityCategoryRequestDto.title())
                 .charitableOrganization(charitableOrganization)
-                .donationCases(new ArrayList<>())
                 .build();
     }
 }

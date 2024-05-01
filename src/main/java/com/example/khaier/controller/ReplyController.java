@@ -14,7 +14,7 @@ public class ReplyController {
     private final SuccessResponseFactory200 responseFactory;
     private final ReplyServiceImpl replyService;
 
-    @PostMapping("/{userId}")
+    @PostMapping
     public ResponseEntity<?> saveReply(@RequestBody ReplyRequestDto requestDto){
         var response = replyService.addReply(requestDto);
         return ResponseEntity.status(HttpStatus.OK)
