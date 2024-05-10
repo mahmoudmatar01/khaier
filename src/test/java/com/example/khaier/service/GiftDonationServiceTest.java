@@ -44,6 +44,8 @@ public class GiftDonationServiceTest {
     void init(){
         //Mock 2 users before each test
         Mockito.when(userHelperMock.findUserByIdOrThrowNotFoundException(1L)).thenReturn(userMock);
+        Mockito.when(userMock.getPhone()).thenReturn("01128673348");
+
         userMock2 = Mockito.mock(User.class);
         Mockito.when(userHelperMock.findUserByIdOrThrowNotFoundException(2L)).thenReturn(userMock2);
     }
@@ -52,7 +54,7 @@ public class GiftDonationServiceTest {
     void testSaveGiftDonation(){
         //Arrange
         GiftRequestDto giftRequestDto = GiftRequestDto.builder()
-                .senderPhone("025485400")
+                .senderPhone("01128673348")
                 .receiverName("Kris").receiverPhone("01610214184")
                 .giftDonationType(GiftDonationType.صدقة).amount(BigDecimal.valueOf(410)).message("").build();
         GiftDonation savedGiftDonation = toGiftDonationMapper.apply(giftRequestDto, 1L);
