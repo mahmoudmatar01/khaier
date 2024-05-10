@@ -3,6 +3,7 @@ package com.example.khaier.mapper;
 import com.example.khaier.dto.request.GiftRequestDto;
 import com.example.khaier.entity.GiftDonation;
 import com.example.khaier.entity.User;
+import com.example.khaier.exceptions.BadRequestException;
 import com.example.khaier.helper.UserHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,9 @@ public class GiftDonationRequestDtoToGiftDonationMapper implements Function<Gift
     }
     public GiftDonation apply(GiftRequestDto giftRequestDto,Long userId) {
         User sender=userHelper.findUserByIdOrThrowNotFoundException(userId);
+        if(sender.getPhone().equals(giftRequestDto.senderPhone())){
+            throw new BadRequestException("This phone and your register phone doesn't match!!");
+        }
         return GiftDonation.builder()
                 .sender(sender)
                 .giftDonationType(giftRequestDto.giftDonationType())

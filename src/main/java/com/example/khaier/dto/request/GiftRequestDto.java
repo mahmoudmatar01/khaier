@@ -8,8 +8,7 @@ import java.math.BigDecimal;
 
 @Builder
 public record GiftRequestDto (
-        String senderName,
-        String senderPhone,
+        @NotBlank String senderPhone,
         @NotBlank GiftDonationType giftDonationType,
         @NotBlank BigDecimal amount,
         @NotBlank String receiverName,
