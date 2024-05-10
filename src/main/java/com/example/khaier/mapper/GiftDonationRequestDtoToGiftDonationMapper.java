@@ -22,14 +22,15 @@ public class GiftDonationRequestDtoToGiftDonationMapper implements Function<Gift
     public GiftDonation apply(GiftRequestDto giftRequestDto,Long userId) {
         User sender=userHelper.findUserByIdOrThrowNotFoundException(userId);
         if(sender.getPhone().equals(giftRequestDto.senderPhone())){
+            return GiftDonation.builder()
+                    .sender(sender)
+                    .giftDonationType(giftRequestDto.giftDonationType())
+                    .amount(giftRequestDto.amount())
+                    .message(giftRequestDto.message())
+                    .receiverName(giftRequestDto.receiverName())
+                    .receiverPhone(giftRequestDto.receiverPhone()).build();
+        }else{
             throw new BadRequestException("This phone and your register phone doesn't match!!");
         }
-        return GiftDonation.builder()
-                .sender(sender)
-                .giftDonationType(giftRequestDto.giftDonationType())
-                .amount(giftRequestDto.amount())
-                .message(giftRequestDto.message())
-                .receiverName(giftRequestDto.receiverName())
-                .receiverPhone(giftRequestDto.receiverPhone()).build();
     }
 }
