@@ -52,7 +52,7 @@ public class GiftDonationServiceTest {
     void testSaveGiftDonation(){
         //Arrange
         GiftRequestDto giftRequestDto = GiftRequestDto.builder()
-                .senderName("Ola").senderPhone("025485400")
+                .senderPhone("025485400")
                 .receiverName("Kris").receiverPhone("01610214184")
                 .giftDonationType(GiftDonationType.صدقة).amount(BigDecimal.valueOf(410)).message("").build();
         GiftDonation savedGiftDonation = toGiftDonationMapper.apply(giftRequestDto, 1L);
