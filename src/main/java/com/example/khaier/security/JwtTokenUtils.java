@@ -22,12 +22,15 @@ public class JwtTokenUtils {
     private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String generateToken(UserDetails userDetails) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, 1);
+
         return Jwts.builder()
                 .setClaims(new HashMap<>())
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
                 .setIssuer("app-service")
-                .setExpiration(new Date(System.currentTimeMillis() + 1000L * 60 * 24 * 1000))
+                .setExpiration(calendar.getTime())
                 .claim("created", Calendar.getInstance().getTime())
                 .claim("userId", ((User) userDetails).getUserId())
                 .claim("userRole", ((User) userDetails).getUserRole().toString())
