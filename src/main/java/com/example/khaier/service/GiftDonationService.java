@@ -7,8 +7,8 @@ import com.example.khaier.enums.GiftDonationType;
 import java.util.List;
 
 public interface GiftDonationService {
-    GiftResponseDto save(GiftRequestDto giftRequestDto, Long userId);
-    List<GiftResponseDto> findAllGiftDonationsBySenderId(Long id);
+    GiftResponseDto save(GiftRequestDto giftRequestDto);
+    List<GiftResponseDto> findAllGiftDonationsBySenderId();
     List<GiftDonationType> getAllEnumValues();
     GiftResponseDto findGiftDonation(Long id);
 }

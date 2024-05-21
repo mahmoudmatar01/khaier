@@ -16,6 +16,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -36,17 +39,23 @@ public class GiftDonationServiceTest {
     private GiftDonationRequestDtoToGiftDonationMapper toGiftDonationMapper;
     @Autowired
     private GiftDonationToGiftDonationResponseDtoMapper toGiftDonationResponseDtoMapper;
+    @MockBean
+    SecurityContext securityContext;
+    @MockBean
+    Authentication authentication;
     private final User userMock = Mockito.mock(User.class);
-    private User userMock2;
-    private UserHelper userHelperMock = Mockito.mock(UserHelper.class);
+    private final User userMock2= Mockito.mock(User.class);;
+    private final UserHelper userHelperMock = Mockito.mock(UserHelper.class);
 
     @BeforeEach
     void init(){
         //Mock 2 users before each test
+        SecurityContextHolder.setContext(securityContext);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(authentication.getPrincipal()).thenReturn(userMock);
+        when(userMock.getUserId()).thenReturn(1L);
         Mockito.when(userHelperMock.findUserByIdOrThrowNotFoundException(1L)).thenReturn(userMock);
         Mockito.when(userMock.getPhone()).thenReturn("01128673348");
-
-        userMock2 = Mockito.mock(User.class);
         Mockito.when(userHelperMock.findUserByIdOrThrowNotFoundException(2L)).thenReturn(userMock2);
     }
 
@@ -61,7 +70,7 @@ public class GiftDonationServiceTest {
         //Act
         when(giftDonationRepository.save(Mockito.any(GiftDonation.class))).thenReturn(savedGiftDonation);
         //Test the service method
-        assertThat(giftDonationService.save(giftRequestDto, 1L)).isEqualTo(
+        assertThat(giftDonationService.save(giftRequestDto)).isEqualTo(
                 toGiftDonationResponseDtoMapper.apply(savedGiftDonation));
     }
 
@@ -101,7 +110,7 @@ public class GiftDonationServiceTest {
         //Mock the repository
         when(giftDonationRepository.findAllBySender_UserId(1L)).thenReturn(giftDonationsByUser1);
         //Assert Check
-        assertThat(giftDonationService.findAllGiftDonationsBySenderId(1L))
+        assertThat(giftDonationService.findAllGiftDonationsBySenderId())
                 .isEqualTo(giftResponseDtosByUser1);
 
     }

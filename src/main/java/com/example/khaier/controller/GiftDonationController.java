@@ -19,8 +19,8 @@ public class GiftDonationController {
     private final GiftDonationService giftDonationService;
 
     @GetMapping
-    public ResponseEntity<?> getAllGiftDonationsByUserId(@RequestParam Long userId){
-        List<GiftResponseDto> response = giftDonationService.findAllGiftDonationsBySenderId(userId);
+    public ResponseEntity<?> getAllGiftDonationsByUserId(){
+        List<GiftResponseDto> response = giftDonationService.findAllGiftDonationsBySenderId();
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(response,"Gift Donations returned successfully "));
     }
@@ -33,8 +33,8 @@ public class GiftDonationController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveGiftDonation(@RequestParam Long userId, @RequestBody GiftRequestDto giftRequestDto){
-        giftDonationService.save(giftRequestDto, userId);
+    public ResponseEntity<?> saveGiftDonation(@RequestBody GiftRequestDto giftRequestDto){
+        giftDonationService.save(giftRequestDto);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseFactory.createResponse(null,"The Gift Donation has been saved"));
     }
