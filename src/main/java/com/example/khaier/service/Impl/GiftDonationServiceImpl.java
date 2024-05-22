@@ -29,18 +29,8 @@ public class GiftDonationServiceImpl implements GiftDonationService {
     @Override
     public GiftResponseDto save(GiftRequestDto giftRequestDto) {
         User user = (User)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println("88888888888888888888888888888888888888888888");
-        System.out.println(user.getUserId());
-        System.out.println("88888888888888888888888888888888888888888888");
         GiftDonation giftDonation = toGiftDonationMapper.apply(giftRequestDto,user.getUserId());
-        System.out.println("88888888888888888888888888888888888888888888");
-        System.out.println(giftDonation.getSender());
-        System.out.println(giftDonation.getAmount());
-        System.out.println("88888888888888888888888888888888888888888888");
         giftDonation=giftDonationRepository.save(giftDonation);
-        System.out.println("88888888888888888888888888888888888888888888");
-        System.out.println(giftDonation.getId());
-        System.out.println("88888888888888888888888888888888888888888888");
         return toGiftResponseDtoMapper.apply(giftDonation);
     }
 
