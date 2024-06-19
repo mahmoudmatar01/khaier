@@ -15,7 +15,8 @@ public record PostResponseDto (
         String userName,
         String userImage,
         long numberOfLikes,
-        long numberOfComments
+        long numberOfComments,
+        boolean isSavedOrNot
 
 ){
 }
